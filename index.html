@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#7a8b6f" />
+<title>孕期陪伴 · 广东深圳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf6f0;
+    --bg-soft: #f3ede2;
+    --paper: #ffffff;
+    --line: #e8e0d0;
+    --line-soft: #f0eadc;
+    --ink: #1f2421;
+    --ink-2: #3a4256;
+    --muted: #7c7a72;
+    --muted-2: #9c9689;
+    --primary: #7a8b6f;
+    --primary-soft: #e9eee2;
+    --primary-deep: #5a6e51;
+    --accent: #c97b3f;
+    --accent-soft: #f6e9d9;
+    --danger: #b06367;
+    --danger-soft: #f4e3e3;
+    --shadow-1: 0 2px 8px rgba(20, 23, 30, 0.04);
+    --shadow-2: 0 4px 16px -2px rgba(20, 23, 30, 0.06);
+    --radius: 14px;
+    --radius-lg: 20px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(60% 40% at 10% 0%, rgba(122, 139, 111, 0.06), transparent 60%),
+      radial-gradient(50% 35% at 100% 10%, rgba(201, 123, 63, 0.05), transparent 60%);
+  }
+  .serif { font-family: 'DM Serif Display', 'Noto Serif SC', serif; font-weight: 400; letter-spacing: -0.005em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: var(--primary-deep); text-decoration: none; }
+
+  /* ============= Setup Screen ============= */
+  .setup {
+    min-height: 100dvh; display: flex; align-items: center; justify-content: center;
+    padding: 24px; position: relative; z-index: 1;
+  }
+  .setup-card {
+    max-width: 480px; width: 100%; background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 36px 32px; box-shadow: var(--shadow-2);
+  }
+  .setup h1 { margin: 0 0 6px; font-family: 'DM Serif Display', serif; font-size: 30px; line-height: 1.2; }
+  .setup .sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .setup label { display: block; font-size: 13px; color: var(--ink-2); margin: 18px 0 8px; font-weight: 500; }
+  .setup input[type=date] {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--bg); font-family: inherit; font-size: 16px; color: var(--ink);
+  }
+  .setup input[type=date]:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+  .setup .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.55; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 20px; border: 0; border-radius: 10px; background: var(--primary); color: white;
+    font-family: inherit; font-size: 14.5px; font-weight: 500; cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { background: var(--primary-deep); transform: translateY(-1px); box-shadow: var(--shadow-1); }
+  .btn.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
+  .btn.ghost:hover { background: var(--bg-soft); color: var(--ink); }
+  .btn.small { padding: 8px 14px; font-size: 13px; }
+  .setup .row-end { display: flex; justify-content: flex-end; margin-top: 28px; }
+
+  /* ============= App Shell ============= */
+  .app { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 0 20px 120px; }
+
+  /* Header */
+  .hero {
+    padding: 28px 0 16px;
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: end;
+  }
+  .hero .greet { color: var(--muted); font-size: 13px; margin-bottom: 4px; }
+  .hero h1 {
+    margin: 0; font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1.2; color: var(--ink);
+  }
+  .hero .meta { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+  .hero .meta strong { color: var(--primary-deep); font-weight: 600; }
+  .settings-btn {
+    width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper);
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink-2);
+  }
+  .settings-btn:hover { color: var(--primary-deep); border-color: var(--primary); }
+
+  /* Progress strip */
+  .progress-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 20px 22px; box-shadow: var(--shadow-1); margin-top: 8px;
+  }
+  .progress-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .progress-row .left { display: flex; align-items: baseline; gap: 10px; }
+  .week-big { font-family: 'DM Serif Display', serif; font-size: 38px; line-height: 1; color: var(--primary-deep); }
+  .week-tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-deep); font-weight: 500; }
+  .progress-row .right { font-size: 13.5px; color: var(--muted); }
+  .progress-row .right strong { color: var(--ink); font-weight: 600; }
+  .progress-bar { margin-top: 14px; height: 8px; background: var(--bg-soft); border-radius: 999px; overflow: hidden; }
+  .progress-bar > div { height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-deep)); border-radius: 999px; transition: width .4s ease; }
+  .progress-sub { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+  /* Tabs */
+  .tabs {
+    position: sticky; top: 0; z-index: 10; background: rgba(250, 246, 240, 0.92); backdrop-filter: blur(8px);
+    padding: 12px 0; margin-top: 20px; border-bottom: 1px solid var(--line-soft);
+  }
+  .tabs-inner { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .tabs-inner::-webkit-scrollbar { display: none; }
+  .tab {
+    flex-shrink: 0; padding: 8px 14px; border-radius: 999px; border: 1px solid transparent;
+    font-size: 13.5px; color: var(--ink-2); cursor: pointer; background: transparent; font-family: inherit;
+    transition: all .15s ease; white-space: nowrap;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* Section */
+  section.panel { padding-top: 28px; }
+  section.panel + section.panel { padding-top: 36px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .panel-title {
+    font-family: 'DM Serif Display', serif; font-size: 22px; margin: 0; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .panel-title svg { color: var(--primary); }
+  .panel-sub { color: var(--muted); font-size: 13px; margin: -8px 0 14px; }
+
+  /* Cards / grids */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 18px; box-shadow: var(--shadow-1);
+  }
+  .card.compact { padding: 14px 16px; }
+  .card h3 { margin: 0 0 10px; font-size: 15px; color: var(--ink); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .card h3 .pill {
+    font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-deep); font-weight: 500;
+  }
+  .card h3 .pill.warm { background: var(--accent-soft); color: var(--accent); }
+  .card h3 .pill.danger { background: var(--danger-soft); color: var(--danger); }
+  .card p { margin: 0 0 8px; color: var(--ink-2); font-size: 14px; }
+  .card ul { margin: 0; padding: 0 0 0 18px; color: var(--ink-2); font-size: 14px; }
+  .card li { margin: 4px 0; }
+  .card .kv { display: grid; grid-template-columns: 100px 1fr; row-gap: 6px; column-gap: 12px; font-size: 13.5px; }
+  .card .kv dt { color: var(--muted); }
+  .card .kv dd { margin: 0; color: var(--ink-2); }
+
+  /* Checklist */
+  .checklist { display: grid; gap: 8px; }
+  .check {
+    display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--line-soft); cursor: pointer; user-select: none;
+    transition: all .15s ease;
+  }
+  .check:hover { border-color: var(--primary); }
+  .check .box {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--line);
+    display: inline-flex; align-items: center; justify-content: center; background: var(--paper); margin-top: 2px;
+  }
+  .check.done { background: var(--primary-soft); border-color: var(--primary); }
+  .check.done .box { background: var(--primary); border-color: var(--primary); color: white; }
+  .check.done .text { color: var(--muted); text-decoration: line-through; }
+  .check .text { font-size: 14px; color: var(--ink); line-height: 1.5; }
+  .check .text small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+
+  /* Week timeline */
+  .timeline {
+    position: relative; padding-left: 22px;
+  }
+  .timeline::before {
+    content: ""; position: absolute; left: 6px; top: 4px; bottom: 4px; width: 2px;
+    background: var(--line); border-radius: 2px;
+  }
+  .timeline .item { position: relative; padding-bottom: 14px; }
+  .timeline .item::before {
+    content: ""; position: absolute; left: -22px; top: 6px; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--paper); border: 2px solid var(--primary);
+  }
+  .timeline .item.done::before { background: var(--primary); }
+  .timeline .item.current::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .timeline .item h4 { margin: 0; font-size: 14px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .timeline .item p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+  .timeline .item .when { font-size: 12px; color: var(--accent); font-weight: 500; }
+
+  /* Week grid (browse all 40 weeks) */
+  .week-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+  @media (max-width: 700px) { .week-grid { grid-template-columns: repeat(5, 1fr); } }
+  .week-cell {
+    aspect-ratio: 1; border-radius: 10px; background: var(--paper); border: 1px solid var(--line);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .15s ease; padding: 4px;
+  }
+  .week-cell:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-1); }
+  .week-cell .num { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--ink); line-height: 1; }
+  .week-cell .lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .week-cell.t1 { background: linear-gradient(180deg, var(--primary-soft), var(--paper)); }
+  .week-cell.t2 { background: linear-gradient(180deg, var(--accent-soft), var(--paper)); }
+  .week-cell.t3 { background: linear-gradient(180deg, #efe4d3, var(--paper)); }
+  .week-cell.current { background: var(--primary); border-color: var(--primary); }
+  .week-cell.current .num, .week-cell.current .lbl { color: white; }
+  .week-cell.postpartum { background: var(--bg-soft); border-style: dashed; }
+  .week-cell.postpartum .num { color: var(--muted); }
+
+  /* Week detail */
+  .week-detail {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 24px; box-shadow: var(--shadow-1); margin-top: 16px;
+  }
+  .week-detail .head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .week-detail .head .title { font-family: 'DM Serif Display', serif; font-size: 24px; margin: 0; }
+  .week-detail .head .tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-deep); font-weight: 500; }
+  .week-detail .sub-bar {
+    display: flex; gap: 14px; margin-top: 10px; padding: 10px 14px; background: var(--bg-soft); border-radius: 10px;
+    font-size: 13px; color: var(--ink-2);
+  }
+  .week-detail .sub-bar strong { color: var(--ink); }
+  .week-detail .section-title {
+    margin: 20px 0 8px; font-size: 13px; color: var(--muted); font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+  }
+
+  /* Food/drink tags */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-deep);
+  }
+  .tag.warm { background: var(--accent-soft); color: var(--accent); }
+  .tag.bad { background: var(--danger-soft); color: var(--danger); text-decoration: line-through; }
+
+  /* Drink card */
+  .drink {
+    display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 14px;
+    border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line);
+  }
+  .drink .icon-wrap {
+    width: 56px; height: 56px; border-radius: 14px; background: var(--primary-soft);
+    display: flex; align-items: center; justify-content: center; color: var(--primary-deep);
+  }
+  .drink .icon-wrap.warn { background: var(--danger-soft); color: var(--danger); }
+  .drink h4 { margin: 0 0 4px; font-size: 15px; }
+  .drink p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+  .drink .meta { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+  /* Meal card */
+  .meal {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .meal .emoji {
+    width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px;
+    background: var(--accent-soft); display: flex; align-items: center; justify-content: center; color: var(--accent);
+  }
+  .meal h4 { margin: 0 0 4px; font-size: 14.5px; }
+  .meal p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .meal small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  /* Bento box (nutrition summary) */
+  .bento { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
+  @media (max-width: 700px) { .bento { grid-template-columns: 1fr; } }
+  .bento .stat {
+    background: linear-gradient(135deg, var(--primary-soft), var(--paper));
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 18px;
+  }
+  .bento .stat .num { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--primary-deep); line-height: 1; }
+  .bento .stat .lbl { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  .bento .stat p { font-size: 13px; color: var(--ink-2); margin: 10px 0 0; }
+
+  /* Note callouts */
+  .note {
+    padding: 14px 16px; border-radius: 12px; font-size: 13.5px; line-height: 1.6;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .note svg { flex-shrink: 0; margin-top: 2px; }
+  .note.info { background: var(--primary-soft); color: var(--ink-2); }
+  .note.warn { background: var(--accent-soft); color: var(--ink-2); }
+  .note.danger { background: var(--danger-soft); color: var(--danger); }
+  .note strong { color: var(--ink); }
+
+  /* Resource cards (Shenzhen) */
+  .res {
+    display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px 16px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .res .ic {
+    width: 36px; height: 36px; border-radius: 10px; background: var(--primary-soft); color: var(--primary-deep);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .res h4 { margin: 0 0 4px; font-size: 14.5px; }
+  .res p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+  .res .small { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* Hospital bag checklist */
+  .bag-cat { margin-bottom: 20px; }
+  .bag-cat h4 { margin: 0 0 8px; font-size: 14px; color: var(--ink-2); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .bag-cat ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  @media (max-width: 700px) { .bag-cat ul { grid-template-columns: 1fr; } }
+  .bag-cat li { font-size: 13.5px; color: var(--ink-2); padding: 6px 10px; background: var(--bg); border-radius: 8px; }
+
+  /* Footer */
+  footer { padding: 40px 0 24px; color: var(--muted); font-size: 12px; text-align: center; }
+  footer .disclaimer { margin-top: 8px; font-size: 11.5px; }
+
+  /* small */
+  .sep { height: 1px; background: var(--line); margin: 18px 0; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .right { margin-left: auto; }
+  .small-note { font-size: 12px; color: var(--muted); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 8px;
+    border-radius: 999px; background: var(--bg-soft); color: var(--muted); font-weight: 500;
+  }
+
+  /* Dark mode ignored — keep warm cream always */
+
+  /* animations */
+  .fade-in { animation: fade .3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<!-- ============ SETUP SCREEN ============ -->
+<div class="setup" id="setupScreen" style="display:none;">
+  <div class="setup-card">
+    <h1>欢迎，准爸妈 👋</h1>
+    <p class="sub">告诉我末次月经的第一天，我会算出当前孕周、倒计时，并生成每天该做的事。</p>
+    <label for="lmpInput">末次月经第一天（LMP）</label>
+    <input type="date" id="lmpInput" />
+    <p class="hint">不记得准确日期没关系，按印象选一个大概的，我会在周历里按周提示。<br/>预产期 = LMP + 280 天（40 周）。</p>
+    <div class="row-end">
+      <button class="btn" id="startBtn">开始陪伴 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="appScreen" style="display:none;">
+
+  <header class="hero">
+    <div>
+      <div class="greet" id="greet"></div>
+      <h1>孕期陪伴手册</h1>
+      <div class="meta" id="metaLine"></div>
+    </div>
+    <button class="settings-btn" id="settingsBtn" title="修改日期">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8 1 6.5 2.7L21 8"/><path d="M21 3v5h-5"/></svg>
+    </button>
+  </header>
+
+  <div class="progress-card">
+    <div class="progress-row">
+      <div class="left">
+        <span class="week-big" id="weekBig">—</span>
+        <span class="week-tag" id="weekTag">—</span>
+      </div>
+      <div class="right">
+        预产期 <strong id="dueDate">—</strong><br/>
+        倒计时 <strong id="countdown">—</strong>
+      </div>
+    </div>
+    <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
+    <div class="progress-sub">
+      <span>第 1 周</span>
+      <span id="progressPct">0%</span>
+      <span>第 40 周 / 出生</span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <div class="tabs-inner" id="tabBar"></div>
+  </nav>
+
+  <main id="panelRoot"></main>
+
+  <footer>
+    <div>为深圳家庭的孕期陪伴 · 单文件本地版 · 数据存在你的浏览器</div>
+    <div class="disclaimer">本页面仅作日常参考，医疗决策请遵医嘱；政策/流程可能调整，请以医院和街道最新通知为准。</div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   Pregnancy Companion — single-file logic
+============================================================ */
+
+const LS_KEY = 'pregnancy-companion-v1';
+
+/* --- storage --- */
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || null; } catch { return null; }
+}
+function saveState(s) { localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+
+/* --- date math --- */
+const DAY = 86400000;
+function todayDate() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+function fmtDate(d, withYear = true) {
+  const m = d.getMonth() + 1, day = d.getDate();
+  return withYear ? `${d.getFullYear()}-${String(m).padStart(2,'0')}-${String(day).padStart(2,'0')}` : `${m}月${day}日`;
+}
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
+function diffDays(a, b) { return Math.round((b - a) / DAY); }
+
+/* pregnancy weeks: week N covers LMP + (N-1)*7 to LMP + N*7 - 1 (inclusive) */
+function currentWeek(lmp, refDate = todayDate()) {
+  const days = diffDays(lmp, refDate);
+  if (days < 0) return -1; // pre-pregnancy
+  return Math.floor(days / 7) + 1;
+}
+function inPostpartum(lmp, refDate = todayDate()) {
+  const days = diffDays(lmp, refDate);
+  const totalPregDays = 280;
+  if (days < totalPregDays) return 0;
+  return Math.floor((days - totalPregDays) / 7) + 1;
+}
+function dueDate(lmp) { return addDays(lmp, 280); }
+
+/* --- trimester / postpartum label --- */
+function trimesterOf(w) {
+  if (w <= 13) return '孕早期 · 第 1-13 周';
+  if (w <= 27) return '孕中期 · 第 14-27 周';
+  return '孕晚期 · 第 28-40 周';
+}
+function postpartumLabel(p) {
+  return `产后第 ${p} 周 · 出月子中`;
+}
+
+/* ============================================================
+   WEEK DATA (40 weeks + 4 weeks postpartum)
+============================================================ */
+const WEEKS = [
+{
+  week: 1, baby: { size: '针尖大小', cm: '—', g: '—',
+  dev: '你还没真正怀孕，这周是末次月经期。卵子正在卵巢里准备成熟。' },
+  mom: { change: '月经期，可能有轻微腹部不适或腰酸。', symptom: '疲倦、情绪波动。' },
+  todo: ['记录 LMP 起始日', '开始每天 0.4 mg 叶酸', '戒酒戒烟，远离二手烟', '规律作息，避免重体力'],
+  diet: ['补叶酸：菠菜、芦笋、西兰花', '温热早餐：粥 + 鸡蛋', '远离生冷'],
+  warn: ['如有异常出血或腹痛请就医'],
+},
+{
+  week: 2, baby: { size: '针尖', cm: '—', g: '—',
+  dev: '排卵期，卵子在输卵管等待受精。精卵结合即完成受孕。' },
+  mom: { change: '基础体温略升高，白带增多。', symptom: '可能感觉到轻微排卵痛。' },
+  todo: ['同房后不要立刻剧烈运动', '继续服用叶酸', '保持情绪放松'],
+  diet: ['高蛋白：鸡蛋、鱼、瘦肉', '温开水 1500ml+'],
+  warn: [],
+},
+{
+  week: 3, baby: { size: '罂粟籽', cm: '0.1', g: '—',
+  dev: '受精卵着床，开始分裂成几百个细胞，植入子宫内膜。' },
+  mom: { change: '可能着床出血（少量、粉红/棕色，1-2 天）。', symptom: '乳房轻微胀痛、嗜睡。' },
+  todo: ['避免剧烈运动', '继续叶酸', '留意着床出血'],
+  diet: ['铁：红肉、动物血、菠菜', '维 E：坚果、牛油果'],
+  warn: ['若出血量大或腹痛剧烈请立即就医'],
+},
+{
+  week: 4, baby: { size: '芝麻', cm: '0.2', g: '—',
+  dev: '胚胎形成，三层细胞群分化成神经、呼吸、消化等系统雏形。' },
+  mom: { change: '月经未来潮，可能出现早孕反应。', symptom: '疲倦、乳房胀、轻微恶心。' },
+  todo: ['用早孕试纸确认', '预约 6-8 周首次 B 超', '继续叶酸', '暂停剧烈运动'],
+  diet: ['少食多餐', '苏打饼干缓解晨吐', '姜片煮水'],
+  warn: ['宫外孕警示：单侧剧痛 + 出血请立即就医'],
+},
+{
+  week: 5, baby: { size: '苹果籽', cm: '0.4', g: '—',
+  dev: '心脏开始跳动（已能用阴道超声看到），神经管形成。' },
+  mom: { change: '早孕反应逐渐明显。', symptom: '恶心（尤其晨起）、嗅觉敏感、疲倦。' },
+  todo: ['预约产科建档', '避免 X 光/CT/染发', '补充叶酸 + 维 B6'],
+  diet: ['姜、陈皮、苏打饼', '避免油腻、腥味重的食物', '少量多餐'],
+  warn: [],
+},
+{
+  week: 6, baby: { size: '小扁豆', cm: '0.6', g: '—',
+  dev: '眼耳鼻轮廓显现，四肢芽萌出。心脏每分钟跳 150 次。' },
+  mom: { change: '孕吐高峰，可能出现头晕、情绪波动。', symptom: '恶心呕吐、尿频、乳房胀。' },
+  todo: ['预约早孕 B 超（确认胎心、宫内）', '避免提重物', '保证 8 小时睡眠'],
+  diet: ['流质/半流质', '电解质水（淡盐水 + 柠檬）', 'B6 食物：香蕉、土豆'],
+  warn: ['剧吐无法进食饮水请就医（妊娠剧吐）'],
+},
+{
+  week: 7, baby: { size: '蓝莓', cm: '1.0', g: '—',
+  dev: '脸部轮廓开始形成，手指脚趾分化，能看到鼻孔。' },
+  mom: { change: '子宫如橙子大小。', symptom: '孕吐、唾液多、便秘可能开始。' },
+  todo: ['不吃生冷、半生熟', '准备建档材料', '避免长时间站立'],
+  diet: ['高纤维防便秘：燕麦、玉米、红薯', '酸奶（益生菌）', '小番茄'],
+  warn: [],
+},
+{
+  week: 8, baby: { size: '芸豆', cm: '1.6', g: '1',
+  dev: '眼睑形成，四肢能弯曲，能看到指尖和脚趾。' },
+  mom: { change: '腰围开始增粗，孕吐仍明显。', symptom: '疲劳、乳房变大、皮肤可能出油。' },
+  todo: ['首次正式产检（B 超确认胎心）', '建深圳母子健康手册', '注意口腔卫生（激素易致牙龈炎）'],
+  diet: ['DHA 开始补：三文鱼、鳕鱼、核桃', '少糖少盐'],
+  warn: ['B 超异常或无胎心请听医生诊断'],
+},
+{
+  week: 9, baby: { size: '葡萄', cm: '2.3', g: '2',
+  dev: '四肢已成型，能弯曲手腕，肌肉开始发育。' },
+  mom: { change: '情绪波动大，乳房胀满。', symptom: '孕吐、烧心、便秘。' },
+  todo: ['进行心理调适', '避免高强度工作', '减少咖啡因（<200mg/天）'],
+  diet: ['温牛奶', '南瓜小米粥', '蒸鱼'],
+  warn: [],
+},
+{
+  week: 10, baby: { size: '金桔', cm: '3.1', g: '4',
+  dev: '重要器官已形成，进入"胎儿"阶段。' },
+  mom: { change: '腹部微微隆起。', symptom: '孕吐逐渐减轻，尿频。' },
+  todo: ['NT 筛查预约（11-13+6 周）', '换宽松内衣', '开始记录体重'],
+  diet: ['均衡蛋白质 + 蔬果', '控糖（防后期妊娠糖尿病）'],
+  warn: [],
+},
+{
+  week: 11, baby: { size: '无花果', cm: '4.1', g: '7',
+  dev: '头部约占身长一半，能吸吮、吞咽、打哈欠。' },
+  mom: { change: '孕吐开始缓解。', symptom: '白带增多、可能长痘。' },
+  todo: ['NT 筛查（11-13+6 周）', '选好分娩医院'],
+  diet: ['补钙：奶、豆腐、小鱼', '维 C：猕猴桃、橙子'],
+  warn: [],
+},
+{
+  week: 12, baby: { size: '李子', cm: '5.4', g: '14',
+  dev: '外生殖器分化，能挥手、踢腿，神经系统快速发育。' },
+  mom: { change: '子宫出盆腔，孕吐明显减轻。', symptom: '精力恢复，可能出现妊娠纹前兆。' },
+  todo: ['建档正式完成', 'NT 筛查', '开始涂妊娠油', '夫妻可商量是否告知工作单位'],
+  diet: ['深海鱼 DHA', '铁 + 维 C 同食（促进吸收）'],
+  warn: [],
+},
+{
+  week: 13, baby: { size: '柠檬', cm: '7.4', g: '23',
+  dev: '声带形成，会"呼吸"，能皱眉、做表情。' },
+  mom: { change: '进入孕中期，舒服的阶段开始。', symptom: '偶有头晕（低血糖）。' },
+  todo: ['逐渐恢复适度运动', '可过性生活（温柔、安全）', '开始做凯格尔运动'],
+  diet: ['少食多餐', '坚果当加餐', '黑芝麻'],
+  warn: [],
+},
+{
+  week: 14, baby: { size: '桃子', cm: '8.7', g: '43',
+  dev: '长出细绒毛，能做表情，脸部特征更清晰。' },
+  mom: { change: '食欲恢复，身材开始明显变化。', symptom: '鼻塞（孕期鼻炎）、牙龈出血。' },
+  todo: ['产检（每 4 周一次）', '孕妇瑜伽入门', '开始考虑孕妇照（28-32 周最佳）'],
+  diet: ['补铁：每周 1-2 次动物血/肝脏', '维 D：每天户外 30 分钟'],
+  warn: [],
+},
+{
+  week: 15, baby: { size: '苹果', cm: '10.1', g: '70',
+  dev: '能感受光，听觉开始发育。' },
+  mom: { change: '肚子显怀。', symptom: '可能牙龈敏感、烧心。' },
+  todo: ['唐筛 / 无创 DNA（15-20 周）', '听舒缓音乐胎教'],
+  diet: ['酸牛奶', '蓝莓', '蒸蛋'],
+  warn: [],
+},
+{
+  week: 16, baby: { size: '牛油果', cm: '11.6', g: '100',
+  dev: '会打嗝、做鬼脸，能听到子宫外的声音。' },
+  mom: { change: '可能开始感受到"胎动"（像鱼吐泡泡）。', symptom: '腰酸、分泌物增加。' },
+  todo: ['唐筛或无创 DNA', '换舒适孕妇装', '凯格尔运动'],
+  diet: ['高钙奶', '亚麻籽', '西梅（防便秘）'],
+  warn: [],
+},
+{
+  week: 17, baby: { size: '梨', cm: '13.0', g: '140',
+  dev: '皮下脂肪开始堆积，能"听见"妈妈说话。' },
+  mom: { change: '体重每周约增 0.5kg。', symptom: '偶有假宫缩（Braxton Hicks）。' },
+  todo: ['开始与宝宝说话 / 讲故事胎教', '准备婴儿用品清单'],
+  diet: ['含碘食物：海带、紫菜', '优质蛋白'],
+  warn: [],
+},
+{
+  week: 18, baby: { size: '甜椒', cm: '14.2', g: '190',
+  dev: '会翻身、握拳，听力完善。' },
+  mom: { change: '食欲旺盛。', symptom: '腿抽筋（尤其夜间）、腰背痛。' },
+  todo: ['补钙 + 镁（防抽筋）', '睡左侧卧'],
+  diet: ['虾皮、芝麻酱', '香蕉、坚果', '温热泡脚（<40℃）'],
+  warn: [],
+},
+{
+  week: 19, baby: { size: '番茄', cm: '15.3', g: '240',
+  dev: '皮肤起皱被胎脂覆盖，能区分明暗。' },
+  mom: { change: '腹部明显隆起。', symptom: '可能脐周痒（皮肤拉伸）。' },
+  todo: ['涂身体油 / 乳液保湿', '学习数胎动（28 周起正式）'],
+  diet: ['维 A 食物：胡萝卜、动物肝脏（每周 1 次）'],
+  warn: [],
+},
+{
+  week: 20, baby: { size: '香蕉', cm: '16.4', g: '300',
+  dev: '胎儿一半大小达成！能吞咽羊水并"练习呼吸"。' },
+  mom: { change: '宫高平脐。', symptom: '消化慢、易饱胀。' },
+  todo: ['大排畸超声（20-24 周）', '开始关注胎动模式'],
+  diet: ['少食多餐', '饭后散步 15 分钟助消化'],
+  warn: [],
+},
+{
+  week: 21, baby: { size: '胡萝卜', cm: '25.6', g: '360',
+  dev: '眉毛、眼皮已分化，胎动活跃。' },
+  mom: { change: '体重增长加快。', symptom: '静脉曲张可能初现。' },
+  todo: ['避免久站', '弹力袜可考虑', '侧卧睡'],
+  diet: ['维 C + 胶原蛋白：银耳、桃胶', '猪蹄少量'],
+  warn: [],
+},
+{
+  week: 22, baby: { size: '木瓜', cm: '27.8', g: '430',
+  dev: '看起来已是小婴儿样子，唇部轮廓清晰。' },
+  mom: { change: '行动稍迟缓。', symptom: '脚踝轻度水肿。' },
+  todo: ['抬高双腿休息', '鞋子宽松', '产检血压'],
+  diet: ['冬瓜、赤小豆（去水肿）', '低盐饮食'],
+  warn: ['水肿突然加重 + 头痛 + 视物模糊请立即就医（先兆子痫）'],
+},
+{
+  week: 23, baby: { size: '芒果', cm: '28.9', g: '501',
+  dev: '能听到外界声音，会被突然的响声惊吓。' },
+  mom: { change: '情绪更敏感。', symptom: '假宫缩增多。' },
+  todo: ['音乐胎教', '避免吵闹环境'],
+  diet: ['深海鱼每周 2 次', '核桃每天 3-4 颗'],
+  warn: [],
+},
+{
+  week: 24, baby: { size: '玉米', cm: '30.0', g: '600',
+  dev: '肺部开始产生表面活性物质，呼吸系统接近成熟。' },
+  mom: { change: '腹部变大明显。', symptom: '腰背痛、失眠。' },
+  todo: ['糖耐量筛查（24-28 周）', '孕妇枕'],
+  diet: ['控糖（重要！）', '粗粮代替白米饭', '少水果糖分'],
+  warn: [],
+},
+{
+  week: 25, baby: { size: '花椰菜', cm: '34.6', g: '660',
+  dev: '对声音和触碰有反应，头发开始生长。' },
+  mom: { change: '宫高每周长 1cm。', symptom: '痔疮可能加重。' },
+  todo: ['温水坐浴缓解痔疮', '多吃高纤维食物'],
+  diet: ['西梅、火龙果', '燕麦粥', '充足饮水'],
+  warn: [],
+},
+{
+  week: 26, baby: { size: '生菜', cm: '35.6', g: '760',
+  dev: '眼睛能睁开，视力逐渐发育。' },
+  mom: { change: '行动明显不便。', symptom: '气短（子宫顶膈肌）。' },
+  todo: ['节奏放慢', '睡眠用孕妇枕', '准备待产包雏形'],
+  diet: ['补铁 + 维 C', '少量多餐减轻胃部压力'],
+  warn: [],
+},
+{
+  week: 27, baby: { size: '茄子', cm: '36.6', g: '875',
+  dev: '开始做梦，会做梦中的眼球转动。' },
+  mom: { change: '进入孕晚期倒计时。', symptom: '腰骶部疼痛加重。' },
+  todo: ['开始认真考虑分娩方式', '拉玛泽呼吸法练习'],
+  diet: ['鱼、瘦肉、蛋', '绿叶菜补叶酸 + 铁'],
+  warn: [],
+},
+{
+  week: 28, baby: { size: '椰菜', cm: '37.6', g: '1005',
+  dev: '大脑活跃，能做梦，睫毛形成。' },
+  mom: { change: '正式进入孕晚期！', symptom: '假宫缩更明显。' },
+  todo: ['开始每日认真数胎动（早中晚各 1 小时）', '每 2 周产检一次', '乙肝抗原复查等'],
+  diet: ['控糖控盐', '优质蛋白 + 蔬果', '少食多餐'],
+  warn: ['胎动突然减少或剧烈增加请就医'],
+},
+{
+  week: 29, baby: { size: '南瓜', cm: '38.6', g: '1150',
+  dev: '肌肉张力增强，踢得更用力。' },
+  mom: { change: '肚子明显下坠感？', symptom: '尿频、起夜多。' },
+  todo: ['不要憋尿', '晚饭后少喝水', '准备月子服'],
+  diet: ['利尿食物（但不要太多）：冬瓜、黄瓜', '睡前温牛奶助眠'],
+  warn: [],
+},
+{
+  week: 30, baby: { size: '卷心菜', cm: '39.9', g: '1319',
+  dev: '能调节体温、眨眼、对光反应强。' },
+  mom: { change: '宫高约 30cm。', symptom: '腰背痛加剧。' },
+  todo: ['产检：小排畸（B 超）', '学习分娩征兆'],
+  diet: ['补铁（储备分娩失血）', '含铁米粉'],
+  warn: [],
+},
+{
+  week: 31, baby: { size: '椰子', cm: '41.1', g: '1502',
+  dev: '皮下脂肪增厚，皮肤由红变粉。' },
+  mom: { change: '体重增长加快。', symptom: '耻骨联合痛。' },
+  todo: ['避免久坐', '游泳或孕妇瑜伽缓解'],
+  diet: ['控总热量', '高蛋白', '维 C'],
+  warn: [],
+},
+{
+  week: 32, baby: { size: '大白菜', cm: '42.4', g: '1702',
+  dev: '四肢活动空间变小，胎动可能减少但仍规律。' },
+  mom: { change: '宫底接近剑突。', symptom: '胃灼热、呼吸短促。' },
+  todo: ['胎心监护开始', '每 2 周产检', '确认待产包'],
+  diet: ['少量多餐', '避免辛辣、油腻', '饭后斜靠 30 分钟'],
+  warn: [],
+},
+{
+  week: 33, baby: { size: '菠萝', cm: '43.7', g: '1918',
+  dev: '骨骼变硬（颅骨除外，方便分娩时挤压）。' },
+  mom: { change: '水肿常见。', symptom: '手指关节僵硬。' },
+  todo: ['取下戒指', '睡高枕头防胃酸反流'],
+  diet: ['低盐', '利尿：冬瓜汤、玉米须水'],
+  warn: [],
+},
+{
+  week: 34, baby: { size: '哈密瓜', cm: '45.0', g: '2146',
+  dev: '肺部接近成熟，能做"呼吸"动作。' },
+  mom: { change: '腹部下坠（入盆前奏）。', symptom: '尿频加重。' },
+  todo: ['准备宝宝衣物、奶瓶消毒器', '选定儿科医生'],
+  diet: ['钙（每天 1000mg）', '维 K：西兰花、菠菜'],
+  warn: [],
+},
+{
+  week: 35, baby: { size: '香瓜', cm: '46.2', g: '2383',
+  dev: '肾脏发育完全，肝脏能代谢废物。' },
+  mom: { change: '入盆可能已开始。', symptom: '走路有牵拉感。' },
+  todo: ['每周产检', '确认分娩医院联系方式', '准备宝宝姓名'],
+  diet: ['高蛋白储备体力', '碳水保证能量'],
+  warn: [],
+},
+{
+  week: 36, baby: { size: '白兰瓜', cm: '47.4', g: '2622',
+  dev: '已基本足月（37 周前不算早产已属"晚期早产"）。' },
+  mom: { change: '产检每周一次。', symptom: '假宫缩增多、见红可能。' },
+  todo: ['待产包必须已装好', '家里准备好婴儿床、洗澡盆', '订月嫂 / 月子中心'],
+  diet: ['易消化', '椰子水（民间认为补羊水）', '红枣枸杞'],
+  warn: ['见红量多、规律宫缩、破水请立即去医院'],
+},
+{
+  week: 37, baby: { size: '小冬瓜', cm: '48.6', g: '2859',
+  dev: '正式足月！随时可能发动。' },
+  mom: { change: '宝宝可能已入盆，呼吸轻松些。', symptom: '耻骨痛、腰痛。' },
+  todo: ['学习临产征兆', '产检 + 胎监', '确认家人陪产安排'],
+  diet: ['待产能量：巧克力、红牛', '临产前进食不易过饱'],
+  warn: ['破水 → 平躺、垫高臀部、立即去医院'],
+},
+{
+  week: 38, baby: { size: '南瓜', cm: '49.8', g: '3083',
+  dev: '肺部完全成熟，免疫系统就绪。' },
+  mom: { change: '宫颈逐渐软化成熟。', symptom: '夜醒多、焦虑情绪。' },
+  todo: ['记录每次假宫缩', '手机充电', '老公待命'],
+  diet: ['清淡易消化', '持续补液'],
+  warn: [],
+},
+{
+  week: 39, baby: { size: '小西瓜', cm: '50.7', g: '3288',
+  dev: '囤积脂肪，准备迎接世界。' },
+  mom: { change: '随时可能发动。', symptom: '下坠感强、便意增多。' },
+  todo: ['深呼吸、放松', '温奶瓶 / 消毒器摆位'],
+  diet: ['待产食物', '巧克力、蜂蜜水、香蕉'],
+  warn: [],
+},
+{
+  week: 40, baby: { size: '大西瓜', cm: '51.2', g: '3462',
+  dev: '预产期！多数宝宝在 38-42 周内出生。' },
+  mom: { change: '宫颈成熟、可能已开指。', symptom: '不规律宫缩变得规律。' },
+  todo: ['保持冷静', '家人随叫随到', '医院 24h 急诊通道'],
+  diet: ['流质食物（万一剖宫产需禁食 8h）'],
+  warn: ['41 周未发动需医生评估引产时机'],
+},
+];
+
+/* Postpartum weeks */
+const POSTPARTUM = [
+{
+  week: 1, title: '产后第 1 周',
+  baby: { dev: '睡眠 16-20 小时/天，吃奶 8-12 次/24h。新生儿胃只有樱桃大小。' },
+  mom: { change: '恶露量大、鲜红色。会阴/伤口疼痛。产后宫缩痛（经产妇明显）。' },
+  todo: ['纯母乳按需喂养', '每次喂奶两侧各 15-20 分钟', '新生儿 2-3 小时必须喂一次（包括夜间）', '每天观察黄疸（额头、胸口）', '脐带护理：保持干燥，每日碘伏消毒', '产妇：勤换卫生巾，温水冲洗会阴', '产后 42 天复查预约'],
+  diet: ['生化汤（医师指导下）', '小米粥、鸡蛋羹', '红枣桂圆汤（少量）', '充足饮水（母乳必备）'],
+  warn: ['新生儿：24h 未排尿/未排胎便请就医', '产妇：出血>月经量、发热、伤口红肿立即就医'],
+},
+{
+  week: 2, title: '产后第 2 周',
+  baby: { dev: '开始有"清醒时间"，能短暂追视 20cm 内物体。' },
+  mom: { change: '恶露颜色变浅、量减少。身体仍虚弱。' },
+  todo: ['每天保证 7-8 小时睡眠', '继续按需哺乳', '开始轻度活动（房间内走动）', '新生儿满月体检预约（出生后 30 天）', '办理出生证明（出生医院办理）'],
+  diet: ['黑芝麻核桃粥', '鲈鱼汤（促伤口愈合）', '红糖别超 10 天（避免恶露不尽）', '多蔬菜防便秘'],
+  warn: ['宝宝黄疸持续加深或范围扩大 → 测胆红素', '产妇情绪持续低落超过 2 周 → 关注产后抑郁'],
+},
+{
+  week: 3, title: '产后第 3 周',
+  baby: { dev: '清醒时间延长，能短暂注视家人面孔，开始出现惊跳反射。' },
+  mom: { change: '身体恢复加速，可出门散步。' },
+  todo: ['每天外出晒太阳 30 分钟（宝宝注意遮阳）', '宝宝抚触 + 趴趴时间', '开始做产后康复操（凯格尔）'],
+  diet: ['黄芪当归炖鸡（少量，气血双补）', '莲藕排骨汤', '银耳羹'],
+  warn: ['宝宝腹胀、吐奶严重或体重不增请就医'],
+},
+{
+  week: 4, title: '产后第 4 周 · 出月子',
+  baby: { dev: '满月！体重应增加 600-1000g。开始尝试趴着抬头。' },
+  mom: { change: '恶露基本干净，可恢复正常活动但仍避免重体力。' },
+  todo: ['满月体检（必做）：生长评估、黄疸、髋关节 B 超、听力复查', '乙肝第二针疫苗', '产妇 42 天产后复查（妇保）', '可开始低强度运动', '与儿科医生建立固定联系'],
+  diet: ['开始恢复正常饮食', '持续追奶：多喝汤水', '铁 + 钙'],
+  warn: ['满月体检结果异常（如髋关节发育不良、严重黄疸）按医生建议治疗'],
+},
+];
+
+/* ============================================================
+   SHENZHEN RESOURCES
+============================================================ */
+const SZ_RESOURCES = [
+{ title: '建母子健康手册',
+  desc: '怀孕 12 周前，带双方身份证、结婚证、户口本、孕检 B 超单，到户籍地（或常住地）社区卫生服务中心办理。深圳多数街道可办理。',
+  small: '提醒：办完手册后续产检会记录在上面，每次产检带上。',
+  icon: 'file' },
+{ title: '广东生育登记',
+  desc: '通过"广东生育登记"微信小程序办理。怀孕前/后均可办，办理后可享受生育保险待遇（深圳参保人员）。',
+  small: '所需：双方身份证、结婚证、户口本。',
+  icon: 'phone' },
+{ title: '生育保险就医确认',
+  desc: '深圳参保的孕妈，办理后产检和分娩可按比例报销。办理条件以最新社保局通知为准。',
+  small: '咨询：深圳市社保局 12333，或单位 HR。',
+  icon: 'shield' },
+{ title: '产检时间表（一般）',
+  desc: '孕 6-8 周首 B 超 → 11-13+6 周 NT → 15-20 周唐筛/无创 → 20-24 周大排畸 → 24-28 周糖耐 → 28 周起每 2 周产检 → 36 周起每周产检 + 胎监。',
+  small: '具体频次听从你建档医院的安排。',
+  icon: 'calendar' },
+{ title: '分娩医院选择',
+  desc: '深圳妇幼保健院（福强 / 红荔院区）、深圳大学总医院、宝安妇幼、龙岗中心医院、各区人民医院妇产科等。建议按距离 + 急诊能力 + 是否新生儿科决定。',
+  small: '提醒：孕晚期（28 周后）尽量固定一家产检分娩，便于档案延续。',
+  icon: 'hospital' },
+{ title: '出生医学证明',
+  desc: '出生后 1 个月内，在分娩医院办理。需取好宝宝姓名、父母身份证、结婚证。提前想好名字，避免临时。',
+  small: '后续上户口、入医保、打疫苗都要用，务必保管好。',
+  icon: 'cert' },
+{ title: '宝宝入深户',
+  desc: '父母一方为深圳户籍的，新生儿可随父或随母入深户。需要：出生证明、父母身份证 + 户口本、结婚证、拟落户地户口本。',
+  small: '流程：公安派出所户籍窗口办理。',
+  icon: 'home' },
+{ title: '新生儿医保',
+  desc: '出生 6 个月内办理深圳少儿医保，从出生日起享受医保待遇，越早办越好。可通过"深圳社保"公众号办理。',
+  small: '费用低、保障全，建议不要错过。',
+  icon: 'shield' },
+];
+
+/* ============================================================
+   DRINKS — 孕期推荐 vs 避免
+============================================================ */
+const DRINKS = [
+{ name: '椰子水', icon: 'coconut', ok: true,
+  desc: '天然电解质，富含钾。民间认为有助于补羊水。',
+  meta: '适量 200-300ml/天 · 孕中后期 · 控糖期选天然无糖',
+},
+{ name: '温开水', icon: 'drop', ok: true,
+  desc: '主力。每天 1700-1900ml，分时段饮用，晨起空腹一杯。',
+  meta: '全天 · 任何阶段',
+},
+{ name: '纯牛奶 / 孕妇奶粉', icon: 'milk', ok: true,
+  desc: '钙 + 优质蛋白 + 维 D。每天 300-500ml。',
+  meta: '全天 · 孕中后期加量 · 乳糖不耐可换舒化奶或酸奶',
+},
+{ name: '红豆浆 / 黄豆浆', icon: 'bean', ok: true,
+  desc: '植物蛋白 + 钙 + 大豆异黄酮，温和补气。',
+  meta: '早餐 · 现磨最佳 · 加糖不要多',
+},
+{ name: '黑芝麻糊 / 黑芝麻水', icon: 'seed', ok: true,
+  desc: '补钙、补铁、润肤，缓解便秘。',
+  meta: '早餐或加餐 · 孕中后期',
+},
+{ name: '红豆 / 赤小豆水', icon: 'bean', ok: true,
+  desc: '去湿消肿、补铁。广东湿热体质适合。',
+  meta: '下午 · 不要加糖过多 · 孕晚期水肿可多喝',
+},
+{ name: '银耳莲子羹 / 桃胶雪耳', icon: 'bowl', ok: true,
+  desc: '胶原蛋白 + 维 C，润燥养颜。',
+  meta: '加餐 · 孕中后期 · 莲子去芯避免苦寒',
+},
+{ name: '红枣枸杞水', icon: 'drop', ok: true,
+  desc: '补气血。少量常喝，孕晚期可加量。',
+  meta: '少量 · 红枣每天 3-5 颗 · 上火时停',
+},
+{ name: '柠檬蜂蜜水', icon: 'drop', ok: true,
+  desc: '缓解孕吐、补水维 C。',
+  meta: '晨起或反胃时 · 蜂蜜少量 · 选新鲜柠檬',
+},
+{ name: '玉米须水', icon: 'drop', ok: true,
+  desc: '利尿消肿、降三高，孕晚期水肿适用。',
+  meta: '孕晚期 · 不要加糖',
+},
+{ name: '咖啡（淡）', icon: 'coffee', ok: false,
+  desc: '每日咖啡因 <200mg 视为安全，约 1 小杯。',
+  meta: '限 1 杯/天 · 避免空腹 · 孕早期可戒',
+},
+{ name: '绿茶 / 红茶（淡）', icon: 'tea', ok: false,
+  desc: '茶多酚对铁吸收有影响，饭后 1 小时再喝。',
+  meta: '饭后 1 小时 · 不喝浓茶 · 不空腹',
+},
+{ name: '凉茶（癍痧、廿四味）', icon: 'warn', ok: false,
+  desc: '性寒，含多种草药，孕妇禁止。广东家庭最常踩雷。',
+  meta: '禁用 · 任何孕期阶段',
+},
+{ name: '薏米水 / 薏仁汤', icon: 'warn', ok: false,
+  desc: '中医认为活血利水，可能刺激子宫，孕妇慎用。',
+  meta: '慎用 · 尤其孕早期 · 如有饮用先咨询中医',
+},
+{ name: '含糖饮料 / 奶茶', icon: 'warn', ok: false,
+  desc: '高糖、高咖啡因、高热量。增加妊娠糖尿病、体重失控风险。',
+  meta: '少喝 · 控糖期尽量不喝 · 选无糖低因',
+},
+{ name: '酒精', icon: 'warn', ok: false,
+  desc: '任何酒精都对胎儿发育有潜在风险。',
+  meta: '0 容忍 · 备孕开始即戒',
+},
+];
+
+/* ============================================================
+   MEAL IDEAS — 广东家庭友好
+============================================================ */
+const MEALS = [
+{ meal: '早餐', name: '鸡蛋 + 红豆浆 + 全麦馒头', note: '高蛋白 + 植物雌激素 + 缓释碳水', icon: 'sun' },
+{ meal: '早餐', name: '小米南瓜粥 + 鸡蛋羹 + 凉拌菠菜', note: '温胃养胃 + 补叶酸', icon: 'sun' },
+{ meal: '午餐', name: '椰子鸡汤 + 蒸鲈鱼 + 时蔬', note: '椰子鸡汤是粤式经典，温和补气', icon: 'rice' },
+{ meal: '午餐', name: '莲藕排骨汤 + 番茄炒蛋 + 杂粮饭', note: '补铁补钙，长胎不长肉', icon: 'rice' },
+{ meal: '晚餐', name: '清蒸虾 + 蒜蓉西兰花 + 小米饭', note: '优质蛋白 + 维 C + 钙', icon: 'moon' },
+{ meal: '晚餐', name: '花胶红枣汤 + 时蔬 + 杂粮饭', note: '花胶富含胶原蛋白，孕中期后补', icon: 'moon' },
+{ meal: '加餐', name: '酸奶 + 蓝莓 + 核桃', note: '益生菌 + 抗氧化 + DHA', icon: 'apple' },
+{ meal: '加餐', name: '红豆西米露（少糖）', note: '广东经典糖水，补铁去湿', icon: 'apple' },
+];
+
+/* ============================================================
+   CHECKLIST POOL — 选择每周当日适用的项
+============================================================ */
+const CHECKLIST_POOL = [
+{ id: 'folate', when: w => w >= 1 && w <= 12, text: '服用叶酸 0.4mg', small: '建议吃到孕 12 周，可延长到哺乳期' },
+{ id: 'dha', when: w => w >= 13, text: '补充 DHA（藻油或鱼油）', small: '孕中后期是胎儿脑发育关键期' },
+{ id: 'iron', when: w => w >= 16, text: '关注铁摄入（必要时补铁剂）', small: '动物血、肝脏、菠菜；与维 C 同食' },
+{ id: 'milk', when: w => true, text: '喝 300-500ml 奶或相当钙来源', small: '酸奶 / 舒化奶 / 孕妇奶粉都算' },
+{ id: 'walk', when: w => true, text: '散步或孕妇运动 30 分钟', small: '餐后 30 分钟最好，量力而行' },
+{ id: 'sleep', when: w => true, text: '保证 8 小时睡眠，左侧卧为主', small: '孕中后期左侧卧增加胎盘血流' },
+{ id: 'water', when: w => true, text: '饮水 1700-1900ml', small: '少量多次，避免一次性灌大量' },
+{ id: 'noRaw', when: w => true, text: '不吃生冷、半生熟、隔夜', small: '刺身、半熟蛋、生奶酪、未消毒果汁都避免' },
+{ id: 'kegel', when: w => w >= 13, text: '凯格尔运动 10 分钟', small: '预防漏尿、助产' },
+{ id: 'talkBaby', when: w => w >= 17, text: '与宝宝说说话 / 胎教 10 分钟', small: '可读故事、听轻柔音乐' },
+{ id: 'countKick', when: w => w >= 28, text: '认真数胎动 3 次（早中晚各 1h）', small: '12h 累计 ≥30 次为正常；明显减少立即就医' },
+{ id: 'oilSkin', when: w => w >= 14, text: '涂抹身体油 / 乳液（腹部、臀部、大腿）', small: '预防妊娠纹关键在保湿+控体重' },
+{ id: 'birthClass', when: w => w >= 28, text: '线上分娩课 / 拉玛泽练习', small: '医院常有免费课，可联系产检护士' },
+{ id: 'bagReady', when: w => w >= 32, text: '待产包就位、家人知道流程', small: '包括证件、产检手册、宝宝衣物' },
+{ id: 'pediatrician', when: w => w >= 30, text: '选定儿科医生（社区或医院）', small: '宝宝出生 7 天内可能就要打疫苗/体检' },
+{ id: 'name', when: w => w >= 28, text: '确定宝宝姓名', small: '出生证明需 1 个月内办理' },
+{ id: 'postnatalCare', when: w => w >= 32, text: '安排月子（家人/月嫂/月子中心）', small: '深圳金牌月嫂 1.2w-1.8w/月起' },
+{ id: 'monitor', when: w => w >= 32, text: '关注胎动和假宫缩变化', small: '每 2-3 周产检 + 胎监' },
+{ id: 'hotline', when: w => w >= 32, text: '医院产科急诊电话存手机', small: '同时保存 120、家人紧急联系人' },
+];
+
+/* ============================================================
+   RENDERERS
+============================================================ */
+const ICONS = {
+  file: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  phone: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>',
+  shield: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  calendar: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  hospital: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1"/><path d="M9 12h1"/><path d="M9 16h1"/><path d="M14 8h1"/><path d="M14 12h1"/><path d="M14 16h1"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/></svg>',
+  cert: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+  home: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  coconut: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="9"/><circle cx="12" cy="13" r="3"/><path d="M12 4v3"/></svg>',
+  drop: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69 5.6 9.09a8 8 0 1 0 11.31 0z"/></svg>',
+  milk: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8v3l2 3v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8l2-3z"/><line x1="6" y1="13" x2="18" y2="13"/></svg>',
+  bean: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="6" ry="9" transform="rotate(-30 12 12)"/></svg>',
+  seed: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="9"/></svg>',
+  bowl: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M3 11V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3"/></svg>',
+  coffee: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>',
+  tea: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13v5a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z"/><path d="M16 9h3a2 2 0 0 1 2 2v1a3 3 0 0 1-3 3"/><path d="M7 4v3"/><path d="M10 4v3"/><path d="M13 4v3"/></svg>',
+  warn: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>',
+  sun: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+  rice: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/><path d="M7 11a5 5 0 0 1 10 0"/></svg>',
+  moon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+  apple: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  check: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  pill: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  heart: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  baby: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg>',
+  bag: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+  globe: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  flag: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  today: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+};
+
+/* --- tabs --- */
+const TABS = [
+{ id: 'today', label: '今日', icon: 'today' },
+{ id: 'week', label: '周历', icon: 'calendar' },
+{ id: 'food', label: '广东饮食', icon: 'apple' },
+{ id: 'bag', label: '待产包', icon: 'bag' },
+{ id: 'sz', label: '深圳资源', icon: 'flag' },
+{ id: 'post', label: '产后月子', icon: 'heart' },
+];
+
+/* --- helpers --- */
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ============================================================
+   INIT
+============================================================ */
+let state = loadState();
+let currentTab = 'today';
+let currentWeekDetail = null;
+let completedChecks = {}; // { dateISO: { id: true } }
+
+function init() {
+  /* dev/test override: ?lmp=YYYY-MM-DD 在 URL 后面即可跳过设置页 */
+  const params = new URLSearchParams(location.search);
+  const devLmp = params.get('lmp');
+  if (devLmp && /^\d{4}-\d{2}-\d{2}$/.test(devLmp)) {
+    state = { lmp: devLmp };
+    saveState(state);
+  }
+  if (!state || !state.lmp) {
+    document.getElementById('setupScreen').style.display = 'flex';
+    document.getElementById('appScreen').style.display = 'none';
+    document.getElementById('startBtn').addEventListener('click', startApp);
+    document.getElementById('lmpInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') startApp();
+    });
+  } else {
+    document.getElementById('setupScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
+    renderApp();
+  }
+}
+
+function startApp() {
+  const v = document.getElementById('lmpInput').value;
+  if (!v) { document.getElementById('lmpInput').focus(); return; }
+  state = { lmp: v };
+  saveState(state);
+  document.getElementById('setupScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+  renderApp();
+}
+
+function resetApp() {
+  if (!confirm('确定要修改末次月经日期吗？这会重新计算所有周数。')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+
+function renderApp() {
+  const today = todayDate();
+  const lmp = new Date(state.lmp + 'T00:00:00');
+  const w = currentWeek(lmp, today);
+  const p = inPostpartum(lmp, today);
+  const due = dueDate(lmp);
+
+  /* header */
+  let phase = '';
+  if (w < 1) phase = '备孕阶段';
+  else if (w <= 40) phase = `孕 ${w} 周 · ${trimesterOf(w)}`;
+  else phase = `产后第 ${p} 周`;
+
+  document.getElementById('greet').textContent = `${fmtDate(today, false)} · ${['周日','周一','周二','周三','周四','周五','周六'][today.getDay()]}`;
+  document.getElementById('metaLine').innerHTML = phase;
+
+  /* progress */
+  let pct = 0, weekBig = '—', weekTag = '—';
+  if (w < 1) { pct = 0; weekBig = '备'; weekTag = '未开始'; }
+  else if (w <= 40) { pct = Math.min(100, (w / 40) * 100); weekBig = w; weekTag = trimesterOf(w).split(' · ')[1] || ''; }
+  else { pct = 100; weekBig = '出'; weekTag = '宝宝已出生'; }
+  document.getElementById('weekBig').textContent = weekBig;
+  document.getElementById('weekTag').textContent = weekTag;
+  document.getElementById('dueDate').textContent = fmtDate(due);
+  const left = diffDays(today, due);
+  document.getElementById('countdown').textContent = left >= 0 ? `还有 ${left} 天` : `已超 ${-left} 天`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = Math.round(pct) + '%';
+
+  /* tabs */
+  const tabBar = document.getElementById('tabBar');
+  tabBar.innerHTML = TABS.map(t => `
+    <button class="tab ${t.id === currentTab ? 'active' : ''}" data-tab="${t.id}">
+      ${t.label}
+    </button>`).join('');
+  tabBar.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+    currentTab = b.dataset.tab;
+    renderPanel();
+  }));
+
+  /* settings */
+  document.getElementById('settingsBtn').addEventListener('click', resetApp);
+
+  renderPanel();
+}
+
+/* ============================================================
+   PANELS
+============================================================ */
+function renderPanel() {
+  const root = document.getElementById('panelRoot');
+  root.innerHTML = '<div class="fade-in"></div>';
+  const wrap = root.firstChild;
+  let html = '';
+  switch (currentTab) {
+    case 'today': html = renderToday(); break;
+    case 'week': html = renderWeek(); break;
+    case 'food': html = renderFood(); break;
+    case 'bag': html = renderBag(); break;
+    case 'sz': html = renderSz(); break;
+    case 'post': html = renderPost(); break;
+  }
+  wrap.innerHTML = html;
+  /* sync tab active state */
+  document.querySelectorAll('#tabBar .tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === currentTab);
+  });
+  bindPanel();
+}
+
+function renderToday() {
+  const today = todayDate();
+  const lmp = new Date(state.lmp + 'T00:00:00');
+  const w = currentWeek(lmp, today);
+  const p = inPostpartum(lmp, today);
+  const due = dueDate(lmp);
+  const dateKey = today.toISOString().slice(0,10);
+
+  if (w < 1) {
+    return `
+      <section class="panel">
+        <div class="card">
+          <h3>${ICONS.today} 还没到孕周</h3>
+          <p>LMP 日期设置在 <strong>${fmtDate(lmp)}</strong>，意味着从这天开始计算。当前还没到第 1 周。</p>
+          <p>可以做的事：每天 0.4mg 叶酸、戒烟戒酒、规律作息、预约孕前检查。</p>
+        </div>
+      </section>`;
+  }
+
+  let weekData, postData, headerTitle;
+  if (w <= 40) {
+    weekData = WEEKS[w - 1];
+    headerTitle = `第 ${w} 周 · ${trimesterOf(w).split(' · ')[0]}`;
+  } else {
+    postData = POSTPARTUM[Math.min(p - 1, 3)];
+    headerTitle = postData.title;
+  }
+
+  const checks = CHECKLIST_POOL.filter(c => {
+    if (w <= 40) return c.when(w);
+    return c.when(w) || (postData && p >= 1 && p <= 4);
+  });
+  if (w > 40 && p >= 1 && p <= 4) {
+    // add postpartum-specific items
+    checks.unshift({ id: 'feed', when: () => true, text: '按需哺乳 / 配方奶 8-12 次/24h', small: '新生儿每 2-3 小时必须喂一次' });
+    checks.unshift({ id: 'cord', when: () => true, text: '脐带护理：保持干燥', small: '每日消毒，一般 7-14 天脱落' });
+    checks.unshift({ id: 'jaundice', when: () => true, text: '观察黄疸（额头/胸口/四肢）', small: '生理性黄疸 5-7 天达峰，2 周内退' });
+  }
+  const dayState = completedChecks[dateKey] || {};
+  const checksHtml = checks.map(c => {
+    const done = dayState[c.id];
+    return `
+      <div class="check ${done ? 'done' : ''}" data-id="${c.id}">
+        <div class="box">${done ? ICONS.check : ''}</div>
+        <div class="text">${esc(c.text)}<small>${esc(c.small)}</small></div>
+      </div>`;
+  }).join('');
+
+  let mainBlock = '';
+  if (weekData) {
+    mainBlock = `
+      <div class="grid-2">
+        <div class="card">
+          <h3>${ICONS.baby} 宝宝本周 <span class="pill">约 ${esc(weekData.baby.size)}</span></h3>
+          <p>${esc(weekData.baby.dev)}</p>
+          <div class="kv">
+            <dt>身长</dt><dd>${esc(weekData.baby.cm)} cm</dd>
+            <dt>体重</dt><dd>${esc(weekData.baby.g)} g</dd>
+          </div>
+        </div>
+        <div class="card">
+          <h3>${ICONS.heart} 妈妈本周</h3>
+          <p>${esc(weekData.mom.change)}</p>
+          <p style="font-size:12.5px;color:var(--muted);">${esc(weekData.mom.symptom)}</p>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="card">
+          <h3>${ICONS.pill} 本周重点</h3>
+          <ul>${weekData.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+        </div>
+        <div class="card">
+          <h3>${ICONS.apple} 本周饮食方向</h3>
+          <ul>${weekData.diet.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+        </div>
+      </div>
+      ${weekData.warn.length ? `<div class="note warn" style="margin-top:14px;">${ICONS.warn}<div><strong>本周警示：</strong>${weekData.warn.map(esc).join('；')}。</div></div>` : ''}`;
+  } else if (postData) {
+    mainBlock = `
+      <div class="grid-2">
+        <div class="card">
+          <h3>${ICONS.baby} 宝宝 <span class="pill">${esc(postData.title)}</span></h3>
+          <p>${esc(postData.baby.dev)}</p>
+        </div>
+        <div class="card">
+          <h3>${ICONS.heart} 妈妈</h3>
+          <p>${esc(postData.mom.change)}</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <h3>${ICONS.pill} 这周要做</h3>
+        <ul>${postData.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <h3>${ICONS.apple} 这周饮食</h3>
+        <ul>${postData.diet.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      </div>
+      ${postData.warn.length ? `<div class="note warn" style="margin-top:14px;">${ICONS.warn}<div><strong>本周警示：</strong>${postData.warn.map(esc).join('；')}。</div></div>` : ''}`;
+  }
+
+  /* upcoming milestones */
+  let milestones = [];
+  if (w <= 40) {
+    const milestonesDef = [
+      { week: 6, name: '首次 B 超（确认胎心）' },
+      { week: 12, name: '建档 + NT 筛查' },
+      { week: 16, name: '唐筛 / 无创 DNA' },
+      { week: 24, name: '大排畸 + 糖耐' },
+      { week: 28, name: '开始数胎动' },
+      { week: 32, name: '胎心监护 + 待产包' },
+      { week: 36, name: '每周产检 / 准备分娩' },
+      { week: 40, name: '预产期' },
+    ];
+    milestones = milestonesDef.filter(m => m.week > w).slice(0, 4).map(m => ({
+      ...m,
+      when: `还有 ${(m.week - w)} 周`,
+    }));
+  }
+
+  /* picks: today drinks */
+  const todayDrinks = DRINKS.filter(d => d.ok).slice(0, 3);
+
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.today} 今日 · ${esc(headerTitle)}</h2>
+        <span class="badge">${w <= 40 ? `孕期 ${w}/40 周` : `产后 ${p}/4 周`}</span>
+      </div>
+      <p class="panel-sub">距离预产期 <strong style="color:var(--accent);">${due >= today ? (diffDays(today, due)) + ' 天' : '已过'}</strong> · 今天为 ${fmtDate(today, false)}</p>
+
+      ${mainBlock}
+
+      <h3 class="section-title" style="margin-top:24px;">✅ 今日待办</h3>
+      <div class="checklist">${checksHtml}</div>
+
+      ${milestones.length ? `
+      <h3 class="section-title" style="margin-top:24px;">📍 接下来的关键节点</h3>
+      <div class="timeline">
+        ${milestones.map(m => `
+          <div class="item"><h4>${esc(m.name)}</h4><p><span class="when">${esc(m.when)}</span> · 约 ${fmtDate(addDays(lmp, m.week * 7 - 7))}</p></div>
+        `).join('')}
+      </div>` : ''}
+
+      <h3 class="section-title" style="margin-top:24px;">🍵 今天可以喝什么</h3>
+      <div class="grid-3">
+        ${todayDrinks.map(d => `
+          <div class="drink">
+            <div class="icon-wrap">${ICONS[d.icon] || ICONS.drop}</div>
+            <div>
+              <h4>${esc(d.name)}</h4>
+              <p>${esc(d.desc)}</p>
+              <div class="meta">${esc(d.meta)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+
+      <div class="note info" style="margin-top:20px;">${ICONS.heart}<div>勾选的待办会自动保存在你的浏览器（按天记录），下次打开还会在。<strong>这不是医疗建议</strong>，有不适随时就医。</div></div>
+    </section>`;
+}
+
+function renderWeek() {
+  const lmp = new Date(state.lmp + 'T00:00:00');
+  const today = todayDate();
+  const w = currentWeek(lmp, today);
+
+  /* if not selected, default to current or 1 */
+  if (!currentWeekDetail) currentWeekDetail = (w >= 1 && w <= 40) ? w : 1;
+
+  /* grid */
+  let cells = '';
+  for (let i = 1; i <= 40; i++) {
+    const cls = i === w ? 'current' : (i <= 13 ? 't1' : i <= 27 ? 't2' : 't3');
+    const tri = i <= 13 ? '早' : i <= 27 ? '中' : '晚';
+    cells += `<div class="week-cell ${cls}" data-w="${i}"><div class="num">${i}</div><div class="lbl">${tri}</div></div>`;
+  }
+  cells += `<div class="week-cell postpartum" data-w="post"><div class="num">+1</div><div class="lbl">月子</div></div>`;
+
+  /* detail */
+  let detailHtml = '';
+  if (currentWeekDetail === 'post') {
+    const p = inPostpartum(lmp, today);
+    const pd = POSTPARTUM[Math.max(0, Math.min(p - 1, 3))] || POSTPARTUM[0];
+    detailHtml = `
+      <div class="week-detail">
+        <div class="head">
+          <h3 class="title">产后第 1-4 周速览</h3>
+          <span class="tag">月子期</span>
+        </div>
+        <div class="sub-bar">当前产后 <strong>第 ${p || '?'} 周</strong> · 详见"产后月子" Tab</div>
+      </div>`;
+  } else {
+    const wd = WEEKS[currentWeekDetail - 1];
+    detailHtml = `
+      <div class="week-detail">
+        <div class="head">
+          <h3 class="title">第 ${wd.week} 周 · ${trimesterOf(wd.week).split(' · ')[0]}</h3>
+          <span class="tag">${trimesterOf(wd.week).split(' · ')[1]}</span>
+        </div>
+        <div class="sub-bar">宝宝约 <strong>${esc(wd.baby.size)}</strong> · ${esc(wd.baby.cm)} cm · ${esc(wd.baby.g)} g</div>
+        <div class="section-title">${ICONS.baby} 宝宝发育</div>
+        <p style="color:var(--ink-2);margin:0 0 12px;">${esc(wd.baby.dev)}</p>
+        <div class="section-title">${ICONS.heart} 妈妈变化</div>
+        <p style="color:var(--ink-2);margin:0 0 12px;">${esc(wd.mom.change)}</p>
+        <p style="color:var(--muted);font-size:13px;margin:0 0 16px;">常见感受：${esc(wd.mom.symptom)}</p>
+        <div class="section-title">${ICONS.pill} 本周重点</div>
+        <ul>${wd.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+        <div class="section-title">${ICONS.apple} 饮食方向</div>
+        <ul>${wd.diet.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+        ${wd.warn.length ? `<div class="note warn" style="margin-top:12px;">${ICONS.warn}<div><strong>警示：</strong>${wd.warn.map(esc).join('；')}。</div></div>` : ''}
+      </div>`;
+  }
+
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.calendar} 40 周日历</h2>
+      </div>
+      <p class="panel-sub">点击任一周查看那一周的详情。绿色块是今天所在周。</p>
+      <div class="week-grid">${cells}</div>
+      ${detailHtml}
+    </section>`;
+}
+
+function renderFood() {
+  const drinksOk = DRINKS.filter(d => d.ok);
+  const drinksWarn = DRINKS.filter(d => !d.ok);
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.apple} 广东孕期饮食</h2>
+      </div>
+      <p class="panel-sub">粤菜、煲汤、凉茶、糖水是广东家庭的日常。下面这份指南按"适合孕期 / 慎用"分类。</p>
+
+      <div class="note warn" style="margin-bottom:18px;">${ICONS.warn}<div><strong>广东家庭最常踩的几个雷</strong>：癍痧/廿四味等凉茶（性寒）、薏米（动物性）、山楂制品、咖啡因超标、酒精。孕期吃什么都好，<strong>注意控糖、控盐、不吃过量</strong>。</div></div>
+
+      <h3 class="section-title">🍵 推荐饮品</h3>
+      <div class="grid-2">
+        ${drinksOk.map(d => `
+          <div class="drink">
+            <div class="icon-wrap">${ICONS[d.icon] || ICONS.drop}</div>
+            <div>
+              <h4>${esc(d.name)}</h4>
+              <p>${esc(d.desc)}</p>
+              <div class="meta">${esc(d.meta)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+
+      <h3 class="section-title" style="margin-top:24px;">🚫 慎用 / 避免</h3>
+      <div class="grid-2">
+        ${drinksWarn.map(d => `
+          <div class="drink">
+            <div class="icon-wrap warn">${ICONS[d.icon] || ICONS.warn}</div>
+            <div>
+              <h4>${esc(d.name)}</h4>
+              <p>${esc(d.desc)}</p>
+              <div class="meta">${esc(d.meta)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+
+      <h3 class="section-title" style="margin-top:24px;">🍲 广东家庭孕期友好的一日参考</h3>
+      <div class="grid-2">
+        ${MEALS.map(m => `
+          <div class="meal">
+            <div class="emoji">${ICONS[m.icon] || ICONS.apple}</div>
+            <div>
+              <h4>${esc(m.meal)} · ${esc(m.name)}</h4>
+              <small>${esc(m.note)}</small>
+            </div>
+          </div>`).join('')}
+      </div>
+
+      <h3 class="section-title" style="margin-top:24px;">🥣 经典孕期汤水（广东版）</h3>
+      <div class="grid-2">
+        <div class="card"><h3>椰子鸡汤</h3><p>椰子 1 个 + 老母鸡半只 + 姜片。补气养血、温和不燥，适合全孕期。</p></div>
+        <div class="card"><h3>莲藕排骨汤</h3><p>莲藕 2 节 + 排骨 500g + 红枣 5 颗。补铁补钙，长胎不长肉。</p></div>
+        <div class="card"><h3>红豆鲫鱼汤</h3><p>红豆 + 鲫鱼 + 陈皮。补血去湿，孕中后期水肿适用。</p></div>
+        <div class="card"><h3>花胶红枣汤</h3><p>花胶提前泡发 + 红枣 + 枸杞。胶原蛋白，孕中期后补皮肤弹性。</p></div>
+        <div class="card"><h3>鲈鱼豆腐汤</h3><p>鲈鱼 1 条 + 嫩豆腐 + 姜丝。高蛋白、低脂、促伤口愈合，产后也可喝。</p></div>
+        <div class="card"><h3>玉米须水</h3><p>鲜玉米须 100g 煮水 15 分钟。利尿消肿、降三高，孕晚期常用。</p></div>
+      </div>
+      <div class="note info" style="margin-top:16px;">${ICONS.heart}<div>煲汤习惯很好，但注意：<strong>少放药材</strong>（当归、川芎、薏米先咨询中医），<strong>盐不要多</strong>，汤渣也要吃（营养大多在肉里）。</div></div>
+    </section>`;
+}
+
+function renderBag() {
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.bag} 待产包清单</h2>
+      </div>
+      <p class="panel-sub">建议 32 周前打包好，分成"产房包"和"住院包"两个箱子。家人也能找到。</p>
+
+      <div class="bag-cat">
+        <h4>📋 证件类（最重要，单放）</h4>
+        <ul>
+          <li>双方身份证 + 复印件 3 份</li>
+          <li>结婚证 + 准生证 / 生育登记</li>
+          <li>深圳社保卡</li>
+          <li>产检手册（母子健康手册）</li>
+          <li>所有产检 B 超单 + 化验单</li>
+          <li>银行卡 + 少量现金</li>
+          <li>手机 + 充电宝</li>
+        </ul>
+      </div>
+
+      <div class="bag-cat">
+        <h4>👶 宝宝用品</h4>
+        <ul>
+          <li>新生儿连体衣 3 套（52/59 码）</li>
+          <li>新生儿帽子 2 顶 + 袜子 3 双</li>
+          <li>包被 2 条（厚薄各一）</li>
+          <li>NB 码纸尿裤 1 包（30 片装）</li>
+          <li>婴儿湿巾 + 棉柔巾 各 2 包</li>
+          <li>小毛巾 3 条 + 浴巾 2 条</li>
+          <li>奶瓶 160ml 2 个 + 备用奶嘴</li>
+          <li>小罐装奶粉 1 罐（备用）</li>
+          <li>婴儿指甲剪 + 吸鼻器</li>
+          <li>婴儿洗衣皂 / 洗衣液</li>
+        </ul>
+      </div>
+
+      <div class="bag-cat">
+        <h4>🤱 妈妈用品</h4>
+        <ul>
+          <li>月子服 2-3 套（纯棉、宽松）</li>
+          <li>哺乳内衣 3 件</li>
+          <li>一次性内裤 1 包（10 条）</li>
+          <li>卫生巾（加长夜用）2-3 包</li>
+          <li>产褥垫 1 包（60×90cm）</li>
+          <li>会阴冲洗器 1 个</li>
+          <li>一次性马桶垫 1 包</li>
+          <li>拖鞋 + 棉袜</li>
+          <li>毛巾 + 脸盆 2 个</li>
+          <li>吸奶器（产后第 2-3 天可能用上）</li>
+          <li>乳头霜（羊毛脂款）</li>
+          <li>出院衣服（宽松、帽子）</li>
+        </ul>
+      </div>
+
+      <div class="note info" style="margin-top:18px;">${ICONS.flag}<div><strong>深圳医院提示：</strong>多数医院提供新生儿襁褓、出院服、月子餐（自费）。你可以先电话问医院清单再打包，避免重复。<strong>深圳天气热（4-10 月）</strong>，宝宝衣物选纯棉透气，<strong>11-3 月</strong>早晚凉要厚包被。</div></div>
+    </section>`;
+}
+
+function renderSz() {
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.flag} 深圳办事 & 资源</h2>
+      </div>
+      <p class="panel-sub">从建档到出生证明，按时间顺序整理。深圳的政策更新较快，最终以官方为准。</p>
+
+      <div class="grid-2">
+        ${SZ_RESOURCES.map(r => `
+          <div class="res">
+            <div class="ic">${ICONS[r.icon] || ICONS.file}</div>
+            <div>
+              <h4>${esc(r.title)}</h4>
+              <p>${esc(r.desc)}</p>
+              <div class="small">${esc(r.small)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+
+      <h3 class="section-title" style="margin-top:24px;">🏥 分娩医院选择参考（深圳）</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>深圳市妇幼保健院</h3>
+          <p>福强院区（福田）/ 红荔院区（福田）。综合实力强，年分娩量深圳前列。急诊能力完善。</p>
+          <p style="font-size:12.5px;color:var(--muted);">热门科室紧张，建议孕早期就预约建档。</p>
+        </div>
+        <div class="card">
+          <h3>深圳大学总医院</h3>
+          <p>西丽片区。综合三甲，环境好。产科 + 新生儿科配置完善。</p>
+          <p style="font-size:12.5px;color:var(--muted);">南山/宝安方向较方便。</p>
+        </div>
+        <div class="card">
+          <h3>宝安区妇幼保健院</h3>
+          <p>宝安中心区。宝安孕妈主流选择，分娩量大，流程成熟。</p>
+          <p style="font-size:12.5px;color:var(--muted);">建卡+产检+分娩可一站搞定。</p>
+        </div>
+        <div class="card">
+          <h3>龙岗区妇幼保健院</h3>
+          <p>龙岗中心。东部片区最方便的妇幼专科。</p>
+          <p style="font-size:12.5px;color:var(--muted);">床位相对宽松。</p>
+        </div>
+      </div>
+
+      <div class="note warn" style="margin-top:16px;">${ICONS.warn}<div>以上只是参考。<strong>选择医院的核心是：距离近（破水后 30 分钟内能到）+ 有新生儿科 + 你信任的医生</strong>。建议先做几次产检体验再决定。</div></div>
+    </section>`;
+}
+
+function renderPost() {
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.heart} 产后月子 · 第 1-4 周</h2>
+      </div>
+      <p class="panel-sub">出生到满月，是产妇恢复 + 新手父母上手的关键期。提前看一遍，心里有底。</p>
+
+      ${POSTPARTUM.map(p => `
+        <div class="week-detail" style="margin-bottom:14px;">
+          <div class="head">
+            <h3 class="title">${esc(p.title)}</h3>
+            <span class="tag">月子</span>
+          </div>
+          <div class="grid-2" style="margin-top:14px;">
+            <div>
+              <div class="section-title">${ICONS.baby} 宝宝</div>
+              <p style="color:var(--ink-2);margin:0;">${esc(p.baby.dev)}</p>
+            </div>
+            <div>
+              <div class="section-title">${ICONS.heart} 妈妈</div>
+              <p style="color:var(--ink-2);margin:0;">${esc(p.mom.change)}</p>
+            </div>
+          </div>
+          <div class="section-title">${ICONS.pill} 这周任务</div>
+          <ul>${p.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+          <div class="section-title">${ICONS.apple} 这周饮食</div>
+          <ul>${p.diet.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+          ${p.warn.length ? `<div class="note warn" style="margin-top:12px;">${ICONS.warn}<div><strong>警示：</strong>${p.warn.map(esc).join('；')}。</div></div>` : ''}
+        </div>`).join('')}
+
+      <h3 class="section-title" style="margin-top:24px;">🍼 新生儿基本常识</h3>
+      <div class="grid-2">
+        <div class="card"><h3>喂养</h3><p>纯母乳 24h 喂 8-12 次，按需而非按时。配方奶冲泡严格按比例，新生儿胃小，少量多次。喂后拍嗝 10-15 分钟。</p></div>
+        <div class="card"><h3>睡眠</h3><p>每天 16-20 小时。仰卧最安全（防窒息）。不要睡软枕、被子盖头部。可同床不同床。</p></div>
+        <div class="card"><h3>黄疸</h3><p>生理性黄疸 5-7 天达峰，2 周内退。注意晒太阳 / 必要时照蓝光。多吃多排是关键。</p></div>
+        <div class="card"><h3>哭闹</h3><p>哭是宝宝唯一的语言。检查：饿了/尿了/热了/冷了/胀气/想被抱。可试试 5S 安抚法（包/侧/吸/摇/嘘）。</p></div>
+      </div>
+
+      <div class="note danger" style="margin-top:16px;">${ICONS.warn}<div><strong>红灯信号（立即就医）：</strong>新生儿发热 ≥38°C、拒奶 6h+、持续呕吐、呼吸急促/发绀、抽搐、脐部红肿流脓、前囟饱满或凹陷、便血。</div></div>
+    </section>`;
+}
+
+/* ============================================================
+   BIND INTERACTIONS
+============================================================ */
+function bindPanel() {
+  /* checklist toggle */
+  document.querySelectorAll('.check').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = el.dataset.id;
+      const dateKey = todayDate().toISOString().slice(0,10);
+      completedChecks[dateKey] = completedChecks[dateKey] || {};
+      completedChecks[dateKey][id] = !completedChecks[dateKey][id];
+      // persist
+      try {
+        const all = JSON.parse(localStorage.getItem(LS_KEY + '-checks') || '{}');
+        all[dateKey] = completedChecks[dateKey];
+        localStorage.setItem(LS_KEY + '-checks', JSON.stringify(all));
+      } catch {}
+      el.classList.toggle('done');
+      const box = el.querySelector('.box');
+      box.innerHTML = el.classList.contains('done') ? ICONS.check : '';
+    });
+  });
+
+  /* week cells */
+  document.querySelectorAll('.week-cell').forEach(el => {
+    el.addEventListener('click', () => {
+      const v = el.dataset.w;
+      currentWeekDetail = v === 'post' ? 'post' : parseInt(v, 10);
+      renderPanel();
+      // scroll detail into view
+      setTimeout(() => {
+        const detail = document.querySelector('.week-detail');
+        if (detail) detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    });
+  });
+}
+
+/* load persisted checks */
+try {
+  const all = JSON.parse(localStorage.getItem(LS_KEY + '-checks') || '{}');
+  const todayKey = todayDate().toISOString().slice(0,10);
+  completedChecks = all && all[todayKey] ? { [todayKey]: all[todayKey] } : {};
+} catch {}
+
+init();
+</script>
+</body>
+</html>
