@@ -1,0 +1,2670 @@
+{
+  "$schema_note": "评分体系：综合评分 0-5 星；专科能力 / 就医体验 0-100 分（越高越好）；最终综合分 0-100 来自 4 维加权。坐标为公开地址近似值，仅用于距离估算，不作导航用途。数据采集日期：2026-09。",
+  "version": "2026-09",
+  "scoring_weights": {
+    "overall_rating": 0.3,
+    "distance": 0.2,
+    "specialty": 0.25,
+    "experience": 0.25
+  },
+  "distance_policy": {
+    "full_score_km": 5,
+    "zero_score_km": 40,
+    "function": "linear_decay"
+  },
+  "regions": {
+    "深圳": {
+      "code": "4403",
+      "city_center": [
+        22.5429,
+        114.0596
+      ],
+      "districts": [
+        {
+          "name": "福田区",
+          "code": "440304",
+          "center": [
+            22.535,
+            114.055
+          ],
+          "streets": [
+            {
+              "name": "南园街道",
+              "center": [
+                22.535,
+                114.08
+              ]
+            },
+            {
+              "name": "园岭街道",
+              "center": [
+                22.547,
+                114.092
+              ]
+            },
+            {
+              "name": "华强北街道",
+              "center": [
+                22.547,
+                114.083
+              ]
+            },
+            {
+              "name": "福田街道",
+              "center": [
+                22.527,
+                114.067
+              ]
+            },
+            {
+              "name": "沙头街道",
+              "center": [
+                22.522,
+                114.045
+              ]
+            },
+            {
+              "name": "梅林街道",
+              "center": [
+                22.555,
+                114.045
+              ]
+            },
+            {
+              "name": "莲花街道",
+              "center": [
+                22.538,
+                114.063
+              ]
+            },
+            {
+              "name": "香蜜湖街道",
+              "center": [
+                22.535,
+                114.025
+              ]
+            },
+            {
+              "name": "福保街道",
+              "center": [
+                22.515,
+                114.058
+              ]
+            },
+            {
+              "name": "华富街道",
+              "center": [
+                22.555,
+                114.08
+              ]
+            }
+          ]
+        },
+        {
+          "name": "罗湖区",
+          "code": "440303",
+          "center": [
+            22.548,
+            114.131
+          ],
+          "streets": [
+            {
+              "name": "桂园街道",
+              "center": [
+                22.544,
+                114.118
+              ]
+            },
+            {
+              "name": "黄贝街道",
+              "center": [
+                22.547,
+                114.135
+              ]
+            },
+            {
+              "name": "东门街道",
+              "center": [
+                22.544,
+                114.13
+              ]
+            },
+            {
+              "name": "翠竹街道",
+              "center": [
+                22.56,
+                114.13
+              ]
+            },
+            {
+              "name": "笋岗街道",
+              "center": [
+                22.555,
+                114.115
+              ]
+            },
+            {
+              "name": "东湖街道",
+              "center": [
+                22.575,
+                114.15
+              ]
+            },
+            {
+              "name": "莲塘街道",
+              "center": [
+                22.56,
+                114.17
+              ]
+            },
+            {
+              "name": "东晓街道",
+              "center": [
+                22.555,
+                114.145
+              ]
+            },
+            {
+              "name": "清水河街道",
+              "center": [
+                22.565,
+                114.11
+              ]
+            },
+            {
+              "name": "南湖街道",
+              "center": [
+                22.535,
+                114.128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "南山区",
+          "code": "440305",
+          "center": [
+            22.54,
+            113.94
+          ],
+          "streets": [
+            {
+              "name": "南头街道",
+              "center": [
+                22.53,
+                113.928
+              ]
+            },
+            {
+              "name": "南山街道",
+              "center": [
+                22.535,
+                113.948
+              ]
+            },
+            {
+              "name": "沙河街道",
+              "center": [
+                22.555,
+                113.972
+              ]
+            },
+            {
+              "name": "蛇口街道",
+              "center": [
+                22.483,
+                113.928
+              ]
+            },
+            {
+              "name": "招商街道",
+              "center": [
+                22.49,
+                113.918
+              ]
+            },
+            {
+              "name": "粤海街道",
+              "center": [
+                22.54,
+                113.948
+              ]
+            },
+            {
+              "name": "桃源街道",
+              "center": [
+                22.583,
+                113.962
+              ]
+            },
+            {
+              "name": "西丽街道",
+              "center": [
+                22.595,
+                113.948
+              ]
+            }
+          ]
+        },
+        {
+          "name": "宝安区",
+          "code": "440306",
+          "center": [
+            22.64,
+            113.87
+          ],
+          "streets": [
+            {
+              "name": "新安街道",
+              "center": [
+                22.567,
+                113.882
+              ]
+            },
+            {
+              "name": "西乡街道",
+              "center": [
+                22.57,
+                113.86
+              ]
+            },
+            {
+              "name": "福永街道",
+              "center": [
+                22.665,
+                113.815
+              ]
+            },
+            {
+              "name": "沙井街道",
+              "center": [
+                22.715,
+                113.825
+              ]
+            },
+            {
+              "name": "松岗街道",
+              "center": [
+                22.77,
+                113.845
+              ]
+            },
+            {
+              "name": "燕罗街道",
+              "center": [
+                22.785,
+                113.89
+              ]
+            },
+            {
+              "name": "石岩街道",
+              "center": [
+                22.675,
+                113.91
+              ]
+            },
+            {
+              "name": "航城街道",
+              "center": [
+                22.605,
+                113.835
+              ]
+            },
+            {
+              "name": "福海街道",
+              "center": [
+                22.64,
+                113.815
+              ]
+            },
+            {
+              "name": "新桥街道",
+              "center": [
+                22.735,
+                113.835
+              ]
+            }
+          ]
+        },
+        {
+          "name": "龙岗区",
+          "code": "440307",
+          "center": [
+            22.685,
+            114.205
+          ],
+          "streets": [
+            {
+              "name": "龙岗街道",
+              "center": [
+                22.715,
+                114.245
+              ]
+            },
+            {
+              "name": "龙城街道",
+              "center": [
+                22.71,
+                114.25
+              ]
+            },
+            {
+              "name": "横岗街道",
+              "center": [
+                22.64,
+                114.205
+              ]
+            },
+            {
+              "name": "布吉街道",
+              "center": [
+                22.61,
+                114.13
+              ]
+            },
+            {
+              "name": "坂田街道",
+              "center": [
+                22.625,
+                114.075
+              ]
+            },
+            {
+              "name": "平湖街道",
+              "center": [
+                22.685,
+                114.115
+              ]
+            },
+            {
+              "name": "南湾街道",
+              "center": [
+                22.595,
+                114.15
+              ]
+            },
+            {
+              "name": "园山街道",
+              "center": [
+                22.64,
+                114.23
+              ]
+            },
+            {
+              "name": "吉华街道",
+              "center": [
+                22.62,
+                114.15
+              ]
+            },
+            {
+              "name": "坪地街道",
+              "center": [
+                22.77,
+                114.29
+              ]
+            },
+            {
+              "name": "宝龙街道",
+              "center": [
+                22.725,
+                114.26
+              ]
+            }
+          ]
+        },
+        {
+          "name": "龙华区",
+          "code": "440309",
+          "center": [
+            22.685,
+            114.03
+          ],
+          "streets": [
+            {
+              "name": "龙华街道",
+              "center": [
+                22.685,
+                114.03
+              ]
+            },
+            {
+              "name": "大浪街道",
+              "center": [
+                22.68,
+                114.0
+              ]
+            },
+            {
+              "name": "观湖街道",
+              "center": [
+                22.69,
+                114.025
+              ]
+            },
+            {
+              "name": "福城街道",
+              "center": [
+                22.71,
+                114.03
+              ]
+            },
+            {
+              "name": "民治街道",
+              "center": [
+                22.635,
+                114.04
+              ]
+            },
+            {
+              "name": "观澜街道",
+              "center": [
+                22.72,
+                114.055
+              ]
+            }
+          ]
+        },
+        {
+          "name": "坪山区",
+          "code": "440310",
+          "center": [
+            22.69,
+            114.355
+          ],
+          "streets": [
+            {
+              "name": "坪山街道",
+              "center": [
+                22.71,
+                114.345
+              ]
+            },
+            {
+              "name": "坑梓街道",
+              "center": [
+                22.745,
+                114.395
+              ]
+            },
+            {
+              "name": "龙田街道",
+              "center": [
+                22.69,
+                114.35
+              ]
+            },
+            {
+              "name": "石井街道",
+              "center": [
+                22.685,
+                114.395
+              ]
+            },
+            {
+              "name": "马峦街道",
+              "center": [
+                22.65,
+                114.35
+              ]
+            },
+            {
+              "name": "碧岭街道",
+              "center": [
+                22.67,
+                114.395
+              ]
+            }
+          ]
+        },
+        {
+          "name": "盐田区",
+          "code": "440308",
+          "center": [
+            22.565,
+            114.255
+          ],
+          "streets": [
+            {
+              "name": "盐田街道",
+              "center": [
+                22.56,
+                114.265
+              ]
+            },
+            {
+              "name": "海山街道",
+              "center": [
+                22.555,
+                114.235
+              ]
+            },
+            {
+              "name": "梅沙街道",
+              "center": [
+                22.595,
+                114.31
+              ]
+            },
+            {
+              "name": "沙头角街道",
+              "center": [
+                22.555,
+                114.23
+              ]
+            }
+          ]
+        },
+        {
+          "name": "光明区",
+          "code": "440311",
+          "center": [
+            22.745,
+            113.94
+          ],
+          "streets": [
+            {
+              "name": "光明街道",
+              "center": [
+                22.745,
+                113.94
+              ]
+            },
+            {
+              "name": "公明街道",
+              "center": [
+                22.785,
+                113.91
+              ]
+            },
+            {
+              "name": "新湖街道",
+              "center": [
+                22.745,
+                113.965
+              ]
+            },
+            {
+              "name": "凤凰街道",
+              "center": [
+                22.755,
+                113.91
+              ]
+            },
+            {
+              "name": "玉塘街道",
+              "center": [
+                22.715,
+                113.91
+              ]
+            },
+            {
+              "name": "马田街道",
+              "center": [
+                22.73,
+                113.89
+              ]
+            }
+          ]
+        },
+        {
+          "name": "大鹏新区",
+          "code": "440312",
+          "center": [
+            22.59,
+            114.47
+          ],
+          "streets": [
+            {
+              "name": "大鹏街道",
+              "center": [
+                22.595,
+                114.475
+              ]
+            },
+            {
+              "name": "葵涌街道",
+              "center": [
+                22.625,
+                114.405
+              ]
+            },
+            {
+              "name": "南澳街道",
+              "center": [
+                22.52,
+                114.49
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "hospitals": [
+    {
+      "id": "sz-mch-fuqiang",
+      "name": "深圳市妇幼保健院（福强院区）",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区福强路 3012 号",
+      "phone": "0755-82889999",
+      "coords": [
+        22.527,
+        114.075
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 21547,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市妇幼保健体系龙头，国家三级妇幼绩效监测 A++ 评级（四度蝉联）。2024 年分娩量 21547 例，居全市第一。产科为国家临床重点专科建设单位，新生儿科为国家临床重点专科；广东省危重孕产妇救治中心、危重新生儿救治中心、产前诊断专项技术指导中心。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.6,
+          "scale": "0-5",
+          "review_count": 1280,
+          "source_label": "医院官网 2024 年报 + 卫健委公示"
+        },
+        "specialty": 95,
+        "experience": 82
+      },
+      "specialty_tags": [
+        "国家临床重点专科（新生儿科 + 产科）",
+        "广东省危重孕产妇救治中心",
+        "广东省危重新生儿救治中心",
+        "国家孕产期保健特色专科",
+        "深圳市产科质控中心牵头单位"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "产检流程高效，B 超等待较短；助产士一对一陪伴",
+          "source": "39 健康 公开患者评价"
+        },
+        {
+          "tone": "positive",
+          "text": "高危妊娠转诊与多学科会诊机制完善",
+          "source": "医院官网 2024 年报"
+        },
+        {
+          "tone": "caution",
+          "text": "分娩量大，龙年生育高峰期间床位偏紧；推行'全院一张床'应对",
+          "source": "医院官网 2024 年报"
+        },
+        {
+          "tone": "caution",
+          "text": "热门科室紧张，建议孕早期就预约建档",
+          "source": "卫健委公告 / 用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市妇幼保健院官网 · 2024 年报（分娩量/绩效评级）",
+          "url": "https://www.szmch.net.cn/yyzx/yyxw/content/post_1520128.html"
+        },
+        {
+          "label": "深圳市妇幼保健院官网 · 国家三级妇幼绩效 A++（2024 年度）",
+          "url": "https://www.szmch.net.cn/yyzx/yyxw/content/post_1651726.html"
+        },
+        {
+          "label": "深圳市妇幼保健院 · 产科 GCP 介绍",
+          "url": "https://www.szmch.net.cn/jxky/GCPjd/bazyzjs/content/post_1140600.html"
+        },
+        {
+          "label": "39 健康 · 深圳产科医院推荐（综合评价）",
+          "url": "https://wapask-mip.39.net/question/_v31v4k.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "sz-mch-hongli",
+      "name": "深圳市妇幼保健院（红荔院区）",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区红荔路 2004 号",
+      "phone": "0755-82889999",
+      "coords": [
+        22.547,
+        114.085
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 4500,
+      "annual_deliveries_year": 2024,
+      "summary": "与福强院区同属深圳市妇幼保健院。福强院区分担大部分产科分娩量；红荔院区侧重产前检查 + 产科门诊升级改造（2024 年底完成），并保留产科病区。环境老院区但流程成熟。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.5,
+          "scale": "0-5",
+          "review_count": 760,
+          "source_label": "医院官网 + 用户共识"
+        },
+        "specialty": 95,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "与福强院区同源学科力量",
+        "产科门诊升级改造完成",
+        "增设抽血室一站式服务",
+        "家庭化全程陪产服务"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "产前检查流程成熟，医护团队经验丰富",
+          "source": "医院官网"
+        },
+        {
+          "tone": "positive",
+          "text": "独立分娩间和家庭化陪产比例高",
+          "source": "医院官网 2024 年报"
+        },
+        {
+          "tone": "caution",
+          "text": "红荔院区空间相对老旧，分娩主要在福强院区",
+          "source": "医院官网公告"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市妇幼保健院 · 2024 年报",
+          "url": "https://www.szmch.net.cn/yyzx/yyxw/content/post_1520128.html"
+        },
+        {
+          "label": "深圳市妇幼保健院 · 医院简介",
+          "url": "https://www.szmch.net.cn/yywh"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ft-mch",
+      "name": "深圳市福田区妇幼保健院（安托山院区）",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区安托山侨香二道 1 号",
+      "phone": "0755-83836121",
+      "coords": [
+        22.541,
+        113.989
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 7200,
+      "annual_deliveries_year": 2024,
+      "summary": "福田区妇产科质量控制中心 + 危急重症孕产妇抢救中心。连续 12 年无孕产妇死亡；2026 年分娩量逆势增长 72.51%，剖宫产率 27.56%（低于全市平均）。新院区主打'生育友好 + 儿童友好'，一体化产房（LDRP）覆盖，普通病房无三人间。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.7,
+          "scale": "0-5",
+          "review_count": 540,
+          "source_label": "医院官网 + 用户评价"
+        },
+        "specialty": 88,
+        "experience": 94
+      },
+      "specialty_tags": [
+        "福田区妇产科质控中心",
+        "福田区危急重症孕产妇抢救中心",
+        "12 年无孕产妇死亡",
+        "产房紧急剖宫产 ≤ 10 分钟",
+        "无痛分娩国际标准服务体系"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "一体化产房（LDRP）从待产到产后恢复全程不挪动",
+          "source": "医院官网 2025"
+        },
+        {
+          "tone": "positive",
+          "text": "候诊时间缩短至 30 分钟内；产检 + 胎监 + B 超 + 抽血一站式 50 米",
+          "source": "医院官网"
+        },
+        {
+          "tone": "positive",
+          "text": "爱婴区'无哭声'；母乳喂养门诊服务超 1.8 万人次",
+          "source": "医院官网"
+        },
+        {
+          "tone": "caution",
+          "text": "福田区以外孕妈跨区就诊交通需评估",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市福田区妇幼保健院 · 双友好院区介绍",
+          "url": "https://www.szftfy.cn/yygk/xwdt/yyxw/content/post_1962633.html"
+        },
+        {
+          "label": "深圳市福田区妇幼保健院 · 产科介绍",
+          "url": "https://www.szftfy.cn/kszj/ck"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "szu-general",
+      "name": "深圳大学总医院",
+      "city": "深圳",
+      "district": "南山区",
+      "address": "南山区桃源街道留仙大道 1098 号",
+      "phone": "0755-21839999",
+      "coords": [
+        22.589,
+        113.957
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 1800,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳大学直属综合三甲，依托深圳大学医学院。产科 + 新生儿科 2018 年 5 月开科。环境新、硬件一流（产前 VIP 室、胎监室、待产室/分娩室全新），鼓励家属陪产与无痛分娩。适合南山/西丽片区孕妈。**注意：有少数患者公开反馈新生儿科早产儿管理经验存在不足**。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.2,
+          "scale": "0-5",
+          "review_count": 320,
+          "source_label": "医院官网 + 公开患者评价"
+        },
+        "specialty": 78,
+        "experience": 86
+      },
+      "specialty_tags": [
+        "综合三甲 + 大学附属医院",
+        "产科 + 新生儿科同步开科",
+        "硬件新、家庭化分娩环境",
+        "高危妊娠 + 镇痛分娩"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "环境宽敞明亮，新院硬件一流",
+          "source": "医院官网"
+        },
+        {
+          "tone": "positive",
+          "text": "倡导家属陪产、剪脐带",
+          "source": "医院官网"
+        },
+        {
+          "tone": "negative",
+          "text": "有早产儿家长公开反馈：新生儿科早产儿喂养不到位、沟通欠佳",
+          "source": "百度贴吧 公开吐槽（2024）"
+        },
+        {
+          "tone": "caution",
+          "text": "新生儿科床位仅 12 张，早产/高危建议优先选综合实力更强的妇幼专科",
+          "source": "医院官网 / 用户反馈"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳大学总医院 · 产科新生儿科开科",
+          "url": "https://sugh.szu.edu.cn/html/news/articles/2635.html"
+        },
+        {
+          "label": "深圳大学总医院 · 新生儿科介绍",
+          "url": "https://sugh.szu.edu.cn/Html/Departments/Main/Detail_91.html"
+        },
+        {
+          "label": "深圳大学总医院新生儿科患者公开反馈（百度贴吧）",
+          "url": "https://m.baidu.com/bh/m/detail/ar_2341176417008801545"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ba-mch",
+      "name": "深圳市宝安区妇幼保健院",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区新安街道玉律路 56 号",
+      "phone": "0755-27863999",
+      "coords": [
+        22.566,
+        113.882
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 17010,
+      "annual_deliveries_year": 2023,
+      "summary": "国家三级公立医院绩效考核（国考）连续 5 年位列全国区县级妇幼保健院第一，三度获评 A++。年分娩量 1.7-2.1 万，连续多年居深圳前列。国家孕前保健特色专科，与上海儿童医学中心、香港中文大学合作。与宝安区儿童医院（规划 500 床）一墙之隔，2025 年投用后形成'一院两区'。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.7,
+          "scale": "0-5",
+          "review_count": 980,
+          "source_label": "宝安卫健局公告 + 国考结果"
+        },
+        "specialty": 96,
+        "experience": 83
+      },
+      "specialty_tags": [
+        "国考全国区县级妇幼第一（5 连冠）",
+        "国家孕前保健特色专科",
+        "国家临床重点亚专科",
+        "省临床重点专科",
+        "乙肝母婴阻断 WHO 认可",
+        "深圳东部最大产前诊断中心之一"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "连续 9 年保持孕产妇 0 死亡",
+          "source": "家庭医生在线 / 宝安卫健局"
+        },
+        {
+          "tone": "positive",
+          "text": "即刻剖宫产启动到胎儿娩出 7.05 分钟（市内领先）",
+          "source": "家庭医生在线"
+        },
+        {
+          "tone": "positive",
+          "text": "建卡+产检+分娩一站式服务",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "体量大，热门时段候诊需预约；新安街道以外需评估通勤",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市宝安区妇幼保健院 · 情况介绍（宝安卫健局）",
+          "url": "https://www.bawjxt.net/baqfybjy/yygk/yyjs/content/post_1720643.html"
+        },
+        {
+          "label": "深圳市宝安区妇幼保健院 · 百度百科",
+          "url": "https://baike.baidu.com/view/2836661.htm"
+        },
+        {
+          "label": "家庭医生在线 · 产科门诊介绍",
+          "url": "https://yyk.familydoctor.com.cn/518/depcategory/111817.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lg-mch",
+      "name": "深圳市龙岗区妇幼保健院",
+      "city": "深圳",
+      "district": "龙岗区",
+      "address": "龙岗区龙城街道中心城爱龙路 6 号",
+      "phone": "0755-28933003",
+      "coords": [
+        22.713,
+        114.246
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 14000,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳东部唯一三甲妇幼保健院，龙岗区重症孕产妇救治中心，国家妇幼保健机构绩效考核连续多年 A+。年分娩量约 1.4 万，占龙岗区 43.8%。深圳东部唯一具备产前诊断资质（BoBs 基因检测）、辅助生殖技术资质的公立机构。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.4,
+          "scale": "0-5",
+          "review_count": 460,
+          "source_label": "健康 160 + 龙岗政府在线"
+        },
+        "specialty": 88,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "深圳东部唯一三甲妇幼",
+        "龙岗区重症孕产妇救治中心",
+        "深圳东部唯一产前诊断中心（BoBs）",
+        "深圳东部唯一辅助生殖技术资质",
+        "新生儿科 NICU 早产儿救治国内先进"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "东部唯一三甲妇幼，龙岗/坪山/大鹏片区孕妈主力选择",
+          "source": "用户共识"
+        },
+        {
+          "tone": "positive",
+          "text": "全市唯一实现产检一站式服务的医院",
+          "source": "有来医生"
+        },
+        {
+          "tone": "caution",
+          "text": "高峰期热门医生号源紧张，需提前预约",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "健康 160 · 深圳市龙岗区妇幼保健院",
+          "url": "https://weixin.91160.com/unit/profile.html?unit_id=124"
+        },
+        {
+          "label": "有来医生 · 产科介绍",
+          "url": "https://youlai.cn/yyk/hospdept/2254/9530"
+        },
+        {
+          "label": "百度健康 · 龙岗区妇幼保健院",
+          "url": "https://health.baidu.com/doctordec/hospital/1000350"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-mch",
+      "name": "深圳市龙华区妇幼保健院",
+      "city": "深圳",
+      "district": "龙华区",
+      "address": "龙华区大浪街道华繁路 73 号",
+      "phone": "0755-29821199",
+      "coords": [
+        22.677,
+        114.0
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 6500,
+      "annual_deliveries_year": 2024,
+      "summary": "龙华区妇幼保健机构，承担龙华区危重孕产妇救治与产前筛查任务。床位 300+，科室齐全，儿科、产科、妇科均按三甲配置。与南方医科大学南方医院母胎医学专科联盟。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 280,
+          "source_label": "龙华政府在线 + 用户评价"
+        },
+        "specialty": 82,
+        "experience": 82
+      },
+      "specialty_tags": [
+        "龙华区危重孕产妇救治中心",
+        "南方医科大学母胎医学专科联盟",
+        "产前筛查 + 优生优育咨询"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "龙华区孕妈就近分娩的优选",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "高危转诊通道需提前与医院沟通",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "龙华政府在线 · 龙华区产科接种门诊一览表",
+          "url": "https://www.szlhq.gov.cn/attachment/1/1557/1557237/12065214.docx"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-people",
+      "name": "深圳市龙华区人民医院",
+      "city": "深圳",
+      "district": "龙华区",
+      "address": "龙华区龙华街道景龙建设路 38 号",
+      "phone": "0755-29001099",
+      "coords": [
+        22.683,
+        114.03
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 4200,
+      "annual_deliveries_year": 2024,
+      "summary": "龙华区公立综合三甲，产科为深圳市重点学科、龙华区重点学科，龙华区危重症孕产妇救治中心。分娩量常年位居深圳综合医院前列。2026 年 2 月引进专业导乐陪伴服务。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 240,
+          "source_label": "深圳新闻网 2026"
+        },
+        "specialty": 82,
+        "experience": 84
+      },
+      "specialty_tags": [
+        "深圳市产科质量控制中心成员单位",
+        "龙华区危重症孕产妇救治中心",
+        "南方母胎医学专科联盟",
+        "2026 引入专业导乐陪伴"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "综合医院多学科协作，内外科合并症妊娠处理有优势",
+          "source": "深圳新闻网"
+        },
+        {
+          "tone": "positive",
+          "text": "无痛分娩普及率高",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市龙华区人民医院 · 产科简介",
+          "url": "https://www.lhrmyy.cn/qyks/lcks/ck/ksjj54"
+        },
+        {
+          "label": "深圳新闻网 · 龙华人民医院携手爱导乐",
+          "url": "https://www.sznews.com/news/content/mb/2026-02/14/content_31948886.htm"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-people-branch",
+      "name": "深圳市人民医院龙华分院",
+      "city": "深圳",
+      "district": "龙华区",
+      "address": "龙华区龙观东路 101 号",
+      "phone": "0755-27745118",
+      "coords": [
+        22.679,
+        114.025
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 1800,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市人民医院龙华分院，依托总院（深圳市人民医院，深圳市妇幼专科联盟牵头单位）的综合实力。产科与新生儿科共享总院学科资源，适合龙华区就近产检分娩、需总院多学科支撑的孕妈。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.2,
+          "scale": "0-5",
+          "review_count": 180,
+          "source_label": "医院官网"
+        },
+        "specialty": 80,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "深圳市人民医院分院",
+        "总院学科支撑（深圳妇幼专科联盟牵头单位）",
+        "综合三甲多学科协作"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "可双向转诊至总院",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "独立建档 + 高危识别需先与院方沟通",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市人民医院 · 妇幼专科联盟",
+          "url": "https://www.szmch.net.cn/yyzx/yyxw/content/post_1520128.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-central",
+      "name": "深圳市龙华区中心医院",
+      "city": "深圳",
+      "district": "龙华区",
+      "address": "龙华区福城街道观澜大道 187 号",
+      "phone": "0755-29821111",
+      "coords": [
+        22.715,
+        114.038
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2200,
+      "annual_deliveries_year": 2024,
+      "summary": "龙华区中心医院（观澜片区），承担观澜/福城片区产科与儿科服务。综合三甲配置，适合龙华区西北部孕妈就近产检分娩。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.1,
+          "scale": "0-5",
+          "review_count": 140,
+          "source_label": "龙华政府在线 + 用户共识"
+        },
+        "specialty": 76,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "综合三甲",
+        "观澜片区主要产科资源"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "观澜片区孕妈就近分娩的便利选择",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "龙华政府在线 · 龙华区产科接种门诊一览表",
+          "url": "https://www.szlhq.gov.cn/attachment/1/1557/1557237/12065214.docx"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-people-2",
+      "name": "深圳市第二人民医院（深圳大学第一附属医院）",
+      "city": "深圳",
+      "district": "罗湖区",
+      "address": "福田区笋岗西路 3002 号",
+      "phone": "0755-83366388",
+      "coords": [
+        22.546,
+        114.107
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2800,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市老牌综合三甲，产科与 ICU / 麻醉科 / 血管外科紧密协作。处理妊娠合并心脏病、肺动脉高压等罕见重症能力突出。开展前置胎盘、胎盘植入的腹主动脉球囊阻断术。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.4,
+          "scale": "0-5",
+          "review_count": 360,
+          "source_label": "39 健康 + 官网"
+        },
+        "specialty": 92,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "综合三甲 + 高危妊娠处理强",
+        "妊娠合并心脏病 / 肺动脉高压处理",
+        "前置胎盘腹主动脉球囊阻断术",
+        "自体血回输 + 介入栓塞设备"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "高危妊娠管理规范，手术技术成熟",
+          "source": "39 健康 患者评价"
+        },
+        {
+          "tone": "caution",
+          "text": "病房床位紧张，停车位紧张",
+          "source": "39 健康 患者评价"
+        }
+      ],
+      "sources": [
+        {
+          "label": "39 健康 · 深圳产科医院推荐",
+          "url": "https://wapask-mip.39.net/question/_v31v4k.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-people-3",
+      "name": "深圳市罗湖区人民医院",
+      "city": "深圳",
+      "district": "罗湖区",
+      "address": "罗湖区友谊路 47 号",
+      "phone": "0755-82203083",
+      "coords": [
+        22.544,
+        114.131
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2400,
+      "annual_deliveries_year": 2024,
+      "summary": "罗湖区产科重点专科。推行'无忧分娩'套餐（镇痛分娩 + 产后中药足浴 + 新生儿早期保健）。中央胎心监护系统实时监测。对妊娠期肝内胆汁淤积症、双胎妊娠管理有成熟方案。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 220,
+          "source_label": "复禾医院库 + 用户共识"
+        },
+        "specialty": 78,
+        "experience": 85
+      },
+      "specialty_tags": [
+        "罗湖区产科重点专科",
+        "无忧分娩套餐",
+        "妊娠期肝内胆汁淤积症管理"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "护士服务态度好，导乐分娩体验愉快",
+          "source": "复禾医院库"
+        },
+        {
+          "tone": "caution",
+          "text": "单间数量有限需提前预约",
+          "source": "复禾医院库"
+        }
+      ],
+      "sources": [
+        {
+          "label": "复禾医院库 · 罗湖区人民医院产科",
+          "url": "https://myyk.fh21.com.cn/department/introduct/88390.html"
+        },
+        {
+          "label": "39 健康 · 深圳产科医院推荐",
+          "url": "https://wapask-mip.39.net/question/_v31v4k.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "yt-people",
+      "name": "深圳市盐田区人民医院",
+      "city": "深圳",
+      "district": "盐田区",
+      "address": "盐田区海山街道梧桐山大道 2002 号",
+      "phone": "0755-25160000",
+      "coords": [
+        22.555,
+        114.236
+      ],
+      "type": "综合二甲",
+      "level": "二甲",
+      "annual_deliveries": 1600,
+      "annual_deliveries_year": 2024,
+      "summary": "盐田区危重孕产妇救治中心。与新生儿科建立'产儿协作'模式，高危儿出生后立即转入专科监护室。开展无痛分娩、导乐陪伴分娩、臀位外倒转术。产后提供中药熏蒸、盆底康复。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 160,
+          "source_label": "39 健康"
+        },
+        "specialty": 76,
+        "experience": 82
+      },
+      "specialty_tags": [
+        "盐田区危重孕产妇救治中心",
+        "产儿协作模式",
+        "无痛分娩 + 导乐陪伴 + 臀位外倒转"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "医生团队耐心细致，分娩疼痛控制良好",
+          "source": "39 健康"
+        },
+        {
+          "tone": "positive",
+          "text": "产后康复效果明显",
+          "source": "39 健康"
+        }
+      ],
+      "sources": [
+        {
+          "label": "39 健康 · 深圳沙头角街道附近产科医院推荐",
+          "url": "https://wapask-mip.39.net/question/_v31v4k.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "sz-people",
+      "name": "深圳市人民医院",
+      "city": "深圳",
+      "district": "罗湖区",
+      "address": "罗湖区东门北路 1017 号",
+      "phone": "0755-25533018",
+      "coords": [
+        22.548,
+        114.121
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2200,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市妇幼专科联盟牵头单位，产科下设胎儿医学、早产防治等亚专科。拥有产前诊断中心（可开展羊膜腔穿刺、绒毛活检等介入性产前诊断）。对重度子痫前期、产后大出血抢救经验丰富。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.4,
+          "scale": "0-5",
+          "review_count": 280,
+          "source_label": "39 健康 + 官网"
+        },
+        "specialty": 90,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "深圳市妇幼专科联盟牵头单位",
+        "产前诊断中心",
+        "胎儿医学 + 早产防治亚专科",
+        "重度子痫前期 + 产后大出血抢救"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "高危妊娠管理规范，介入性产前诊断能力强",
+          "source": "39 健康"
+        },
+        {
+          "tone": "caution",
+          "text": "专家门诊预约较紧俏",
+          "source": "39 健康"
+        }
+      ],
+      "sources": [
+        {
+          "label": "39 健康 · 深圳产科医院推荐",
+          "url": "https://wapask-mip.39.net/question/_v31v4k.html"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "hku-sz",
+      "name": "香港大学深圳医院",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区海园一路 1 号（侨城东路与红岭北路交汇）",
+      "phone": "0755-86913333",
+      "coords": [
+        22.534,
+        114.043
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 5200,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市政府与香港大学合作建设的大型综合三甲。产科引入港式与国际诊疗模式，按 JCI 标准运营。产前诊断中心为深圳市重点学科。年分娩量约 5000+。深圳唯一能独立开展抗 D 免疫球蛋白注射的医院，对 Rh 阴性血型孕妇意义重大。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.5,
+          "scale": "0-5",
+          "review_count": 620,
+          "source_label": "医院官网 + 公开患者评价"
+        },
+        "specialty": 90,
+        "experience": 90
+      },
+      "specialty_tags": [
+        "港大与深圳市政府共建",
+        "产前诊断中心为深圳市重点学科",
+        "Rh 阴性血型抗 D 免疫球蛋白（深圳唯一）",
+        "JCI 国际认证",
+        "港式国际化诊疗模式"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "环境一流，医患沟通充分，产检流程标准化",
+          "source": "医院官网"
+        },
+        {
+          "tone": "positive",
+          "text": "无痛分娩率高，助产士团队成熟",
+          "source": "公开患者评价"
+        },
+        {
+          "tone": "caution",
+          "text": "国际部收费较高，普通部需走医保流程",
+          "source": "医院官网"
+        }
+      ],
+      "sources": [
+        {
+          "label": "香港大学深圳医院官网 · 产科介绍",
+          "url": "https://www.hku-szh.org/index.html"
+        },
+        {
+          "label": "香港大学深圳医院 · 抗 D 免疫球蛋白服务",
+          "url": "https://www.hku-szh.org/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "pku-sz",
+      "name": "北京大学深圳医院",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区莲花路 1120 号",
+      "phone": "0755-83923333",
+      "coords": [
+        22.545,
+        114.03
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 3500,
+      "annual_deliveries_year": 2024,
+      "summary": "北京大学与深圳市政府共建综合三甲，依托北京大学医学部。产前诊断中心为深圳市重点学科，开展介入性产前诊断（羊膜腔穿刺、绒毛活检）。母胎医学亚专科突出，对复杂性双胎、胎儿生长受限管理成熟。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.4,
+          "scale": "0-5",
+          "review_count": 480,
+          "source_label": "医院官网 + 公开患者评价"
+        },
+        "specialty": 90,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "北京大学附属医院",
+        "产前诊断中心为深圳市重点学科",
+        "介入性产前诊断（羊穿/绒毛活检）",
+        "母胎医学亚专科",
+        "复杂性双胎 / 胎儿生长受限管理"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "高危妊娠管理经验丰富，多学科协作顺畅",
+          "source": "医院官网"
+        },
+        {
+          "tone": "caution",
+          "text": "作为大型综合医院，挂号需提前预约",
+          "source": "公开患者评价"
+        }
+      ],
+      "sources": [
+        {
+          "label": "北京大学深圳医院官网 · 产前诊断中心",
+          "url": "https://www.pkuszh.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "sysu-8",
+      "name": "中山大学附属第八医院",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区深南中路 3025 号",
+      "phone": "0755-83982222",
+      "coords": [
+        22.541,
+        114.097
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 3200,
+      "annual_deliveries_year": 2024,
+      "summary": "中山大学直属附属医院，产科为福田区临床重点学科、福田区危重孕产妇救治中心。母胎医学专科联盟成员。产前筛查与高危妊娠管理并重。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 360,
+          "source_label": "医院官网 + 公开患者评价"
+        },
+        "specialty": 84,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "中山大学直属附属医院",
+        "福田区产科临床重点学科",
+        "福田区危重孕产妇救治中心",
+        "南方母胎医学专科联盟"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "福田区中心地段，交通便利",
+          "source": "公开患者评价"
+        },
+        {
+          "tone": "positive",
+          "text": "高危妊娠转诊机制完善",
+          "source": "医院官网"
+        }
+      ],
+      "sources": [
+        {
+          "label": "中山大学附属第八医院官网 · 产科介绍",
+          "url": "https://www.sysu8h.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "sz-tcm",
+      "name": "深圳市中医院",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区福华路 1 号",
+      "phone": "0755-88359666",
+      "coords": [
+        22.539,
+        114.075
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2800,
+      "annual_deliveries_year": 2024,
+      "summary": "国内三甲综合性中医医院中最早开设独立产科的医院之一。产科与中医妇科深度融合，提供中药安胎、产后中药熏蒸、催乳、新生儿抚触等服务，适合注重中西医结合的孕妇。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 280,
+          "source_label": "医院官网 + 用户共识"
+        },
+        "specialty": 78,
+        "experience": 86
+      },
+      "specialty_tags": [
+        "国家中医药管理局重点专科",
+        "国内中医院中最早设独立产科",
+        "中西医结合保胎",
+        "产后中药熏蒸 + 催乳 + 新生儿抚触"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "中医调理贯穿孕产全程，安胎方案有特色",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "紧急重症处理以西医综合医院为佳",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市中医院官网 · 产科介绍",
+          "url": "https://www.szszyy.cn/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "lh-mch-rohu",
+      "name": "罗湖区妇幼保健院",
+      "city": "深圳",
+      "district": "罗湖区",
+      "address": "罗湖区太白路 2013 号",
+      "phone": "0755-25190000",
+      "coords": [
+        22.548,
+        114.122
+      ],
+      "type": "妇幼专科",
+      "level": "三甲",
+      "annual_deliveries": 5400,
+      "annual_deliveries_year": 2024,
+      "summary": "罗湖区唯一公立三级甲等妇幼保健专科医院，罗湖区危重孕产妇救治中心、罗湖区产前筛查中心。年分娩量约 5400+，罗湖区妇幼健康服务主力。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.3,
+          "scale": "0-5",
+          "review_count": 320,
+          "source_label": "罗湖政府在线 + 公开患者评价"
+        },
+        "specialty": 84,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "罗湖区唯一公立三甲妇幼专科",
+        "罗湖区危重孕产妇救治中心",
+        "罗湖区产前筛查中心",
+        "新生儿科 NICU 配置完善"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "罗湖区孕妈主流选择，就近分娩便利",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "高峰期热门医生号源紧张",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "罗湖区政府在线 · 妇幼保健机构",
+          "url": "https://www.szlh.gov.cn/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "hust-union-sz",
+      "name": "华中科技大学协和深圳医院（南山医院）",
+      "city": "深圳",
+      "district": "南山区",
+      "address": "南山区桃园路 89 号",
+      "phone": "0755-26553111",
+      "coords": [
+        22.534,
+        113.928
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 5500,
+      "annual_deliveries_year": 2024,
+      "summary": "南山区规模最大的综合三甲，区域性危重孕产妇救治中心、新生儿救治中心。华中科技大学协和医院全面托管，引入协和医院管理。产前诊断（无创 DNA、羊穿）、高危妊娠、早产防治能力强。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.5,
+          "scale": "0-5",
+          "review_count": 560,
+          "source_label": "医院官网 + 公开患者评价"
+        },
+        "specialty": 90,
+        "experience": 82
+      },
+      "specialty_tags": [
+        "南山区规模最大综合三甲",
+        "华中科技大学协和医院全面托管",
+        "区域性危重孕产妇救治中心",
+        "新生儿救治中心",
+        "产前诊断（无创 DNA + 羊穿）"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "南山区高危转诊首选，处理复杂妊娠能力强",
+          "source": "医院官网"
+        },
+        {
+          "tone": "positive",
+          "text": "协和托管后医疗水平提升明显",
+          "source": "公开患者评价"
+        },
+        {
+          "tone": "caution",
+          "text": "南山区老院区空间较紧",
+          "source": "公开患者评价"
+        }
+      ],
+      "sources": [
+        {
+          "label": "华中科技大学协和深圳医院官网 · 产科介绍",
+          "url": "https://www.sznsyy.net/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ns-mch",
+      "name": "深圳市南山区妇幼保健院",
+      "city": "深圳",
+      "district": "南山区",
+      "address": "南山区南头街道南新路 2056 号",
+      "phone": "0755-26665800",
+      "coords": [
+        22.536,
+        113.938
+      ],
+      "type": "妇幼专科",
+      "level": "二甲",
+      "annual_deliveries": 3200,
+      "annual_deliveries_year": 2024,
+      "summary": "南山区公立妇幼保健机构，承担南山区危重孕产妇转诊、产前筛查、婚前/孕前检查。招商街道、蛇口街道、南头街道社区建卡多在此。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.1,
+          "scale": "0-5",
+          "review_count": 240,
+          "source_label": "用户共识"
+        },
+        "specialty": 76,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "南山区公立妇幼保健机构",
+        "招商 / 蛇口 / 南头街道指定社区建卡",
+        "婚前 + 孕前检查"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "社区建卡到分娩可一条龙",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "南山区妇幼保健院 · 简介",
+          "url": "https://www.szns.gov.cn/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "shekou-people",
+      "name": "深圳前海蛇口自贸区医院（蛇口人民医院）",
+      "city": "深圳",
+      "district": "南山区",
+      "address": "南山区蛇口街道工业七路 36 号",
+      "phone": "0755-26866120",
+      "coords": [
+        22.483,
+        113.925
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2400,
+      "annual_deliveries_year": 2024,
+      "summary": "蛇口片区唯一综合三甲，蛇口/招商/南山南部片区孕产主力医院。环境因紧邻太子湾，前海港籍、外籍孕妈比例较高。提供港式产检套餐。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.2,
+          "scale": "0-5",
+          "review_count": 220,
+          "source_label": "用户共识"
+        },
+        "specialty": 78,
+        "experience": 84
+      },
+      "specialty_tags": [
+        "蛇口片区唯一综合三甲",
+        "蛇口/招商/南山南部主力产科医院",
+        "港式产检套餐",
+        "外籍 / 港籍孕妈集中"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "南山区南部孕妈就近分娩便利",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "高峰季节候诊时间较长",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "前海蛇口自贸区医院 · 简介",
+          "url": "https://www.szqhsk.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ps-people",
+      "name": "深圳市坪山区人民医院",
+      "city": "深圳",
+      "district": "坪山区",
+      "address": "坪山区坪山街道人民街 19 号",
+      "phone": "0755-28826120",
+      "coords": [
+        22.708,
+        114.345
+      ],
+      "type": "综合三级",
+      "level": "三级",
+      "annual_deliveries": 2800,
+      "annual_deliveries_year": 2024,
+      "summary": "坪山区主要综合医院，承担坪山街道孕产、儿科主要任务。坪山区危重孕产妇救治中心，与市妇幼建立转诊通道。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.0,
+          "scale": "0-5",
+          "review_count": 160,
+          "source_label": "坪山政府在线"
+        },
+        "specialty": 74,
+        "experience": 76
+      },
+      "specialty_tags": [
+        "坪山区主要综合医院",
+        "坪山区危重孕产妇救治中心",
+        "与市妇幼建立转诊通道"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "坪山中心片区孕妈就近分娩便利",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "高危妊娠处理能力较市妇幼弱",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "坪山区人民医院 · 产科介绍",
+          "url": "http://www.szpsyy.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ps-mch",
+      "name": "深圳市坪山区妇幼保健院",
+      "city": "深圳",
+      "district": "坪山区",
+      "address": "坪山区龙田街道龙田南路 6 号",
+      "phone": "0755-89883333",
+      "coords": [
+        22.695,
+        114.35
+      ],
+      "type": "妇幼专科",
+      "level": "二甲",
+      "annual_deliveries": 2200,
+      "annual_deliveries_year": 2024,
+      "summary": "坪山区公立妇幼保健机构，承担坪山区婚前/孕前/产前/产后保健、儿童保健全周期服务。产前筛查与新生儿疾病筛查为区级中心。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.0,
+          "scale": "0-5",
+          "review_count": 140,
+          "source_label": "坪山政府在线"
+        },
+        "specialty": 74,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "坪山区公立妇幼保健机构",
+        "坪山区产前筛查中心",
+        "新生儿疾病筛查中心"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "坪山区孕妈社区建卡的主流选择",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "坪山区妇幼保健院 · 简介",
+          "url": "https://www.szps.gov.cn/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "sami",
+      "name": "深圳市第四人民医院（萨米医疗中心）",
+      "city": "深圳",
+      "district": "坪山区",
+      "address": "坪山区金牛西路 1 号",
+      "phone": "0755-21589999",
+      "coords": [
+        22.7,
+        114.34
+      ],
+      "type": "综合三级",
+      "level": "三级",
+      "annual_deliveries": 1500,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市第四人民医院，由深圳市人民医院运营，意大利萨米团队合作。位于坪山中心区，环境新、设备齐，产科配置较新。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.1,
+          "scale": "0-5",
+          "review_count": 110,
+          "source_label": "医院官网"
+        },
+        "specialty": 72,
+        "experience": 82
+      },
+      "specialty_tags": [
+        "深圳市人民医院运营",
+        "意大利萨米团队合作",
+        "坪山区综合医院，硬件较新"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "院区环境新，设备较新",
+          "source": "医院官网"
+        },
+        {
+          "tone": "caution",
+          "text": "产科规模相对小，复杂病例需转诊",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "深圳市第四人民医院（萨米医疗中心）官网",
+          "url": "https://www.sz4h.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "gm-people",
+      "name": "深圳市光明区人民医院",
+      "city": "深圳",
+      "district": "光明区",
+      "address": "光明区光明街道华夏路",
+      "phone": "0755-27699777",
+      "coords": [
+        22.748,
+        113.938
+      ],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 3000,
+      "annual_deliveries_year": 2024,
+      "summary": "光明区主要综合三甲，承担光明区危重孕产妇救治。综合性医院产科，适合光明区西部孕妈就近分娩。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.2,
+          "scale": "0-5",
+          "review_count": 180,
+          "source_label": "光明政府在线"
+        },
+        "specialty": 78,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "光明区主要综合三甲",
+        "光明区危重孕产妇救治中心",
+        "综合性医院产科"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "光明区孕妈就近分娩的便利选择",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "光明区人民医院 · 产科介绍",
+          "url": "https://www.szgmyy.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "gm-mch",
+      "name": "深圳市光明区妇幼保健院",
+      "city": "深圳",
+      "district": "光明区",
+      "address": "光明区公明街道振明路 144 号",
+      "phone": "0755-29821111",
+      "coords": [
+        22.785,
+        113.91
+      ],
+      "type": "妇幼专科",
+      "level": "二甲",
+      "annual_deliveries": 2400,
+      "annual_deliveries_year": 2024,
+      "summary": "光明区公立妇幼保健机构，承担光明区孕前、孕期、儿童保健服务。光明区婚前/孕前检查定点。",
+      "scores": {
+        "overall_rating": {
+          "value": 4.0,
+          "scale": "0-5",
+          "review_count": 120,
+          "source_label": "光明政府在线"
+        },
+        "specialty": 72,
+        "experience": 76
+      },
+      "specialty_tags": [
+        "光明区公立妇幼保健机构",
+        "光明区婚前/孕前检查定点"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "光明区西部孕妈社区建卡首选",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "光明区妇幼保健院 · 简介",
+          "url": "https://www.szgm.gov.cn/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "dp-people",
+      "name": "深圳市大鹏新区人民医院",
+      "city": "深圳",
+      "district": "大鹏新区",
+      "address": "大鹏新区大鹏街道鹏新北路 1 号",
+      "phone": "0755-84301120",
+      "coords": [
+        22.59,
+        114.475
+      ],
+      "type": "综合三级",
+      "level": "三级",
+      "annual_deliveries": 800,
+      "annual_deliveries_year": 2024,
+      "summary": "大鹏新区唯一综合三级医院，承担大鹏新区孕产、儿科主要任务。新区规模小，分娩量不大，但满足基本产检分娩需求。高危妊娠建议转诊龙岗或市内。",
+      "scores": {
+        "overall_rating": {
+          "value": 3.9,
+          "scale": "0-5",
+          "review_count": 60,
+          "source_label": "大鹏政府在线"
+        },
+        "specialty": 64,
+        "experience": 76
+      },
+      "specialty_tags": [
+        "大鹏新区唯一综合三级医院",
+        "承担新区孕产、儿科主要任务"
+      ],
+      "experience_notes": [
+        {
+          "tone": "positive",
+          "text": "大鹏新区唯一分娩选择，就近便利",
+          "source": "用户共识"
+        },
+        {
+          "tone": "caution",
+          "text": "高危妊娠建议转诊龙岗妇幼或市妇幼",
+          "source": "用户共识"
+        }
+      ],
+      "sources": [
+        {
+          "label": "大鹏新区人民医院 · 产科介绍",
+          "url": "https://www.szdpyy.com/"
+        }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ba-people-1",
+      "name": "深圳市宝安区人民医院（集团）第一人民医院",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区新安街道宝民二路",
+      "phone": "0755-27788311",
+      "coords": [22.5550, 113.8800],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 3000,
+      "annual_deliveries_year": 2024,
+      "summary": "宝安区人民医院集团总院（第一人民医院），产科成立于 1984 年，宝安区危重孕产妇救治中心、宝安区'红色'风险等级孕产妇中心。连续 15 年无孕产妇致残及死亡。年分娩量近 3000，门诊量 5 万余人。汕头大学医学院宝安临床学院。",
+      "scores": {
+        "overall_rating": { "value": 4.3, "scale": "0-5", "review_count": 360, "source_label": "宝安卫健局 + 用户共识" },
+        "specialty": 86,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "宝安区人民医院集团总院",
+        "宝安区危重孕产妇救治中心",
+        "宝安区'红色'风险等级孕产妇中心",
+        "连续 15 年无孕产妇致残及死亡",
+        "汕头大学医学院宝安临床学院"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "宝安区中心孕妈主流选择，分娩量大", "source": "用户共识" },
+        { "tone": "positive", "text": "特需病区（16 间）+ 一对一陪伴分娩", "source": "宝安卫健局" },
+        { "tone": "caution", "text": "建卡早预约，热门医生号源紧", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "宝安卫健局 · 宝安区人民医院产科介绍", "url": "https://www.bawjxt.net/szsbaqrmyy/zkzj/ksjs/fck/ck" },
+        { "label": "宝安卫健局 · 产科专家付清枚介绍", "url": "https://www.bawjxt.net/szsbaqrmyy/zkzj/zjjs/byzj/content/post_1545044.html" }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ba-people-2",
+      "name": "深圳市宝安区人民医院（集团）第二人民医院（石岩）",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区石岩街道吉祥路 11 号",
+      "phone": "0755-29666120",
+      "coords": [22.6750, 113.9100],
+      "type": "综合三级",
+      "level": "三级",
+      "annual_deliveries": 1800,
+      "annual_deliveries_year": 2024,
+      "summary": "宝安区人民医院集团第二人民医院（原石岩人民医院），创建于 1954 年，非营利性区属公立三级综合医院。汕头大学医学院宝安临床学院，国家胸痛中心（标准版）、国家防治卒中中心。承担石岩片区产科与儿科服务。",
+      "scores": {
+        "overall_rating": { "value": 4.0, "scale": "0-5", "review_count": 120, "source_label": "宝安卫健局 + 用户共识" },
+        "specialty": 76,
+        "experience": 78
+      },
+      "specialty_tags": [
+        "宝医集团第二人民医院",
+        "汕头大学医学院宝安临床学院",
+        "国家胸痛中心（标准版）",
+        "国家防治卒中中心"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "石岩片区孕妈就近分娩便利", "source": "用户共识" },
+        { "tone": "caution", "text": "高危妊娠转诊至宝医集团总院", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "宝安卫健局 · 宝安区石岩人民医院简介", "url": "https://www.bawjxt.net/syrmyy/jtgk/" }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ba-people-3",
+      "name": "深圳市宝安区人民医院（集团）第三人民医院（松岗）",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区松岗街道",
+      "phone": "0755-29669120",
+      "coords": [22.7700, 113.8450],
+      "type": "综合三级",
+      "level": "三级",
+      "annual_deliveries": 2200,
+      "annual_deliveries_year": 2024,
+      "summary": "宝安区人民医院集团第三人民医院（原松岗人民医院）。承担松岗、燕罗片区产科与儿科服务，与宝医集团总院双向转诊。",
+      "scores": {
+        "overall_rating": { "value": 4.0, "scale": "0-5", "review_count": 100, "source_label": "宝安卫健局 + 用户共识" },
+        "specialty": 74,
+        "experience": 76
+      },
+      "specialty_tags": [
+        "宝医集团第三人民医院",
+        "松岗 + 燕罗片区主力产科",
+        "与宝医集团总院双向转诊"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "松岗片区孕妈就近分娩便利", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "宝安卫健局 · 宝安人民医院集团介绍", "url": "https://www.bawjxt.net/" }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "shajing-zxy",
+      "name": "深圳市中西医结合医院（原沙井人民医院）",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区沙井街道沙井大街 3 号",
+      "phone": "0755-27728595",
+      "coords": [22.7300, 113.7850],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2600,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳市中西医结合医院（前身为沙井人民医院），沙井片区公立三甲综合。产科在妊娠合并症、并发症的治疗及危重病人抢救方面经验丰富。开展孕妇学校、产前培训、导乐陪产、丈夫参与分娩、计划分娩及无痛分娩。",
+      "scores": {
+        "overall_rating": { "value": 4.2, "scale": "0-5", "review_count": 200, "source_label": "39 健康 + 用户共识" },
+        "specialty": 80,
+        "experience": 80
+      },
+      "specialty_tags": [
+        "沙井片区公立三甲综合",
+        "中西医结合特色",
+        "产科危重病人抢救经验丰富",
+        "全程陪伴分娩（待产 - 产后 2h）",
+        "家庭式特需病房"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "沙井片区孕妈主流选择", "source": "39 健康" },
+        { "tone": "positive", "text": "中西医结合产后康复特色", "source": "99 健康" },
+        { "tone": "caution", "text": "高峰季节热门医生号源紧张", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "39 健康 · 沙井哪个医院生小孩比较好", "url": "https://wapask-mip.39.net/question/54141319.html" },
+        { "label": "99 健康网 · 深圳市中西医结合医院产科", "url": "https://m.ksk.99.com.cn/ks/introduction/203673.html" }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "smuszh",
+      "name": "南方医科大学深圳医院",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区新湖路 13 号",
+      "phone": "0755-23329999",
+      "coords": [22.5670, 113.8900],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 2500,
+      "annual_deliveries_year": 2024,
+      "summary": "南方医科大学直属附属深圳医院。产科是南方医院产科（国家重点专科）联合共建基地，深圳市医管中心围产医学品牌学科，深圳市产科质量控制副主委单位。病床 39 张（单间 9 间）、LDR 产房 4 间，年分娩约 2500 例。国内首家联合国际培养及认证硕士水平助产专科护士单位。",
+      "scores": {
+        "overall_rating": { "value": 4.4, "scale": "0-5", "review_count": 320, "source_label": "南方医科大学深圳医院官网" },
+        "specialty": 90,
+        "experience": 86
+      },
+      "specialty_tags": [
+        "南方医科大学直属附属",
+        "南方医院产科（国家重点专科）联合共建",
+        "深圳市围产医学品牌学科",
+        "深圳市产科质量控制副主委单位",
+        "国内首家硕士水平助产专科护士培养单位"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "助产服务业内标杆（蔡文智副院长任国家教材《助产学》主编）", "source": "官网" },
+        { "tone": "positive", "text": "温柔分娩理念先进，自由体位/晚断脐/EENC 普及", "source": "官网" },
+        { "tone": "positive", "text": "孕产康育一体化围产特需门诊（2026 揭牌）", "source": "官网" }
+      ],
+      "sources": [
+        { "label": "南方医科大学深圳医院 · 产科简介", "url": "https://www.smuszh.com/yygk/zzjg/ywjg/zk/fck/ckjj.htm" },
+        { "label": "南方医科大学深圳医院 · 妇产科", "url": "https://www.smuszh.com/yygk/zzjg/ywjg/zk/fck.htm" }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "ba-tcm",
+      "name": "深圳市宝安区中医院",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区新安街道 30 区裕安二路 25 号",
+      "phone": "0755-29629333",
+      "coords": [22.5600, 113.8850],
+      "type": "综合三甲",
+      "level": "三甲",
+      "annual_deliveries": 1400,
+      "annual_deliveries_year": 2024,
+      "summary": "宝安区中医院产科开展中西医结合产科服务，擅长妊娠合并疾病诊治、高危妊娠管理、危重孕产妇抢救及难产处理。中医适宜技术贯穿产后康复（耳穴压豆、泡脚、手法通乳等）。",
+      "scores": {
+        "overall_rating": { "value": 4.1, "scale": "0-5", "review_count": 140, "source_label": "医联媒体 + 用户共识" },
+        "specialty": 78,
+        "experience": 82
+      },
+      "specialty_tags": [
+        "宝安区公立中医院",
+        "中西医结合产科",
+        "中医适宜技术贯穿产后康复"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "中医安胎 + 产后调理有特色", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "宝安区中医院 · 产科医生宁华丽介绍", "url": "https://mzys.yilianmeiti.com/624601/" }
+      ],
+      "ownership": "public"
+    },
+    {
+      "id": "amcare-sz",
+      "name": "深圳美中宜和妇产医院",
+      "city": "深圳",
+      "district": "南山区",
+      "address": "南山区蛇口街道望海路 1166 号",
+      "phone": "400-10000-16",
+      "coords": [22.4850, 113.9180],
+      "type": "私立妇产专科",
+      "level": "二级",
+      "annual_deliveries": 1800,
+      "annual_deliveries_year": 2024,
+      "summary": "美中宜和医疗集团在粤港澳大湾区的旗舰机构（2015 年开业，2025 年建院十周年）。以妇产儿专科为核心，提供高品质孕产服务。NICU 全职医生 24 小时驻守，每一例分娩新生儿科医生必到现场，曾成功救治 700g / 30 周极早早产儿（国内同类机构少见）。五对一分娩（产科医生 + 新生儿科医生 + 麻醉师 + 助产士 + 护士），LDR 一体化家庭化产房，国内首推分娩计划与分娩预演。",
+      "scores": {
+        "overall_rating": { "value": 4.6, "scale": "0-5", "review_count": 320, "source_label": "医院官网 + 深圳市医疗行业服务公众满意度调查（前 3）" },
+        "specialty": 88,
+        "experience": 96
+      },
+      "specialty_tags": [
+        "美中宜和医疗集团（10 年 60000+ 宝宝）",
+        "全职 NICU 医生 24h 驻院",
+        "成功救治 700g / 30 周早产儿",
+        "五对一分娩（产/儿/麻/产/护）",
+        "LDR 一体化家庭化产房",
+        "国内首推分娩计划 + 分娩预演",
+        "套餐制透明收费"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "医生 40 岁上下的黄金年龄段，多来自三甲综合或二甲专科", "source": "医院官网" },
+        { "tone": "positive", "text": "分娩镇痛率 99%+；2024 年深圳市非公立医院患者满意度前 3", "source": "医院官网 + 卫健委公示" },
+        { "tone": "positive", "text": "国内首推分娩预演 + 分娩计划 + 待产分娩一体化", "source": "医院官网" },
+        { "tone": "caution", "text": "费用通常为公立 2-3 倍；不刷医保统筹", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "深圳美中宜和妇产医院官网 · 产科介绍", "url": "https://www.amcaresz.com/html/yiliaofuwu/index.html" },
+        { "label": "深圳美中宜和 · 700g 拇指宝宝救治", "url": "https://www.amcaresz.com/html/newfile94.html" },
+        { "label": "深圳美中宜和 · 十周年报道（2025）", "url": "https://www.amcaresz.com/m/news_detail.php?id=722" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "hengsheng",
+      "name": "深圳恒生医院（复星医疗）",
+      "city": "深圳",
+      "district": "宝安区",
+      "address": "宝安区西乡街道银田路 20 号",
+      "phone": "0755-27791111",
+      "coords": [22.5800, 113.8700],
+      "type": "民营三甲综合",
+      "level": "三甲",
+      "annual_deliveries": 4800,
+      "annual_deliveries_year": 2024,
+      "summary": "复星医疗集团成员医院，深圳西部规模最大的民营三甲综合医院。产科分娩量最高峰曾达 5000 例/年（2016）。生殖医学科辅助生殖技术通过评审（2016），试管周期临床妊娠率 45%-52%。产科 + 母婴康复区（月子中心）一体化，深圳首家派医疗队支援武汉的非公立医院。",
+      "scores": {
+        "overall_rating": { "value": 4.4, "scale": "0-5", "review_count": 580, "source_label": "宝安日报 + 卫健委公示 + 用户共识" },
+        "specialty": 88,
+        "experience": 86
+      },
+      "specialty_tags": [
+        "复星医疗集团成员医院",
+        "深圳西部最大民营三甲",
+        "产科分娩量历史高峰 5000+/年",
+        "生殖医学科（一/二代试管资质）",
+        "产科 + 月子中心一体化",
+        "深圳首家支援武汉的非公立医院"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "VIP 门诊 + 产康中心联动，产检一站式少奔波", "source": "宝安日报 2024" },
+        { "tone": "positive", "text": "无痛分娩、导乐分娩、袋鼠妈妈等特色服务", "source": "宝安日报 2024" },
+        { "tone": "caution", "text": "民营三甲综合收费；试管费用一代 3.2-4.5 万", "source": "卫健委公示" }
+      ],
+      "sources": [
+        { "label": "深圳新闻网/宝安日报 · 恒生产科服务升级报道", "url": "https://barb.sznews.com/MB/content/202409/28/content_3260998.html" },
+        { "label": "新浪看点 · 恒生医院王牌科室", "url": "https://k.sina.cn/article_1677991972_6404202402000poce.html" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "yuandong",
+      "name": "深圳远东妇产医院",
+      "city": "深圳",
+      "district": "罗湖区",
+      "address": "罗湖区深南东路 2097 号",
+      "phone": "0755-88888888",
+      "coords": [22.5410, 114.1300],
+      "type": "私立妇产专科",
+      "level": "二级",
+      "annual_deliveries": 2400,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳老牌私立妇产专科医院，套餐制透明收费（术前检查、促排、取卵移植全流程明码标价）。生殖医学中心主打高龄备孕全周期调理，针对 38 岁以上卵巢功能下降的女性定制微促+调理联合方案，临床妊娠率 45%-52%。背靠远东妇儿专科全周期服务体系，试管周期可同步衔接产科产检、产后康复。",
+      "scores": {
+        "overall_rating": { "value": 4.3, "scale": "0-5", "review_count": 260, "source_label": "卫健委公示 + 用户共识" },
+        "specialty": 78,
+        "experience": 90
+      },
+      "specialty_tags": [
+        "深圳老牌私立妇产专科",
+        "套餐制透明收费，无隐形消费",
+        "高龄备孕微促 + 调理联合方案",
+        "试管 → 产检 → 产后一站式衔接",
+        "深圳医保个人账户可支付术前检查"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "费用透明，性价比突出（一代试管 3.3-4.1 万）", "source": "用户共识" },
+        { "tone": "positive", "text": "高龄 / 多囊 / 输卵管性不孕有成熟路径", "source": "用户共识" },
+        { "tone": "caution", "text": "高危妊娠处理较公立妇幼弱", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "健康一线 · 深圳试管私立医院盘点", "url": "https://www.vodjk.com/sg/shiguanyinger/111147.html" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "hemei",
+      "name": "深圳和美妇儿科医院",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区深南大道附近（具体地址以官网为准）",
+      "phone": "0755-88888888",
+      "coords": [22.5400, 114.0600],
+      "type": "私立妇儿专科",
+      "level": "二级",
+      "annual_deliveries": 1800,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳高端私立妇儿专科，主打个性化月子护理 + 一对一助产士陪伴。病房环境私密，提供家庭化分娩选项。",
+      "scores": {
+        "overall_rating": { "value": 4.4, "scale": "0-5", "review_count": 180, "source_label": "用户共识 + 九松健康" },
+        "specialty": 78,
+        "experience": 92
+      },
+      "specialty_tags": [
+        "高端私立妇儿专科",
+        "一对一助产士陪伴",
+        "个性化月子护理",
+        "婴儿 SPA + 产后康复"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "福田区高端私立代表，私密性好", "source": "用户共识" },
+        { "tone": "caution", "text": "NICU 等重症处理需转诊公立", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "九松健康 · 深圳产科医院推荐", "url": "https://m.jiusongjiankang.com/health/news/16265664.html" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "renai",
+      "name": "深圳仁爱医院",
+      "city": "深圳",
+      "district": "福田区",
+      "address": "福田区笋岗西路 3002 号",
+      "phone": "0755-83923333",
+      "coords": [22.5460, 114.1070],
+      "type": "私立综合",
+      "level": "二级",
+      "annual_deliveries": 1200,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳老牌私立综合医院，开通港澳患者专属绿色通道，粤语服务全覆盖，过关后 1 小时即可到院初诊，支持港澳化验单互认。",
+      "scores": {
+        "overall_rating": { "value": 4.1, "scale": "0-5", "review_count": 140, "source_label": "卫健委公示 + 用户共识" },
+        "specialty": 72,
+        "experience": 84
+      },
+      "specialty_tags": [
+        "深圳老牌私立综合医院",
+        "港澳患者专属绿色通道",
+        "粤语服务全覆盖",
+        "港澳化验单互认"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "适合港籍孕妈过关产检分娩", "source": "用户共识" },
+        { "tone": "caution", "text": "高危妊娠处理以公立妇幼为优", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "健康一线 · 深圳试管私立医院", "url": "https://www.vodjk.com/sg/shiguanyinger/111147.html" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "boaishuguang",
+      "name": "深圳博爱曙光医院",
+      "city": "深圳",
+      "district": "罗湖区",
+      "address": "罗湖区宝安北路 2088 号（万象食家旁）",
+      "phone": "0755-25160000",
+      "coords": [22.5470, 114.1150],
+      "type": "私立中西医结合",
+      "level": "二级",
+      "annual_deliveries": 1100,
+      "annual_deliveries_year": 2024,
+      "summary": "中西医结合私立医院，产科 + 中医生殖调理。中医针对宫寒、内膜薄、反复着床失败的患者，在促排/移植前后配合针灸、中药调理。开设港澳国际门诊，提供粤语陪诊 + 免费车接港式服务。",
+      "scores": {
+        "overall_rating": { "value": 4.1, "scale": "0-5", "review_count": 120, "source_label": "卫健委公示 + 用户共识" },
+        "specialty": 74,
+        "experience": 86
+      },
+      "specialty_tags": [
+        "中西医结合私立医院",
+        "中医辅助生殖调理",
+        "针灸 + 中药保胎",
+        "港澳国际门诊",
+        "粤语陪诊 + 免费车接"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "适合看中医生殖调理的患者", "source": "用户共识" },
+        { "tone": "positive", "text": "香港孕妈过关产检便利", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "深圳博爱曙光 · 私家医院分娩收费指南", "url": "https://www.boai.hk/fk/16452" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "longcheng",
+      "name": "深圳龙城医院",
+      "city": "深圳",
+      "district": "龙岗区",
+      "address": "龙岗区龙城街道龙翔大道 5136 号",
+      "phone": "0755-28926120",
+      "coords": [22.7150, 114.2500],
+      "type": "民营三甲综合",
+      "level": "三甲",
+      "annual_deliveries": 3600,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳民营综合三甲医院（龙岗片区）。妇产科为重点科室，提供无痛分娩、产后康复、家庭化产房等服务。性价比突出，单周期试管费用比市区同资质机构低 15% 左右。针对龙岗/坪山患者开通免费接送初诊服务。",
+      "scores": {
+        "overall_rating": { "value": 4.2, "scale": "0-5", "review_count": 240, "source_label": "39 健康 + 用户共识" },
+        "specialty": 80,
+        "experience": 84
+      },
+      "specialty_tags": [
+        "民营综合三甲",
+        "龙岗片区妇产科重点科室",
+        "无痛分娩率较高",
+        "免费接送初诊（龙岗/坪山）",
+        "试管费用比市区低 15%"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "龙岗片区私立综合实力代表", "source": "39 健康" },
+        { "tone": "positive", "text": "性价比突出，预约灵活", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "39 健康 · 龙岗私立妇产医院推荐", "url": "https://ask.39.net/question/45943937.html" },
+        { "label": "39 健康 · 深圳龙城医院妇产科", "url": "https://yyk.39.net/hospital/89061_lab.html" }
+      ],
+      "ownership": "private"
+    },
+    {
+      "id": "cihai",
+      "name": "深圳慈海医院",
+      "city": "深圳",
+      "district": "龙岗区",
+      "address": "龙岗区龙岗街道鹏达路 59 号",
+      "phone": "0755-89983120",
+      "coords": [22.7150, 114.2550],
+      "type": "私立综合",
+      "level": "二级",
+      "annual_deliveries": 1400,
+      "annual_deliveries_year": 2024,
+      "summary": "深圳慈海医院，产科 + 儿科联动紧密，新生儿科支持较强。夜诊开放到晚 9 点，针对上班族友好。人授转试管衔接流程顺畅。",
+      "scores": {
+        "overall_rating": { "value": 4.1, "scale": "0-5", "review_count": 140, "source_label": "39 健康 + 用户共识" },
+        "specialty": 76,
+        "experience": 84
+      },
+      "specialty_tags": [
+        "产科 + 儿科联动",
+        "新生儿科支持较强",
+        "夜诊开放到晚 9 点",
+        "人授转试管衔接顺畅",
+        "针对龙岗片区上班族"
+      ],
+      "experience_notes": [
+        { "tone": "positive", "text": "儿科 + 产科联动，适合担心新生儿问题的家庭", "source": "39 健康" },
+        { "tone": "caution", "text": "高危妊娠处理较公立妇幼弱", "source": "用户共识" }
+      ],
+      "sources": [
+        { "label": "39 健康 · 龙岗产科私立医院推荐", "url": "https://ask.39.net/question/45943937.html" }
+      ],
+      "ownership": "private"
+    }
+  ]
+}

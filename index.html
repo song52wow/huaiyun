@@ -71,6 +71,20 @@
   .setup input[type=date]:focus, .setup input[type=number]:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
   .setup .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.55; }
   .setup .hint.warn-hint { background: var(--accent-soft); color: var(--ink-2); padding: 10px 12px; border-radius: 10px; font-size: 13px; }
+
+  .loc-setup { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .loc-setup-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; font-size: 13px; color: var(--ink-2); }
+  .loc-setup-status .pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 500;
+    background: var(--muted-2); color: #fff;
+  }
+  .loc-setup-status .pill.ok { background: var(--primary); }
+  .loc-setup-status .pill.warn { background: var(--accent); }
+  .loc-setup-status .pill.gray { background: var(--muted-2); }
+  .loc-setup-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .loc-setup-actions .btn { flex: 1 1 auto; padding: 9px 12px; font-size: 13px; }
+  .loc-setup-status .sub-hint { font-size: 11.5px; color: var(--muted); width: 100%; margin-top: 2px; }
   .setup .seg { display: flex; gap: 6px; flex-wrap: wrap; }
   .seg-btn {
     flex: 1 1 auto; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--line);
@@ -321,6 +335,137 @@
   .note.danger { background: var(--danger-soft); color: var(--danger); }
   .note strong { color: var(--ink); }
 
+  /* Hospital panel */
+  .loc-banner {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    padding: 12px 14px; background: var(--bg-soft); border: 1px solid var(--line);
+    border-radius: var(--radius); margin-bottom: 14px; font-size: 13px; color: var(--ink-2);
+  }
+  .loc-banner .pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 999px; font-size: 12px;
+    background: var(--primary); color: #fff; font-weight: 500;
+  }
+  .loc-banner .pill.gray { background: var(--muted-2); }
+  .loc-banner .pill.warn { background: var(--accent); }
+  .loc-banner .actions { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+  .loc-banner button {
+    border: 1px solid var(--line); background: var(--paper); color: var(--ink-2);
+    padding: 5px 12px; border-radius: 8px; font-family: inherit; font-size: 12.5px;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .loc-banner button:hover { border-color: var(--primary); color: var(--ink); }
+  .loc-banner button.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .loc-banner button.primary:hover { background: var(--primary-deep); }
+
+  .h-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; margin-bottom: 12px; transition: all .15s ease;
+    cursor: pointer;
+  }
+  .h-card:hover { border-color: var(--primary); box-shadow: var(--shadow-1); }
+  .h-card.expanded { border-color: var(--primary); background: var(--primary-soft); }
+  .h-card .row {
+    display: flex; gap: 10px; align-items: baseline; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .h-card .name { font-size: 15px; font-weight: 600; color: var(--ink); margin: 0; }
+  .h-card .meta { font-size: 12.5px; color: var(--muted); margin: 2px 0 8px; }
+  .h-card .meta .dot { margin: 0 6px; opacity: 0.5; }
+  .h-card .rank {
+    flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: #fff;
+    font-size: 13px; font-weight: 600;
+  }
+  .h-card .rank.top { background: var(--accent); }
+  .h-card .rank.second { background: var(--primary-deep); }
+  .h-card .total {
+    font-size: 17px; font-weight: 600; color: var(--primary-deep); margin-left: 6px;
+  }
+  .h-card .stars { color: var(--accent); font-size: 13px; margin-right: 4px; letter-spacing: -1px; }
+  .h-card .dist {
+    display: inline-block; padding: 2px 8px; background: var(--bg-soft);
+    border-radius: 999px; font-size: 12px; color: var(--ink-2);
+  }
+
+  .h-card .own-badge {
+    display: inline-block; padding: 1px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 500; margin-left: 4px; letter-spacing: 0.2px;
+  }
+  .h-card .own-badge.own-public  { background: var(--primary-soft); color: var(--primary-deep); }
+  .h-card .own-badge.own-private { background: var(--accent-soft); color: var(--accent); }
+
+  .ownership-toggle {
+    display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 14px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+  }
+  .ownership-toggle button {
+    border: none; background: transparent; color: var(--ink-2);
+    padding: 6px 14px; border-radius: 8px; font-family: inherit; font-size: 13px;
+    cursor: pointer; transition: all .15s ease; display: flex; align-items: center; gap: 4px;
+  }
+  .ownership-toggle button:hover { background: var(--bg); }
+  .ownership-toggle button.active { background: var(--primary); color: #fff; }
+  .ownership-toggle .cnt {
+    display: inline-block; padding: 0 6px; border-radius: 999px;
+    background: var(--bg-soft); color: var(--muted); font-size: 11px;
+  }
+  .ownership-toggle button.active .cnt { background: rgba(255,255,255,0.25); color: #fff; }
+
+  .h-score-row {
+    display: grid; grid-template-columns: 70px 1fr 32px; align-items: center; gap: 8px;
+    margin: 6px 0; font-size: 12.5px; color: var(--ink-2);
+  }
+  .h-score-row .label { color: var(--muted); }
+  .h-score-row .bar { background: var(--line-soft); border-radius: 999px; height: 6px; overflow: hidden; }
+  .h-score-row .bar > i {
+    display: block; height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-deep));
+    transition: width .3s ease;
+  }
+  .h-score-row .bar > i.specialty { background: linear-gradient(90deg, var(--accent), #a55a2c); }
+  .h-score-row .bar > i.experience { background: linear-gradient(90deg, #6c8eaf, #3a5e7d); }
+  .h-score-row .val { text-align: right; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .h-detail {
+    margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line);
+  }
+  .h-detail h4 { margin: 14px 0 6px; font-size: 13.5px; color: var(--ink); font-weight: 600; }
+  .h-detail .summary { font-size: 13.5px; color: var(--ink-2); line-height: 1.65; margin: 0; }
+  .h-detail .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+  .h-detail .tag-row span {
+    padding: 3px 9px; border-radius: 999px; font-size: 11.5px;
+    background: var(--primary-soft); color: var(--primary-deep);
+  }
+  .h-detail .evlist { margin: 6px 0; padding: 0; list-style: none; }
+  .h-detail .evlist li {
+    padding: 8px 10px; border-radius: 8px; margin-bottom: 5px; font-size: 13px;
+    line-height: 1.55;
+  }
+  .h-detail .evlist li.positive { background: var(--primary-soft); color: var(--ink-2); }
+  .h-detail .evlist li.caution  { background: var(--accent-soft); color: var(--ink-2); }
+  .h-detail .evlist li.negative { background: var(--danger-soft); color: var(--ink-2); }
+  .h-detail .evlist li .src { display: block; margin-top: 3px; font-size: 11.5px; color: var(--muted); }
+  .h-detail .src-list { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .h-detail .src-list a { color: var(--primary-deep); word-break: break-all; }
+  .h-detail .src-list li { margin-bottom: 3px; }
+
+  .district-selector {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .district-selector button {
+    padding: 6px 12px; border: 1px solid var(--line); background: var(--paper);
+    color: var(--ink-2); border-radius: 8px; font-family: inherit; font-size: 12.5px;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .district-selector button:hover { border-color: var(--primary); }
+  .district-selector button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  @media (max-width: 700px) {
+    .h-score-row { grid-template-columns: 60px 1fr 28px; font-size: 11.5px; }
+    .loc-banner .actions { width: 100%; margin-left: 0; }
+  }
+
   /* Resource cards (Shenzhen) */
   .res {
     display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px 16px;
@@ -407,6 +552,19 @@
 
     <label>个人情况（可多选，会插入对应提醒）</label>
     <div class="flags" id="flagBox"></div>
+
+    <label>📍 所在位置（用于按区推荐医院，可稍后在「医院推荐」tab 修改）</label>
+    <div class="loc-setup">
+      <div class="loc-setup-status" id="setupLocStatus">
+        <span class="pill gray" id="setupLocPill">未设置</span>
+        <span class="loc-setup-text" id="setupLocText">点下方按钮获取 GPS（浏览器会弹授权），或手动选择区</span>
+      </div>
+      <div class="loc-setup-actions">
+        <button type="button" class="btn ghost" id="setupLocBtn">📍 使用我的位置</button>
+        <button type="button" class="btn ghost" id="setupLocManualBtn">手动选区</button>
+      </div>
+    </div>
+
     <div class="row-end">
       <button class="btn ghost" id="cancelBtn" style="display:none;">取消</button>
       <button class="btn" id="startBtn">开始陪伴 →</button>
@@ -1079,6 +1237,7 @@ const TABS = [
 { id: 'food', label: '广东饮食', icon: 'apple' },
 { id: 'bag', label: '待产包', icon: 'bag' },
 { id: 'sz', label: '深圳资源', icon: 'flag' },
+{ id: 'hospital', label: '医院推荐', icon: 'hospital' },
 { id: 'post', label: '产后月子', icon: 'heart' },
 ];
 
@@ -1197,6 +1356,7 @@ function openSetup(isEditing) {
   document.getElementById('appScreen').style.display = 'none';
   document.getElementById('setupScreen').style.display = 'flex';
   window.scrollTo(0, 0);
+  renderSetupLocStatus();
 }
 
 function startApp() {
@@ -1231,6 +1391,101 @@ function bindSetup() {
   const gear = document.getElementById('settingsBtn');
   gear.title = '修改孕周与个人情况';
   gear.addEventListener('click', () => openSetup(true));
+
+  // setup 阶段位置获取
+  document.getElementById('setupLocBtn').addEventListener('click', setupLocate);
+  document.getElementById('setupLocManualBtn').addEventListener('click', setupManualDistrict);
+  renderSetupLocStatus();
+}
+
+// 渲染 setup 阶段的位置状态
+async function renderSetupLocStatus() {
+  const pill = document.getElementById('setupLocPill');
+  const text = document.getElementById('setupLocText');
+  if (!pill || !text) return;
+  // 确保 hospitalData 已加载（为了拿到深圳区列表）
+  if (!hospitalData) await loadHospitalData();
+  if (!userLoc) { pill.className = 'pill gray'; pill.textContent = '未设置'; text.textContent = '点下方按钮获取 GPS（浏览器会弹授权），或手动选择区'; return; }
+  if (userLoc.district) {
+    pill.className = 'pill ok';
+    pill.textContent = '📍 ' + (userLoc.street || userLoc.district);
+    const src = userLoc.districtSource === 'nominatim' ? 'GPS + 反查'
+      : userLoc.districtSource === 'street-lookup' ? 'GPS + 街道匹配'
+      : userLoc.districtSource === 'manual' ? '手动选择'
+      : '已设置';
+    const sub = userLoc.street ? `${userLoc.district} · ${userLoc.street}` : userLoc.district;
+    text.innerHTML = `${esc(sub)} · 来源：<strong>${esc(src)}</strong> · <span style="color:var(--muted); font-size:11.5px;">${userLoc.lat.toFixed(4)}, ${userLoc.lng.toFixed(4)}</span>`;
+  } else if (userLoc.lat != null) {
+    pill.className = 'pill warn';
+    pill.textContent = 'GPS 已拿';
+    text.innerHTML = `未识别到具体区。点击下方"手动选区"完成设置 · <span style="color:var(--muted); font-size:11.5px;">${userLoc.lat.toFixed(4)}, ${userLoc.lng.toFixed(4)}</span>`;
+  }
+}
+
+// setup 阶段一键定位
+async function setupLocate() {
+  const btn = document.getElementById('setupLocBtn');
+  const pill = document.getElementById('setupLocPill');
+  const text = document.getElementById('setupLocText');
+  if (btn) { btn.disabled = true; btn.textContent = '📍 定位中…'; }
+  if (pill) { pill.className = 'pill warn'; pill.textContent = '定位中'; }
+  if (text) text.textContent = '浏览器弹授权 → 同意后获取 GPS…';
+  const r = await requestGeolocation();
+  if (!r.ok) {
+    if (pill) { pill.className = 'pill warn'; pill.textContent = r.reason === 'denied' ? '已拒绝' : '失败'; }
+    if (text) text.textContent = r.reason === 'denied'
+      ? '已拒绝位置权限。可点击"手动选区"完成设置，或跳过（之后在医院 tab 再设置）'
+      : r.reason === 'unsupported' ? '浏览器不支持定位，请手动选区' : '定位失败，请手动选区';
+    if (btn) { btn.disabled = false; btn.textContent = '📍 重试定位'; }
+    return;
+  }
+  // 拿 GPS → Nominatim（粗匹配）→ 本地街道数据（精细）
+  const geo = await reverseGeocode(r.lat, r.lng);
+  let district = null, street = null, source = null;
+  // 优先用本地街道数据（精度到街道）
+  const near = nearestShenzhenStreet(r.lat, r.lng);
+  if (near && near.km < 35) {
+    district = near.district;
+    street = near.street;
+    source = 'street-lookup';
+  }
+  // 如果 Nominatim 给出了更精确的区（街道级），可覆盖
+  if (geo?.district) {
+    const known = (hospitalData?.regions?.深圳?.districts || []).map(d => d.name);
+    if (known.includes(geo.district) || known.includes(geo.district + '区')) {
+      const nomDistrict = geo.district.endsWith('区') ? geo.district : (geo.district + '区');
+      if (!district) { district = nomDistrict; source = 'nominatim'; }
+    }
+  }
+  saveUserLoc({
+    lat: r.lat, lng: r.lng, accuracy: r.accuracy,
+    district: district || null, street: street || null,
+    districtSource: source || 'street-lookup',
+    capturedAt: new Date().toISOString(),
+  });
+  if (btn) { btn.disabled = false; btn.textContent = '📍 重新定位'; }
+  renderSetupLocStatus();
+}
+
+// setup 阶段手动选区
+async function setupManualDistrict() {
+  if (!hospitalData) await loadHospitalData();
+  if (!hospitalData?.regions?.深圳?.districts) return;
+  const districts = hospitalData.regions.深圳.districts.map(d => d.name);
+  const cur = userLoc?.district;
+  const idx = cur ? Math.max(0, districts.indexOf(cur)) : 0;
+  const choice = prompt(
+    '选择你所在的区（用于按区筛选 + 计算距离）：\n' +
+    districts.map((d, i) => `${i + 1}. ${d}${d === cur ? '  (当前)' : ''}`).join('\n'),
+    String(idx + 1)
+  );
+  if (!choice) return;
+  const n = parseInt(choice, 10);
+  if (n >= 1 && n <= districts.length) {
+    const curLoc = userLoc || {};
+    saveUserLoc({ ...curLoc, district: districts[n - 1], districtSource: 'manual' });
+    renderSetupLocStatus();
+  }
 }
 
 function init() {
@@ -1243,6 +1498,9 @@ function init() {
   /* 存档损坏时退回设置页，避免 NaN 导致白屏 */
   if (state && state.lmp && !parseLmp(state.lmp)) state = null;
   bindSetup();
+  loadUserLoc();
+  // 启动医院数据加载（异步不阻塞 UI，到达医院 tab 时大概率已就绪）
+  loadHospitalData();
   if (!state || !state.lmp) {
     fillForm();
     openSetup(false);
@@ -1311,6 +1569,7 @@ function renderPanel() {
     case 'food': html = renderFood(); break;
     case 'bag': html = renderBag(); break;
     case 'sz': html = renderSz(); break;
+    case 'hospital': html = renderHospital(); break;
     case 'post': html = renderPost(); break;
   }
   wrap.innerHTML = html;
@@ -1770,31 +2029,9 @@ function renderSz() {
           </div>`).join('')}
       </div>
 
-      <h3 class="section-title" style="margin-top:24px;">🏥 分娩医院选择参考（深圳）</h3>
-      <div class="grid-2">
-        <div class="card">
-          <h3>深圳市妇幼保健院</h3>
-          <p>福强院区（福田）/ 红荔院区（福田）。综合实力强，年分娩量深圳前列。急诊能力完善。</p>
-          <p style="font-size:12.5px;color:var(--muted);">热门科室紧张，建议孕早期就预约建档。</p>
-        </div>
-        <div class="card">
-          <h3>深圳大学总医院</h3>
-          <p>西丽片区。综合三甲，环境好。产科 + 新生儿科配置完善。</p>
-          <p style="font-size:12.5px;color:var(--muted);">南山/宝安方向较方便。</p>
-        </div>
-        <div class="card">
-          <h3>宝安区妇幼保健院</h3>
-          <p>宝安中心区。宝安孕妈主流选择，分娩量大，流程成熟。</p>
-          <p style="font-size:12.5px;color:var(--muted);">建卡+产检+分娩可一站搞定。</p>
-        </div>
-        <div class="card">
-          <h3>龙岗区妇幼保健院</h3>
-          <p>龙岗中心。东部片区最方便的妇幼专科。</p>
-          <p style="font-size:12.5px;color:var(--muted);">床位相对宽松。</p>
-        </div>
-      </div>
-
-      <div class="note warn" style="margin-top:16px;">${ICONS.warn}<div>以上只是参考。<strong>选择医院的核心是：距离近（破水后 30 分钟内能到）+ 有新生儿科 + 你信任的医生</strong>。建议先做几次产检体验再决定。</div></div>
+      <h3 class="section-title" style="margin-top:24px;">🏥 分娩医院选择</h3>
+      <div class="note info" style="margin-bottom:14px;">${ICONS.flag}<div>已迁移到「<strong>医院推荐</strong>」tab —— 按定位匹配你的区/县，给出 4 维度（综合评分 / 距离 / 专科能力 / 就医体验）加权排名，附真实评价与出处。</div></div>
+      <div class="note warn">${ICONS.warn}<div><strong>选择医院的核心是：距离近（破水后 30 分钟内能到）+ 有新生儿科 + 你信任的医生</strong>。建议先做几次产检体验再决定。</div></div>
     </section>`;
 }
 
@@ -1845,6 +2082,8 @@ function renderPost() {
    BIND INTERACTIONS
 ============================================================ */
 function bindPanel() {
+  if (currentTab === 'hospital') { bindHospitalPanel(); return; }
+
   /* checklist toggle */
   document.querySelectorAll('.check').forEach(el => {
     el.addEventListener('click', () => {
@@ -1877,6 +2116,492 @@ function bindPanel() {
       }, 50);
     });
   });
+}
+
+/* ============================================================
+   HOSPITAL RECOMMENDATION MODULE
+   - 用户地理位置（浏览器 Geolocation + Nominatim reverse）
+   - 4 维度评分：综合 / 距离 / 专科 / 体验
+   - 距离权重：Haversine 公式，前端纯算，无 API 依赖
+============================================================ */
+const HOSPITAL_LS_KEY = 'huaiyun-hospital-loc-v1';
+let hospitalData = null;          // 加载后的 hospitals.json
+let hospitalDataLoadError = null; // 加载失败提示
+let userLoc = null;               // { lat, lng, district, source }
+let expandedHospitalId = null;    // 当前展开详情的医院 id
+
+// 读本地持久化位置
+function loadUserLoc() {
+  try {
+    const raw = localStorage.getItem(HOSPITAL_LS_KEY);
+    if (raw) userLoc = JSON.parse(raw);
+  } catch {}
+}
+function saveUserLoc(loc) {
+  userLoc = loc;
+  try { localStorage.setItem(HOSPITAL_LS_KEY, JSON.stringify(loc)); } catch {}
+}
+
+// Haversine 距离（km）
+function haversineKm(a, b) {
+  const R = 6371;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(b[0] - a[0]);
+  const dLng = toRad(b[1] - a[1]);
+  const lat1 = toRad(a[0]), lat2 = toRad(b[0]);
+  const s = Math.sin(dLat/2) ** 2 + Math.sin(dLng/2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+// 距离→分数（线性衰减，0-100）
+function distanceToScore(km) {
+  const p = hospitalData?.distance_policy;
+  const full = p?.full_score_km ?? 5;
+  const zero = p?.zero_score_km ?? 40;
+  if (km <= full) return 100;
+  if (km >= zero) return 0;
+  return Math.round(100 * (zero - km) / (zero - full));
+}
+
+// 综合评分（5 星 → 0-100）
+function overallToScore(star) {
+  return Math.round((star / 5) * 100);
+}
+
+// 单家医院加权总分
+function scoreHospital(h) {
+  const w = hospitalData.scoring_weights;
+  let distKm = null;
+  let distScore = null;
+  if (userLoc?.lat != null && h.coords) {
+    distKm = haversineKm([userLoc.lat, userLoc.lng], h.coords);
+    distScore = distanceToScore(distKm);
+  }
+  const overallScore = overallToScore(h.scores.overall_rating.value);
+  const total = Math.round(
+    w.overall_rating * overallScore +
+    (distScore == null ? 0 : w.distance * distScore) +
+    w.specialty * h.scores.specialty +
+    w.experience * h.scores.experience
+  );
+  return {
+    overallScore,
+    distKm,
+    distScore,
+    specialty: h.scores.specialty,
+    experience: h.scores.experience,
+    total,
+    hasDistance: distKm != null,
+  };
+}
+
+// 加载 hospitals.json（异步，但被 init() fire-and-forget 触发；渲染函数不依赖 await）
+async function loadHospitalData() {
+  if (hospitalData) return hospitalData;
+  try {
+    const res = await fetch('hospitals.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    // 触发一次重渲染如果在医院 tab
+    hospitalData = data;
+    hospitalDataLoadError = null;
+    if (currentTab === 'hospital') renderPanel();
+  } catch (e) {
+    hospitalDataLoadError = '评价数据加载失败：' + e.message + '（请确保 index.html 与 hospitals.json 同目录，且通过 HTTP 服务访问，不能用 file://）';
+    hospitalData = { hospitals: [], regions: { 深圳: { districts: [] } }, scoring_weights: { overall_rating: 0.3, distance: 0.2, specialty: 0.25, experience: 0.25 }, distance_policy: { full_score_km: 5, zero_score_km: 40 } };
+    if (currentTab === 'hospital') renderPanel();
+  }
+  return hospitalData;
+}
+
+// 浏览器定位
+function requestGeolocation() {
+  return new Promise((resolve) => {
+    if (!navigator.geolocation) { resolve({ ok: false, reason: 'unsupported' }); return; }
+    navigator.geolocation.getCurrentPosition(
+      pos => resolve({ ok: true, lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy }),
+      err => resolve({ ok: false, reason: err.code === 1 ? 'denied' : 'unavailable', message: err.message }),
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
+    );
+  });
+}
+
+// Nominatim 反向地理编码（CORS-friendly，免费，1 req/sec 限速）
+// 注意：Nominatim 在国内精度有限，主要服务海外；这里作为辅助，失败回退到手动选区
+async function reverseGeocode(lat, lng) {
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=zh-CN&zoom=14`;
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 6000);
+    const res = await fetch(url, { signal: ctrl.signal, headers: { 'Accept': 'application/json' } });
+    clearTimeout(t);
+    if (!res.ok) return null;
+    const json = await res.json();
+    const a = json.address || {};
+    // Nominatim 国内会返回 county/city 字段，深圳区一级通常是 county
+    const district = a.county || a.city_district || a.suburb || a.town || a.city || '';
+    const city = a.city || a.province || '';
+    return { district: String(district).replace(/区$|县$|市$/, ''), city: String(city).replace(/市$/, '') || '深圳', raw: json };
+  } catch { return null; }
+}
+
+// 根据 GPS 找最近的街道（深圳内优先用街道级精度）
+function nearestShenzhenStreet(lat, lng) {
+  if (!hospitalData?.regions?.深圳?.districts) return null;
+  let best = null, bestKm = Infinity;
+  for (const d of hospitalData.regions.深圳.districts) {
+    const km0 = haversineKm([lat, lng], d.center);
+    if (km0 > 60) continue; // 60km 外的区直接跳过，节省遍历
+    for (const s of (d.streets || [])) {
+      const km = haversineKm([lat, lng], s.center);
+      if (km < bestKm) { bestKm = km; best = { district: d.name, street: s.name, km }; }
+    }
+  }
+  return best;
+}
+
+// 根据 GPS 找最近的区（向后兼容）
+function nearestShenzhenDistrict(lat, lng) {
+  const s = nearestShenzhenStreet(lat, lng);
+  return s ? { name: s.district, km: s.km } : null;
+}
+
+// 启动定位流程（医院 tab "重新定位"按钮调用，与 setupLocate 共享同一逻辑）
+async function locateAndRecommend() {
+  const r = await requestGeolocation();
+  if (!r.ok) {
+    if (r.reason === 'denied') return { ok: false, reason: 'denied' };
+    return { ok: false, reason: r.reason || 'failed' };
+  }
+  const geo = await reverseGeocode(r.lat, r.lng);
+  let district = null, street = null, source = null;
+  const near = nearestShenzhenStreet(r.lat, r.lng);
+  if (near && near.km < 35) {
+    district = near.district; street = near.street; source = 'street-lookup';
+  }
+  if (geo?.district) {
+    const known = (hospitalData?.regions?.深圳?.districts || []).map(d => d.name);
+    if (known.includes(geo.district) || known.includes(geo.district + '区')) {
+      const nomDistrict = geo.district.endsWith('区') ? geo.district : (geo.district + '区');
+      if (!district) { district = nomDistrict; source = 'nominatim'; }
+    }
+  }
+  saveUserLoc({
+    lat: r.lat, lng: r.lng, accuracy: r.accuracy,
+    district: district || null, street: street || null,
+    districtSource: source || 'street-lookup',
+    capturedAt: new Date().toISOString(),
+  });
+  return { ok: true, district, street };
+}
+
+// 手动设置区
+function setManualDistrict(districtName) {
+  const cur = userLoc || {};
+  saveUserLoc({ ...cur, district: districtName, districtSource: 'manual' });
+}
+
+function renderStars(star, max = 5) {
+  const full = Math.floor(star);
+  const half = star - full >= 0.5 ? 1 : 0;
+  const empty = max - full - half;
+  return '★'.repeat(full) + (half ? '☆' : '') + '·'.repeat(empty);
+}
+
+// 渲染位置状态条
+function renderLocBanner() {
+  const loc = userLoc;
+  let statusPill, statusText;
+  if (loc?.district) {
+    statusPill = `<span class="pill">📍 ${esc(loc.street || loc.district)}</span>`;
+    const src = loc.districtSource === 'nominatim' ? 'GPS + Nominatim 反查'
+      : loc.districtSource === 'street-lookup' ? 'GPS + 深圳街道数据匹配'
+      : loc.districtSource === 'manual' ? '手动选择'
+      : '已设置';
+    statusText = `${loc.street ? loc.district + ' · ' + loc.street : loc.district}（${src}）`;
+  } else if (loc?.lat != null) {
+    statusPill = `<span class="pill warn">未识别到具体区</span>`;
+    statusText = `GPS: ${loc.lat.toFixed(4)}, ${loc.lng.toFixed(4)}（可能超出深圳范围）`;
+  } else {
+    statusPill = `<span class="pill gray">未定位</span>`;
+    statusText = '点击"使用我的位置"以匹配附近的医院';
+  }
+  return `
+    <div class="loc-banner">
+      ${statusPill}
+      <span>${esc(statusText)}${loc?.district ? ` · ${hospitalData.hospitals.filter(h => h.district === loc.district).length} 家该区医院已纳入排序` : ''}</span>
+      <span class="actions">
+        ${!loc?.district ? '<button class="primary" id="locBtn">📍 使用我的位置</button>' : '<button id="relocBtn">🔄 重新定位</button>'}
+        <button id="manualBtn">手动选择区</button>
+      </span>
+    </div>`;
+}
+
+function renderDistrictSelector() {
+  if (!hospitalData?.regions?.深圳?.districts) return '';
+  return `
+    <div class="note info" style="margin-bottom:12px;">
+      ${ICONS.flag}<div>
+        <div>选择你所在的区（按区筛选 + 计算距离）：</div>
+        <div class="district-selector" id="districtSel">
+          ${hospitalData.regions.深圳.districts.map(d => `
+            <button data-district="${esc(d.name)}" class="${userLoc?.district === d.name ? 'active' : ''}">${esc(d.name)}</button>
+          `).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// 渲染单家医院评分条
+function renderScoreRow(label, value, max = 100, klass = '') {
+  const pct = Math.min(100, Math.max(0, (value / max) * 100));
+  return `
+    <div class="h-score-row">
+      <span class="label">${label}</span>
+      <div class="bar"><i class="${klass}" style="width:${pct}%"></i></div>
+      <span class="val">${value}</span>
+    </div>`;
+}
+
+// 渲染一家医院的详情展开区
+function renderHospitalDetail(h, score) {
+  const toneIcon = t => t === 'positive' ? '✓' : t === 'negative' ? '⚠' : '!';
+  return `
+    <div class="h-detail">
+      <h4>医院简介</h4>
+      <p class="summary">${esc(h.summary)}</p>
+
+      <h4>专科能力标签</h4>
+      <div class="tag-row">
+        ${h.specialty_tags.map(t => `<span>${esc(t)}</span>`).join('')}
+      </div>
+
+      <h4>真实就医体验</h4>
+      <ul class="evlist">
+        ${h.experience_notes.map(n => `
+          <li class="${n.tone}">
+            <strong>${toneIcon(n.tone)}</strong> ${esc(n.text)}
+            <span class="src">来源：${esc(n.source)}</span>
+          </li>`).join('')}
+      </ul>
+
+      <h4>评价数据来源（可点开核对）</h4>
+      <ul class="src-list">
+        ${h.sources.map(s => `<li>· <a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)}</a></li>`).join('')}
+      </ul>
+
+      <div style="margin-top:12px; display:flex; gap:14px; font-size:12.5px; color:var(--muted); flex-wrap:wrap;">
+        <span>📍 ${esc(h.address)}</span>
+        <span>📞 <a href="tel:${esc(h.phone)}">${esc(h.phone)}</a></span>
+        ${h.annual_deliveries ? `<span>👶 年分娩量约 ${h.annual_deliveries.toLocaleString()}（${h.annual_deliveries_year}）</span>` : ''}
+      </div>
+    </div>`;
+}
+
+// 渲染医院推荐主面板（同步：依赖 init() 中已启动的 loadHospitalData）
+function renderHospital() {
+  if (!hospitalData) {
+    return `
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">${ICONS.hospital} 医院推荐</h2></div>
+        <div class="note info">${ICONS.flag}<div>正在加载医院数据…</div></div>
+      </section>`;
+  }
+
+  if (hospitalDataLoadError) {
+    return `
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">${ICONS.hospital} 医院推荐</h2></div>
+        <div class="note danger">${ICONS.warn}<div>${esc(hospitalDataLoadError)}</div></div>
+      </section>`;
+  }
+
+  // 公私筛选（默认全部）
+  const ownershipFilter = window._ownershipFilter || 'all';
+  const all = hospitalData.hospitals;
+  const filtered = ownershipFilter === 'all' ? all : all.filter(h => (h.ownership || 'public') === ownershipFilter);
+  const counts = {
+    all: all.length,
+    public: all.filter(h => (h.ownership || 'public') === 'public').length,
+    private: all.filter(h => h.ownership === 'private').length,
+  };
+
+  // 计算每家医院评分
+  const scored = filtered.map(h => ({ h, s: scoreHospital(h) }));
+  // 排序：有 GPS 的用加权总分，无 GPS 的回退到综合分（5 星 → 100）
+  scored.sort((a, b) => {
+    if (userLoc?.lat != null) return b.s.total - a.s.total;
+    return b.s.overallScore - a.s.overallScore;
+  });
+
+  // 给用户所在区优先标记，但仍然全深圳排序
+  const w = hospitalData.scoring_weights;
+  const weightDesc = `综合 ${Math.round(w.overall_rating*100)}% · 距离 ${Math.round(w.distance*100)}% · 专科 ${Math.round(w.specialty*100)}% · 体验 ${Math.round(w.experience*100)}%`;
+
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.hospital} 医院推荐</h2>
+      </div>
+      <p class="panel-sub">基于真实公开评价与地理位置，按 4 维度加权排序。点击卡片展开评分拆解、评价摘要与数据出处。</p>
+
+      ${renderLocBanner()}
+      ${userLoc && !userLoc.district ? renderDistrictSelector() : ''}
+
+      <div class="ownership-toggle" id="ownershipToggle">
+        <button data-filter="all" class="${ownershipFilter === 'all' ? 'active' : ''}">全部 <span class="cnt">${counts.all}</span></button>
+        <button data-filter="public" class="${ownershipFilter === 'public' ? 'active' : ''}">🏛️ 公办 <span class="cnt">${counts.public}</span></button>
+        <button data-filter="private" class="${ownershipFilter === 'private' ? 'active' : ''}">🏢 私立 <span class="cnt">${counts.private}</span></button>
+      </div>
+
+      <div class="note info" style="margin-bottom:14px;">
+        ${ICONS.flag}<div>
+          <strong>当前权重：</strong>${esc(weightDesc)}。<br/>
+          ${userLoc?.lat != null
+            ? `距离采用 Haversine 公式按 GPS 直算；≤${hospitalData.distance_policy.full_score_km}km 得满分，超过 ${hospitalData.distance_policy.zero_score_km}km 不得分，中间线性衰减。`
+            : '尚未获得 GPS 位置，仅按综合评分排序。点击"使用我的位置"启用距离权重。'}
+        </div>
+      </div>
+
+      <div id="hospitalList">
+        ${scored.map((item, i) => renderHospitalCard(item, i)).join('')}
+      </div>
+
+      <div class="note warn" style="margin-top:16px;">
+        ${ICONS.warn}<div><strong>说明：</strong>本榜单基于公开渠道整理的医院信息、官方公告与公开患者评价，<strong>不能替代医生面诊与个人体验</strong>。建议先做几次产检体验，再综合医生、转诊通道、家庭距离等因素决定。</div>
+      </div>
+    </section>`;
+}
+
+function renderHospitalCard(item, index) {
+  const { h, s } = item;
+  const isOpen = expandedHospitalId === h.id;
+  const rankClass = index === 0 ? 'top' : index === 1 ? 'second' : '';
+  const sameDistrict = userLoc?.district && h.district === userLoc.district;
+  const ownership = h.ownership || 'public';
+  const ownBadge = ownership === 'private'
+    ? '<span class="own-badge own-private">🏢 私立</span>'
+    : '<span class="own-badge own-public">🏛️ 公办</span>';
+  return `
+    <div class="h-card ${isOpen ? 'expanded' : ''}" data-hospital="${esc(h.id)}">
+      <div class="row">
+        <h3 class="name">
+          <span class="rank ${rankClass}">${index + 1}</span>
+          ${esc(h.name)}
+          ${sameDistrict ? '<span class="pill" style="font-size:11px; padding:1px 8px; background:var(--primary-soft); color:var(--primary-deep); border-radius:999px; margin-left:4px;">📍 同区</span>' : ''}
+          ${ownBadge}
+        </h3>
+        <div>
+          ${s.hasDistance
+            ? `<span class="total">${s.total}</span><span class="dist">${s.distKm.toFixed(1)} km</span>`
+            : `<span class="total">${s.overallScore}</span><span style="font-size:12px;color:var(--muted);">综合</span>`}
+        </div>
+      </div>
+      <div class="meta">
+        <span class="stars">${renderStars(h.scores.overall_rating.value)}</span>
+        <span>${h.scores.overall_rating.value.toFixed(1)} (${h.scores.overall_rating.review_count}+ 评价)</span>
+        <span class="dot">·</span>
+        <span>${esc(h.type)} · ${esc(h.level)}</span>
+        <span class="dot">·</span>
+        <span>${esc(h.district)}</span>
+        ${h.annual_deliveries ? `<span class="dot">·</span><span>年分娩 ${h.annual_deliveries.toLocaleString()}</span>` : ''}
+      </div>
+
+      ${renderScoreRow('综合评分', s.overallScore)}
+      ${s.hasDistance ? renderScoreRow('距离', s.distScore) : ''}
+      ${renderScoreRow('专科能力', s.specialty, 100, 'specialty')}
+      ${renderScoreRow('就医体验', s.experience, 100, 'experience')}
+
+      ${isOpen ? renderHospitalDetail(h, s) : `<div style="margin-top:8px; font-size:12px; color:var(--primary-deep);">点击展开评分拆解与真实评价 →</div>`}
+    </div>`;
+}
+
+/* ============================================================
+   HOSPITAL PANEL BINDINGS (called from bindPanel when on hospital tab)
+============================================================ */
+function bindHospitalPanel() {
+  loadUserLoc();
+  const locBtn = document.getElementById('locBtn');
+  const relocBtn = document.getElementById('relocBtn');
+  const manualBtn = document.getElementById('manualBtn');
+  const districtSel = document.getElementById('districtSel');
+
+  if (locBtn) locBtn.addEventListener('click', async () => {
+    locBtn.disabled = true; locBtn.textContent = '📍 定位中...';
+    const r = await locateAndRecommend();
+    locBtn.disabled = false;
+    if (!r.ok) {
+      alert(r.reason === 'denied' ? '已拒绝位置权限。请在浏览器设置中允许位置，或使用"手动选择区"。'
+        : r.reason === 'unsupported' ? '当前浏览器不支持定位 API，请使用"手动选择区"。'
+        : '定位失败，请使用"手动选择区"。');
+    }
+    renderPanel();
+  });
+
+  if (relocBtn) relocBtn.addEventListener('click', async () => {
+    relocBtn.disabled = true; relocBtn.textContent = '🔄 重新定位中...';
+    const r = await locateAndRecommend();
+    relocBtn.disabled = false;
+    if (!r.ok) {
+      alert(r.reason === 'denied' ? '已拒绝位置权限。'
+        : '定位失败，请使用"手动选择区"。');
+    }
+    renderPanel();
+  });
+
+  if (manualBtn) manualBtn.addEventListener('click', () => {
+    if (!hospitalData?.regions?.深圳?.districts) return;
+    const districts = hospitalData.regions.深圳.districts.map(d => d.name);
+    const cur = userLoc?.district;
+    const idx = cur ? Math.max(0, districts.indexOf(cur)) : 0;
+    const choice = prompt(
+      '手动选择你所在的区（用于按区筛选 + 计算距离）：\n' +
+      districts.map((d, i) => `${i + 1}. ${d}${d === cur ? '  (当前)' : ''}`).join('\n'),
+      String(idx + 1)
+    );
+    if (!choice) return;
+    const n = parseInt(choice, 10);
+    if (n >= 1 && n <= districts.length) {
+      setManualDistrict(districts[n - 1]);
+      renderPanel();
+    }
+  });
+
+  if (districtSel) {
+    districtSel.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        setManualDistrict(b.dataset.district);
+        renderPanel();
+      });
+    });
+  }
+
+  // 医院卡片点击展开/收起
+  document.querySelectorAll('.h-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.hospital;
+      expandedHospitalId = expandedHospitalId === id ? null : id;
+      renderPanel();
+      // 展开后滚动到可见区
+      if (expandedHospitalId) {
+        setTimeout(() => {
+          const sel = document.querySelector(`.h-card[data-hospital="${expandedHospitalId}"]`);
+          if (sel) sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
+      }
+    });
+  });
+
+  // 公私筛选切换
+  const ownToggle = document.getElementById('ownershipToggle');
+  if (ownToggle) {
+    ownToggle.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        window._ownershipFilter = b.dataset.filter;
+        renderPanel();
+      });
+    });
+  }
 }
 
 /* load persisted checks */
