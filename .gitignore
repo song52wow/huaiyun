@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# 备份文件（如 hospitals.json.bak）
+*.bak
