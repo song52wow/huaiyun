@@ -64,8 +64,36 @@
     width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
     background: var(--bg); font-family: inherit; font-size: 16px; color: var(--ink);
   }
-  .setup input[type=date]:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+  .setup input[type=number] {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--bg); font-family: inherit; font-size: 16px; color: var(--ink);
+  }
+  .setup input[type=date]:focus, .setup input[type=number]:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
   .setup .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.55; }
+  .setup .hint.warn-hint { background: var(--accent-soft); color: var(--ink-2); padding: 10px 12px; border-radius: 10px; font-size: 13px; }
+  .setup .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg-btn {
+    flex: 1 1 auto; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink-2); font-family: inherit; font-size: 12.5px; cursor: pointer;
+    transition: all .15s ease;
+  }
+  .seg-btn:hover { border-color: var(--primary); color: var(--ink); }
+  .seg-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .flags { display: grid; gap: 6px; }
+  .flag {
+    display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--line-soft); cursor: pointer; user-select: none;
+    transition: all .15s ease;
+  }
+  .flag:hover { border-color: var(--primary); }
+  .flag.on { border-color: var(--primary); background: var(--primary-soft); }
+  .flag .bx {
+    flex-shrink: 0; width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--line);
+    background: var(--paper); display: inline-flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .flag.on .bx { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .flag .lbl { font-size: 13.5px; color: var(--ink); font-weight: 500; }
+  .flag small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; font-weight: 400; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 12px 20px; border: 0; border-radius: 10px; background: var(--primary); color: white;
@@ -158,7 +186,7 @@
   .card p { margin: 0 0 8px; color: var(--ink-2); font-size: 14px; }
   .card ul { margin: 0; padding: 0 0 0 18px; color: var(--ink-2); font-size: 14px; }
   .card li { margin: 4px 0; }
-  .card .kv { display: grid; grid-template-columns: 100px 1fr; row-gap: 6px; column-gap: 12px; font-size: 13.5px; }
+  .card .kv { display: grid; grid-template-columns: 100px 1fr; row-gap: 6px; column-gap: 12px; font-size: 13.5px; margin: 0; }
   .card .kv dt { color: var(--muted); }
   .card .kv dd { margin: 0; color: var(--ink-2); }
 
@@ -340,11 +368,47 @@
 <div class="setup" id="setupScreen" style="display:none;">
   <div class="setup-card">
     <h1>欢迎，准爸妈 👋</h1>
-    <p class="sub">告诉我末次月经的第一天，我会算出当前孕周、倒计时，并生成每天该做的事。</p>
-    <label for="lmpInput">末次月经第一天（LMP）</label>
-    <input type="date" id="lmpInput" />
-    <p class="hint">不记得准确日期没关系，按印象选一个大概的，我会在周历里按周提示。<br/>预产期 = LMP + 280 天（40 周）。</p>
+    <p class="sub" id="setupSub">先确认孕周怎么算，再勾选需要特别留意的情况，我会据此生成每天该做的事。</p>
+
+    <label>孕周怎么算？</label>
+    <div class="seg" id="datingSeg">
+      <button type="button" class="seg-btn active" data-mode="lmp">按末次月经</button>
+      <button type="button" class="seg-btn" data-mode="due">按医生核定的预产期</button>
+      <button type="button" class="seg-btn" data-mode="week">按医生核定的孕周</button>
+    </div>
+
+    <div id="lmpField">
+      <label for="lmpInput">末次月经第一天（LMP）</label>
+      <input type="date" id="lmpInput" />
+      <p class="hint">预产期 = LMP + 280 天（40 周）。</p>
+    </div>
+
+    <div id="dueField" style="display:none;">
+      <label for="dueInput">医生核定的预产期</label>
+      <input type="date" id="dueInput" />
+      <p class="hint">以早孕超声（头臀长）或医生核定的预产期为准，最准确。</p>
+    </div>
+
+    <div id="weekField" style="display:none;">
+      <label for="weekInput">医生核定的孕周</label>
+      <div class="row">
+        <input type="number" id="weekInput" min="1" max="42" step="1" placeholder="周，如 9" style="flex:1 1 120px;" />
+        <input type="number" id="dayInput" min="0" max="6" step="1" placeholder="天，如 3" style="flex:1 1 120px;" />
+      </div>
+      <label for="weekInputDate">核定当天的日期</label>
+      <input type="date" id="weekInputDate" />
+      <p class="hint">例如医生说「今天孕 9 周 3 天」，就填 9 / 3 / 今天。用于反推预产期。</p>
+    </div>
+
+    <p class="hint warn-hint" id="irregularHint" style="display:none;">
+      ⚠️ <strong>多囊 / 月经不规律时，按末次月经推算的孕周可能偏差数周</strong>，NT、糖耐、胎动提醒都会跟着错位。
+      请尽快做早孕超声核定孕周，然后在这里改成「按医生核定的预产期 / 孕周」。
+    </p>
+
+    <label>个人情况（可多选，会插入对应提醒）</label>
+    <div class="flags" id="flagBox"></div>
     <div class="row-end">
+      <button class="btn ghost" id="cancelBtn" style="display:none;">取消</button>
       <button class="btn" id="startBtn">开始陪伴 →</button>
     </div>
   </div>
@@ -359,7 +423,7 @@
       <h1>孕期陪伴手册</h1>
       <div class="meta" id="metaLine"></div>
     </div>
-    <button class="settings-btn" id="settingsBtn" title="修改日期">
+    <button class="settings-btn" id="settingsBtn" title="修改孕周与个人情况">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8 1 6.5 2.7L21 8"/><path d="M21 3v5h-5"/></svg>
     </button>
   </header>
@@ -391,7 +455,9 @@
 
   <footer>
     <div>为深圳家庭的孕期陪伴 · 单文件本地版 · 数据存在你的浏览器</div>
-    <div class="disclaimer">本页面仅作日常参考，医疗决策请遵医嘱；政策/流程可能调整，请以医院和街道最新通知为准。</div>
+    <div class="disclaimer">本页面仅作日常参考，医疗决策请遵医嘱；政策/流程可能调整，请以医院和街道最新通知为准。<br/>
+      <button id="resetLink" style="margin-top:8px;background:none;border:0;color:var(--muted);font:inherit;font-size:11.5px;text-decoration:underline;cursor:pointer;">清空所有本地数据</button>
+    </div>
   </footer>
 </div>
 
@@ -417,6 +483,18 @@ function fmtDate(d, withYear = true) {
 }
 function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
 function diffDays(a, b) { return Math.round((b - a) / DAY); }
+/* 严格解析 LMP，避免损坏的存档导致 NaN 白屏 */
+function parseLmp(s) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(s || ''))) return null;
+  const d = new Date(s + 'T00:00:00');
+  return isNaN(d.getTime()) ? null : d;
+}
+function lmpDate() { return parseLmp(state && state.lmp) || todayDate(); }
+/* 本地时区的 YYYY-MM-DD；不能用 toISOString()，UTC 会差一天 */
+function localDateKey(d = todayDate()) {
+  const m = d.getMonth() + 1, day = d.getDate();
+  return `${d.getFullYear()}-${String(m).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+}
 
 /* pregnancy weeks: week N covers LMP + (N-1)*7 to LMP + N*7 - 1 (inclusive) */
 function currentWeek(lmp, refDate = todayDate()) {
@@ -438,9 +516,6 @@ function trimesterOf(w) {
   if (w <= 27) return '孕中期 · 第 14-27 周';
   return '孕晚期 · 第 28-40 周';
 }
-function postpartumLabel(p) {
-  return `产后第 ${p} 周 · 出月子中`;
-}
 
 /* ============================================================
    WEEK DATA (40 weeks + 4 weeks postpartum)
@@ -458,7 +533,7 @@ const WEEKS = [
   week: 2, baby: { size: '针尖', cm: '—', g: '—',
   dev: '排卵期，卵子在输卵管等待受精。精卵结合即完成受孕。' },
   mom: { change: '基础体温略升高，白带增多。', symptom: '可能感觉到轻微排卵痛。' },
-  todo: ['同房后不要立刻剧烈运动', '继续服用叶酸', '保持情绪放松'],
+  todo: ['继续服用叶酸', '保持情绪放松', '规律作息，戒烟酒、远离二手烟'],
   diet: ['高蛋白：鸡蛋、鱼、瘦肉', '温开水 1500ml+'],
   warn: [],
 },
@@ -482,7 +557,7 @@ const WEEKS = [
   week: 5, baby: { size: '苹果籽', cm: '0.4', g: '—',
   dev: '心脏开始跳动（已能用阴道超声看到），神经管形成。' },
   mom: { change: '早孕反应逐渐明显。', symptom: '恶心（尤其晨起）、嗅觉敏感、疲倦。' },
-  todo: ['预约产科建档', '避免 X 光/CT/染发', '补充叶酸 + 维 B6'],
+  todo: ['预约产科建档', '就医时主动告知已怀孕：必要的 X 光/CT 可以做，别自行拒绝，非必要检查推迟', '补充叶酸 + 维 B6'],
   diet: ['姜、陈皮、苏打饼', '避免油腻、腥味重的食物', '少量多餐'],
   warn: [],
 },
@@ -620,7 +695,7 @@ const WEEKS = [
   mom: { change: '行动稍迟缓。', symptom: '脚踝轻度水肿。' },
   todo: ['抬高双腿休息', '鞋子宽松', '产检血压'],
   diet: ['冬瓜、赤小豆（去水肿）', '低盐饮食'],
-  warn: ['水肿突然加重 + 头痛 + 视物模糊请立即就医（先兆子痫）'],
+  warn: ['水肿突然加重 + 头痛 + 视物模糊请立即就医（子痫前期）'],
 },
 {
   week: 23, baby: { size: '芒果', cm: '28.9', g: '501',
@@ -698,7 +773,7 @@ const WEEKS = [
   week: 32, baby: { size: '大白菜', cm: '42.4', g: '1702',
   dev: '四肢活动空间变小，胎动可能减少但仍规律。' },
   mom: { change: '宫底接近剑突。', symptom: '胃灼热、呼吸短促。' },
-  todo: ['胎心监护开始', '每 2 周产检', '确认待产包'],
+  todo: ['了解胎心监护是什么（一般 37 周起每周做，高危孕妇按医生安排提前）', '每 2 周产检', '确认待产包'],
   diet: ['少量多餐', '避免辛辣、油腻', '饭后斜靠 30 分钟'],
   warn: [],
 },
@@ -707,7 +782,7 @@ const WEEKS = [
   dev: '骨骼变硬（颅骨除外，方便分娩时挤压）。' },
   mom: { change: '水肿常见。', symptom: '手指关节僵硬。' },
   todo: ['取下戒指', '睡高枕头防胃酸反流'],
-  diet: ['低盐', '利尿：冬瓜汤、玉米须水'],
+  diet: ['低盐饮食', '冬瓜汤等清淡汤水（水肿明显请先由医生排除子痫前期，不要自行利尿）'],
   warn: [],
 },
 {
@@ -728,10 +803,10 @@ const WEEKS = [
 },
 {
   week: 36, baby: { size: '白兰瓜', cm: '47.4', g: '2622',
-  dev: '已基本足月（37 周前不算早产已属"晚期早产"）。' },
+  dev: '36 周出生的宝宝仍属于"晚期早产"，37 周起才算足月。孕 36 周后一般会做 B 族链球菌（GBS）筛查。' },
   mom: { change: '产检每周一次。', symptom: '假宫缩增多、见红可能。' },
   todo: ['待产包必须已装好', '家里准备好婴儿床、洗澡盆', '订月嫂 / 月子中心'],
-  diet: ['易消化', '椰子水（民间认为补羊水）', '红枣枸杞'],
+  diet: ['易消化', '椰子水 / 淡汤水适量补水（不能增加羊水）', '红枣枸杞'],
   warn: ['见红量多、规律宫缩、破水请立即去医院'],
 },
 {
@@ -739,7 +814,7 @@ const WEEKS = [
   dev: '正式足月！随时可能发动。' },
   mom: { change: '宝宝可能已入盆，呼吸轻松些。', symptom: '耻骨痛、腰痛。' },
   todo: ['学习临产征兆', '产检 + 胎监', '确认家人陪产安排'],
-  diet: ['待产能量：巧克力、红牛', '临产前进食不易过饱'],
+  diet: ['待产能量：巧克力、香蕉、蜂蜜水、运动饮料（少量多次）', '临产前进食不易过饱'],
   warn: ['破水 → 平躺、垫高臀部、立即去医院'],
 },
 {
@@ -763,7 +838,7 @@ const WEEKS = [
   dev: '预产期！多数宝宝在 38-42 周内出生。' },
   mom: { change: '宫颈成熟、可能已开指。', symptom: '不规律宫缩变得规律。' },
   todo: ['保持冷静', '家人随叫随到', '医院 24h 急诊通道'],
-  diet: ['流质食物（万一剖宫产需禁食 8h）'],
+  diet: ['清淡易消化；如需剖宫产，禁食安排以医院通知为准（一般禁固体 6 小时、清饮 2 小时），不要自行长时间禁食'],
   warn: ['41 周未发动需医生评估引产时机'],
 },
 ];
@@ -847,7 +922,7 @@ const SZ_RESOURCES = [
 ============================================================ */
 const DRINKS = [
 { name: '椰子水', icon: 'coconut', ok: true,
-  desc: '天然电解质，富含钾。民间认为有助于补羊水。',
+  desc: '天然电解质饮品，可适量补水；没有证据表明它能增加羊水量，羊水过少需由医生评估处理。',
   meta: '适量 200-300ml/天 · 孕中后期 · 控糖期选天然无糖',
 },
 { name: '温开水', icon: 'drop', ok: true,
@@ -876,15 +951,15 @@ const DRINKS = [
 },
 { name: '红枣枸杞水', icon: 'drop', ok: true,
   desc: '补气血。少量常喝，孕晚期可加量。',
-  meta: '少量 · 红枣每天 3-5 颗 · 上火时停',
+  meta: '少量 · 红枣每天 3-5 颗 · 糖分高，控糖期（GDM/PCOS/超重）要算入碳水 · 上火时停',
 },
 { name: '柠檬蜂蜜水', icon: 'drop', ok: true,
   desc: '缓解孕吐、补水维 C。',
   meta: '晨起或反胃时 · 蜂蜜少量 · 选新鲜柠檬',
 },
-{ name: '玉米须水', icon: 'drop', ok: true,
-  desc: '利尿消肿、降三高，孕晚期水肿适用。',
-  meta: '孕晚期 · 不要加糖',
+{ name: '玉米须水', icon: 'warn', ok: false,
+  desc: '民间用于利水，但缺乏孕期证据。孕晚期水肿首先要由产检医生排除子痫前期，不要自行利尿，以免掩盖病情。',
+  meta: '慎用 · 水肿请先就医评估',
 },
 { name: '咖啡（淡）', icon: 'coffee', ok: false,
   desc: '每日咖啡因 <200mg 视为安全，约 1 小杯。',
@@ -923,7 +998,7 @@ const MEALS = [
 { meal: '晚餐', name: '清蒸虾 + 蒜蓉西兰花 + 小米饭', note: '优质蛋白 + 维 C + 钙', icon: 'moon' },
 { meal: '晚餐', name: '花胶红枣汤 + 时蔬 + 杂粮饭', note: '花胶富含胶原蛋白，孕中期后补', icon: 'moon' },
 { meal: '加餐', name: '酸奶 + 蓝莓 + 核桃', note: '益生菌 + 抗氧化 + DHA', icon: 'apple' },
-{ meal: '加餐', name: '红豆西米露（少糖）', note: '广东经典糖水，补铁去湿', icon: 'apple' },
+{ meal: '加餐', name: '红豆西米露（少糖）', note: '广东经典糖水；西米是纯淀粉，控糖期（GDM/PCOS）避免', icon: 'apple' },
 ];
 
 /* ============================================================
@@ -940,7 +1015,7 @@ const CHECKLIST_POOL = [
 { id: 'noRaw', when: w => true, text: '不吃生冷、半生熟、隔夜', small: '刺身、半熟蛋、生奶酪、未消毒果汁都避免' },
 { id: 'kegel', when: w => w >= 13, text: '凯格尔运动 10 分钟', small: '预防漏尿、助产' },
 { id: 'talkBaby', when: w => w >= 17, text: '与宝宝说说话 / 胎教 10 分钟', small: '可读故事、听轻柔音乐' },
-{ id: 'countKick', when: w => w >= 28, text: '认真数胎动 3 次（早中晚各 1h）', small: '12h 累计 ≥30 次为正常；明显减少立即就医' },
+{ id: 'countKick', when: w => w >= 28, text: '每日固定时段数胎动（早/中/晚各 1 小时）', small: '常用参考"2 小时内 ≥10 次"，但关键是与自己平时的规律比较；胎动明显减少或消失，立即就医，不要等第二天' },
 { id: 'oilSkin', when: w => w >= 14, text: '涂抹身体油 / 乳液（腹部、臀部、大腿）', small: '预防妊娠纹关键在保湿+控体重' },
 { id: 'birthClass', when: w => w >= 28, text: '线上分娩课 / 拉玛泽练习', small: '医院常有免费课，可联系产检护士' },
 { id: 'bagReady', when: w => w >= 32, text: '待产包就位、家人知道流程', small: '包括证件、产检手册、宝宝衣物' },
@@ -949,6 +1024,18 @@ const CHECKLIST_POOL = [
 { id: 'postnatalCare', when: w => w >= 32, text: '安排月子（家人/月嫂/月子中心）', small: '深圳金牌月嫂 1.2w-1.8w/月起' },
 { id: 'monitor', when: w => w >= 32, text: '关注胎动和假宫缩变化', small: '每 2-3 周产检 + 胎监' },
 { id: 'hotline', when: w => w >= 32, text: '医院产科急诊电话存手机', small: '同时保存 120、家人紧急联系人' },
+];
+
+/* 产后待办（与孕期清单分开，避免产后仍显示数胎动/待产包等孕期条目） */
+const POSTPARTUM_CHECKS = [
+{ id: 'feed', text: '按需哺乳 / 配方奶 8-12 次/24h', small: '白天 2-3 小时一次，夜间不超过 4 小时，按需为主' },
+{ id: 'cord', text: '脐带护理：保持清洁干燥', small: '一般 7-14 天脱落；是否用碘伏以分娩医院指导为准' },
+{ id: 'jaundice', text: '观察黄疸（额头 / 胸口 / 四肢）', small: '生理性黄疸 5-7 天达峰、2 周内退；范围扩大或加深请就医' },
+{ id: 'lochia', text: '观察恶露量与颜色', small: '超过月经量、有大血块、发热或有异味 → 立即就医' },
+{ id: 'momSleep', text: '产妇保证 7-8 小时睡眠（夜间可让家人替一次）', small: '碎片化补觉也算数，别硬扛' },
+{ id: 'mood', text: '关注情绪（可用 EPDS 自评）', small: '低落持续 >2 周，或出现伤害自己的想法，立即求助' },
+{ id: 'pelvic', text: '凯格尔 / 盆底康复', small: '一般产后 42 天复查后，按医生建议开始' },
+{ id: 'check42', text: '预约产后 42 天复查（产妇 + 宝宝）', small: '产妇查盆底、伤口、血压；宝宝查生长，髋关节 B 超按医生建议' },
 ];
 
 /* ============================================================
@@ -1001,52 +1088,172 @@ function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&
 /* ============================================================
    INIT
 ============================================================ */
+/* 个人情况（高危因素）选项：勾选后会插入对应提醒 */
+const PROFILE_FLAGS = [
+{ id: 'pcos', short: 'PCOS', label: '多囊卵巢综合征（PCOS）',
+  note: '妊娠期糖尿病、子痫前期风险升高，需提前评估血糖与血压' },
+{ id: 'ama', short: '高龄', label: '年龄 ≥35 岁',
+  note: '染色体异常与子痫前期风险升高，产前筛查/诊断按医生建议' },
+{ id: 'multi', short: '双胎', label: '双胎 / 多胎',
+  note: '早产、子痫前期、贫血风险升高，产检频次通常更高' },
+{ id: 'obese', short: '肥胖', label: '孕前 BMI ≥30（肥胖）',
+  note: 'GDM、子痫前期、巨大儿风险升高，重点是控制增重速度' },
+];
+
 let state = loadState();
 let currentTab = 'today';
 let currentWeekDetail = null;
 let completedChecks = {}; // { dateISO: { id: true } }
+let datingMode = 'lmp';
+let editing = false;
 
-function init() {
-  /* dev/test override: ?lmp=YYYY-MM-DD 在 URL 后面即可跳过设置页 */
-  const params = new URLSearchParams(location.search);
-  const devLmp = params.get('lmp');
-  if (devLmp && /^\d{4}-\d{2}-\d{2}$/.test(devLmp)) {
-    state = { lmp: devLmp };
-    saveState(state);
-  }
-  if (!state || !state.lmp) {
-    document.getElementById('setupScreen').style.display = 'flex';
-    document.getElementById('appScreen').style.display = 'none';
-    document.getElementById('startBtn').addEventListener('click', startApp);
-    document.getElementById('lmpInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') startApp();
-    });
-  } else {
-    document.getElementById('setupScreen').style.display = 'none';
-    document.getElementById('appScreen').style.display = 'block';
-    renderApp();
-  }
+function profile() { return (state && state.profile) || {}; }
+function activeFlags() { const p = profile(); return PROFILE_FLAGS.filter(f => p[f.id]); }
+
+/* --- 设置页表单 --- */
+function renderFlagBox() {
+  const box = document.getElementById('flagBox');
+  const p = profile();
+  box.innerHTML = PROFILE_FLAGS.map(f => `
+    <div class="flag ${p[f.id] ? 'on' : ''}" data-flag="${f.id}">
+      <span class="bx">${p[f.id] ? ICONS.check : ''}</span>
+      <span class="lbl">${esc(f.label)}<small>${esc(f.note)}</small></span>
+    </div>`).join('');
+  box.querySelectorAll('.flag').forEach(el => el.addEventListener('click', () => {
+    el.classList.toggle('on');
+    el.querySelector('.bx').innerHTML = el.classList.contains('on') ? ICONS.check : '';
+    updateIrregularHint();
+  }));
 }
 
-function startApp() {
-  const v = document.getElementById('lmpInput').value;
-  if (!v) { document.getElementById('lmpInput').focus(); return; }
-  state = { lmp: v };
-  saveState(state);
+function updateIrregularHint() {
+  const pcosOn = !!document.querySelector('#flagBox .flag[data-flag="pcos"].on');
+  document.getElementById('irregularHint').style.display = (pcosOn && datingMode === 'lmp') ? '' : 'none';
+}
+
+function setDatingMode(m) {
+  datingMode = m;
+  document.querySelectorAll('#datingSeg .seg-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('lmpField').style.display = m === 'lmp' ? '' : 'none';
+  document.getElementById('dueField').style.display = m === 'due' ? '' : 'none';
+  document.getElementById('weekField').style.display = m === 'week' ? '' : 'none';
+  updateIrregularHint();
+}
+
+function fillForm() {
+  const s = state || {};
+  document.getElementById('lmpInput').value = s.lmp || '';
+  document.getElementById('dueInput').value = s.due || '';
+  document.getElementById('weekInput').value = s.week || '';
+  document.getElementById('dayInput').value = (s.day === undefined || s.day === null) ? '' : s.day;
+  document.getElementById('weekInputDate').value = s.refDate || fmtDate(todayDate());
+  renderFlagBox();
+  setDatingMode(s.dating || 'lmp');
+}
+
+/* 读取表单并统一换算成 lmp，后续所有孕周计算都基于 state.lmp */
+function readForm() {
+  const prof = {};
+  document.querySelectorAll('#flagBox .flag.on').forEach(el => { prof[el.dataset.flag] = true; });
+  const s = { dating: datingMode, profile: prof };
+  if (datingMode === 'lmp') {
+    const v = document.getElementById('lmpInput').value;
+    if (!parseLmp(v)) { document.getElementById('lmpInput').focus(); return null; }
+    s.lmp = v;
+  } else if (datingMode === 'due') {
+    const v = document.getElementById('dueInput').value;
+    if (!parseLmp(v)) { document.getElementById('dueInput').focus(); return null; }
+    s.due = v;
+    s.lmp = fmtDate(addDays(new Date(v + 'T00:00:00'), -280));
+  } else {
+    const wk = parseInt(document.getElementById('weekInput').value, 10);
+    let dy = parseInt(document.getElementById('dayInput').value, 10);
+    if (isNaN(dy) || dy < 0) dy = 0;
+    if (dy > 6) dy = 6;
+    const ref = document.getElementById('weekInputDate').value;
+    if (!(wk >= 1 && wk <= 42)) { document.getElementById('weekInput').focus(); return null; }
+    if (!parseLmp(ref)) { document.getElementById('weekInputDate').focus(); return null; }
+    s.week = wk; s.day = dy; s.refDate = ref;
+    s.lmp = fmtDate(addDays(new Date(ref + 'T00:00:00'), -((wk - 1) * 7 + dy)));
+  }
+  return s;
+}
+
+function showApp() {
+  editing = false;
   document.getElementById('setupScreen').style.display = 'none';
   document.getElementById('appScreen').style.display = 'block';
   renderApp();
 }
 
-function resetApp() {
-  if (!confirm('确定要修改末次月经日期吗？这会重新计算所有周数。')) return;
+function openSetup(isEditing) {
+  editing = !!isEditing;
+  if (editing) fillForm();
+  document.getElementById('cancelBtn').style.display = editing ? '' : 'none';
+  document.getElementById('startBtn').textContent = editing ? '保存' : '开始陪伴 →';
+  document.getElementById('setupSub').textContent = editing
+    ? '修改孕周计算方式或个人情况；已勾选的每日待办会保留。'
+    : '先确认孕周怎么算，再勾选需要特别留意的情况，我会据此生成每天该做的事。';
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('setupScreen').style.display = 'flex';
+  window.scrollTo(0, 0);
+}
+
+function startApp() {
+  const s = readForm();
+  if (!s) return;
+  state = s;
+  saveState(state);
+  showApp();
+}
+
+function cancelSetup() { showApp(); }
+
+function resetAll() {
+  if (!confirm('确定清空所有本地数据（含每日勾选记录）吗？')) return;
   localStorage.removeItem(LS_KEY);
+  localStorage.removeItem(LS_KEY + '-checks');
   location.reload();
+}
+
+function bindSetup() {
+  document.getElementById('startBtn').addEventListener('click', startApp);
+  document.getElementById('cancelBtn').addEventListener('click', cancelSetup);
+  document.querySelectorAll('#datingSeg .seg-btn').forEach(b => {
+    b.addEventListener('click', () => setDatingMode(b.dataset.mode));
+  });
+  ['lmpInput','dueInput','weekInput','dayInput','weekInputDate'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') startApp();
+    });
+  });
+  document.getElementById('resetLink').addEventListener('click', resetAll);
+  const gear = document.getElementById('settingsBtn');
+  gear.title = '修改孕周与个人情况';
+  gear.addEventListener('click', () => openSetup(true));
+}
+
+function init() {
+  /* dev/test override: ?lmp=YYYY-MM-DD 仅本次会话生效，不写回用户存档 */
+  const params = new URLSearchParams(location.search);
+  const devLmp = params.get('lmp');
+  if (devLmp && /^\d{4}-\d{2}-\d{2}$/.test(devLmp)) {
+    state = { lmp: devLmp, dating: 'lmp', profile: {} };
+  }
+  /* 存档损坏时退回设置页，避免 NaN 导致白屏 */
+  if (state && state.lmp && !parseLmp(state.lmp)) state = null;
+  bindSetup();
+  if (!state || !state.lmp) {
+    fillForm();
+    openSetup(false);
+  } else {
+    showApp();
+  }
 }
 
 function renderApp() {
   const today = todayDate();
-  const lmp = new Date(state.lmp + 'T00:00:00');
+  const lmp = lmpDate();
   const w = currentWeek(lmp, today);
   const p = inPostpartum(lmp, today);
   const due = dueDate(lmp);
@@ -1058,7 +1265,9 @@ function renderApp() {
   else phase = `产后第 ${p} 周`;
 
   document.getElementById('greet').textContent = `${fmtDate(today, false)} · ${['周日','周一','周二','周三','周四','周五','周六'][today.getDay()]}`;
-  document.getElementById('metaLine').innerHTML = phase;
+  const flags = activeFlags();
+  document.getElementById('metaLine').innerHTML = phase +
+    (flags.length ? ` · <span style="color:var(--danger);font-weight:600;">高危因素：${flags.map(f => esc(f.short)).join('、')}</span>` : '');
 
   /* progress */
   let pct = 0, weekBig = '—', weekTag = '—';
@@ -1085,8 +1294,6 @@ function renderApp() {
   }));
 
   /* settings */
-  document.getElementById('settingsBtn').addEventListener('click', resetApp);
-
   renderPanel();
 }
 
@@ -1114,43 +1321,60 @@ function renderPanel() {
   bindPanel();
 }
 
+function pcosChecks(w) {
+  const list = [
+    { id: 'pcosDiet', text: '低 GI 饮食 + 餐后步行 20-30 分钟', small: '控精制碳水与含糖饮料；这是 PCOS 孕期最有效的可改变因素' },
+  ];
+  if (w <= 13) {
+    list.unshift({ id: 'pcosTell', text: '建档时主动告知医生有 PCOS', small: '会被纳入加强监护，提前安排血糖与血压评估' });
+    list.push({ id: 'pcosGlucose', text: '完成早孕期血糖筛查（空腹血糖 ± HbA1c）', small: 'PCOS 属 GDM 高危；24-28 周的 75g OGTT 仍然要做，不能省' });
+  }
+  if (w >= 12) list.push({ id: 'pcosBP', text: '测血压并记录（孕中晚期每周 2-3 次）', small: 'PCOS 子痫前期风险约为 2 倍；≥140/90 或头痛/视物模糊/上腹痛立即就医' });
+  if (w >= 12 && w <= 16) list.push({ id: 'pcosAspirin', text: '和医生确认是否需要低剂量阿司匹林', small: '一般孕 12-16 周启动；PCOS 单独一条通常不足以开药，不要自行服用' });
+  return list;
+}
+
 function renderToday() {
   const today = todayDate();
-  const lmp = new Date(state.lmp + 'T00:00:00');
+  const lmp = lmpDate();
   const w = currentWeek(lmp, today);
   const p = inPostpartum(lmp, today);
   const due = dueDate(lmp);
-  const dateKey = today.toISOString().slice(0,10);
+  const dateKey = localDateKey(today);
+  const prof = profile();
+  const flags = activeFlags();
+  const hasPcos = !!prof.pcos;
 
   if (w < 1) {
     return `
       <section class="panel">
         <div class="card">
           <h3>${ICONS.today} 还没到孕周</h3>
-          <p>LMP 日期设置在 <strong>${fmtDate(lmp)}</strong>，意味着从这天开始计算。当前还没到第 1 周。</p>
+          <p>当前按 <strong>${fmtDate(lmp)}</strong> 计算，还没到第 1 周。</p>
           <p>可以做的事：每天 0.4mg 叶酸、戒烟戒酒、规律作息、预约孕前检查。</p>
+          ${hasPcos ? `<p style="color:var(--accent);"><strong>PCOS 备孕期：</strong>孕前把体重、血糖、血压控制在医生建议的范围，会明显降低孕期并发症风险；二甲双胍等药物<strong>是否继续由医生决定，不要自行停用或加用</strong>。</p>` : ''}
         </div>
       </section>`;
   }
 
-  let weekData, postData, headerTitle;
+  let weekData, postData, headerTitle, postOvertime = false;
   if (w <= 40) {
     weekData = WEEKS[w - 1];
     headerTitle = `第 ${w} 周 · ${trimesterOf(w).split(' · ')[0]}`;
   } else {
     postData = POSTPARTUM[Math.min(p - 1, 3)];
-    headerTitle = postData.title;
+    postOvertime = p > POSTPARTUM.length; /* 超过产后第 4 周：本手册不再逐周追踪 */
+    headerTitle = postOvertime ? `产后第 ${p} 周 · 已出月子` : postData.title;
   }
 
-  const checks = CHECKLIST_POOL.filter(c => {
-    if (w <= 40) return c.when(w);
-    return c.when(w) || (postData && p >= 1 && p <= 4);
-  });
-  if (w > 40 && p >= 1 && p <= 4) {
-    // add postpartum-specific items
-    checks.unshift({ id: 'feed', when: () => true, text: '按需哺乳 / 配方奶 8-12 次/24h', small: '新生儿每 2-3 小时必须喂一次' });
-    checks.unshift({ id: 'cord', when: () => true, text: '脐带护理：保持干燥', small: '每日消毒，一般 7-14 天脱落' });
-    checks.unshift({ id: 'jaundice', when: () => true, text: '观察黄疸（额头/胸口/四肢）', small: '生理性黄疸 5-7 天达峰，2 周内退' });
+  /* 孕期用孕期清单，产后用产后清单，两者不混排；高危因素再叠加专项条目 */
+  let checks;
+  if (w <= 40) {
+    checks = CHECKLIST_POOL.filter(c => c.when(w));
+    if (hasPcos) checks = pcosChecks(w).concat(checks);
+  } else {
+    checks = POSTPARTUM_CHECKS;
+    if (hasPcos) checks = checks.concat([{ id: 'pcosPP', text: '产后 4-12 周复查 75g OGTT（糖代谢）', small: 'PCOS 及妊娠期糖尿病者远期 2 型糖尿病风险高，之后每 1-3 年筛查一次' }]);
   }
   const dayState = completedChecks[dateKey] || {};
   const checksHtml = checks.map(c => {
@@ -1162,6 +1386,43 @@ function renderToday() {
       </div>`;
   }).join('');
 
+  /* 高危因素提醒 */
+  let riskBlock = '';
+  if (flags.length) {
+    const items = [];
+    if (hasPcos) {
+      items.push('建档时主动告知医生有 <strong>PCOS</strong>，会被纳入加强监护');
+      if (state.dating === 'lmp') {
+        items.push('月经不规律时，按末次月经推算的孕周可能偏差数周 —— <strong>请尽快做早孕超声核定孕周</strong>，再点右上角设置改成「按医生核定的预产期 / 孕周」');
+      }
+    }
+    if (prof.multi) items.push('双胎 / 多胎：早产与子痫前期风险升高，产检频次通常更高，留意宫缩与宫颈长度');
+    if (prof.ama) items.push('年龄 ≥35 岁：按医生建议完成产前筛查 / 诊断（早唐、NT、无创或羊穿）');
+    if (prof.obese) items.push('孕前肥胖：重点是<strong>控制增重速度</strong>，按孕前 BMI 对照「广东饮食」页的增重区间');
+    riskBlock = `
+      <div class="note warn" style="margin-top:16px;">${ICONS.warn}<div>
+        <strong>你的高危因素：${flags.map(f => esc(f.short)).join('、')}</strong>
+        <ul style="margin:6px 0 0;padding-left:18px;">${items.map(t => `<li>${t}</li>`).join('')}</ul>
+      </div></div>`;
+  }
+
+  /* PCOS 专项要点 */
+  const pcosBlock = hasPcos ? `
+    <div class="card" style="margin-top:16px;border-color:var(--primary);">
+      <h3>${ICONS.heart} PCOS 孕期要点 <span class="pill">重点</span></h3>
+      <ul>
+        <li><strong>血糖：</strong>PCOS 是妊娠期糖尿病的高危因素。首次产检就查空腹血糖（必要时 HbA1c），<strong>24-28 周的 75g OGTT 仍然要做</strong>。</li>
+        <li><strong>血压：</strong>子痫前期风险约为非 PCOS 孕妇的 2 倍，且与胖瘦无关、独立存在。孕中晚期每周测 2-3 次血压并记录。</li>
+        <li><strong>阿司匹林：</strong>是否使用低剂量阿司匹林（一般孕 12-16 周起）<strong>由医生结合其他危险因素决定</strong> —— PCOS 单独一条通常不足以开药，<strong>不要自行购买服用</strong>。</li>
+        <li><strong>饮食运动：</strong>低 GI、控精制碳水与含糖饮料，主食换粗粮，餐后步行 20-30 分钟。这是最有效的可改变因素。</li>
+        <li><strong>体重：</strong>按孕前 BMI 对照孕期增重区间（见「广东饮食」页）。</li>
+        <li><strong>用药：</strong>目前未服用二甲双胍等药物者<strong>不要自行加用</strong>；若医生已开具，也不要自行停用。任何调整先问产科。</li>
+        <li><strong>情绪：</strong>PCOS 与焦虑、抑郁风险相关。情绪持续低落超过 2 周，告诉医生。</li>
+        <li><strong>产后：</strong>若发生妊娠期糖尿病，产后 <strong>4-12 周复查 75g OGTT</strong>，此后每 1-3 年筛查一次糖代谢；哺乳对母体代谢有益。</li>
+      </ul>
+      <p class="small-note" style="margin-top:10px;">以上为常规循证要点；阿司匹林与用药等具体方案，请以你的产科医生意见为准。</p>
+    </div>` : '';
+
   let mainBlock = '';
   if (weekData) {
     mainBlock = `
@@ -1169,10 +1430,10 @@ function renderToday() {
         <div class="card">
           <h3>${ICONS.baby} 宝宝本周 <span class="pill">约 ${esc(weekData.baby.size)}</span></h3>
           <p>${esc(weekData.baby.dev)}</p>
-          <div class="kv">
+          <dl class="kv">
             <dt>身长</dt><dd>${esc(weekData.baby.cm)} cm</dd>
             <dt>体重</dt><dd>${esc(weekData.baby.g)} g</dd>
-          </div>
+          </dl>
         </div>
         <div class="card">
           <h3>${ICONS.heart} 妈妈本周</h3>
@@ -1211,7 +1472,8 @@ function renderToday() {
         <h3>${ICONS.apple} 这周饮食</h3>
         <ul>${postData.diet.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
       </div>
-      ${postData.warn.length ? `<div class="note warn" style="margin-top:14px;">${ICONS.warn}<div><strong>本周警示：</strong>${postData.warn.map(esc).join('；')}。</div></div>` : ''}`;
+      ${postData.warn.length ? `<div class="note warn" style="margin-top:14px;">${ICONS.warn}<div><strong>本周警示：</strong>${postData.warn.map(esc).join('；')}。</div></div>` : ''}
+      ${postOvertime ? `<div class="note info" style="margin-top:14px;">${ICONS.heart}<div>本手册的逐周内容覆盖到<strong>产后第 4 周（出月子）</strong>。第 5 周起请以「产后月子」标签页和 42 天复查时医生的建议为准；持续情绪低落、漏尿、伤口不适、恶露反复请及时就诊。</div></div>` : ''}`;
   }
 
   /* upcoming milestones */
@@ -1221,13 +1483,20 @@ function renderToday() {
       { week: 6, name: '首次 B 超（确认胎心）' },
       { week: 12, name: '建档 + NT 筛查' },
       { week: 16, name: '唐筛 / 无创 DNA' },
-      { week: 24, name: '大排畸 + 糖耐' },
+      { week: 20, name: '大排畸超声（20-24 周）' },
+      { week: 24, name: '糖耐量筛查 75g OGTT（24-28 周）' },
       { week: 28, name: '开始数胎动' },
       { week: 32, name: '胎心监护 + 待产包' },
       { week: 36, name: '每周产检 / 准备分娩' },
       { week: 40, name: '预产期' },
     ];
-    milestones = milestonesDef.filter(m => m.week > w).slice(0, 4).map(m => ({
+    if (hasPcos) {
+      milestonesDef.push({ week: 8, name: '早孕期血糖筛查（PCOS 高危）' });
+      milestonesDef.push({ week: 13, name: '子痫前期风险评估 / 是否用阿司匹林' });
+    }
+    if (prof.multi) milestonesDef.push({ week: 16, name: '双胎宫颈长度与早产风险评估' });
+    milestonesDef.sort((a, b) => a.week - b.week);
+    milestones = milestonesDef.filter(m => m.week > w).slice(0, 5).map(m => ({
       ...m,
       when: `还有 ${(m.week - w)} 周`,
     }));
@@ -1240,11 +1509,13 @@ function renderToday() {
     <section class="panel">
       <div class="panel-head">
         <h2 class="panel-title">${ICONS.today} 今日 · ${esc(headerTitle)}</h2>
-        <span class="badge">${w <= 40 ? `孕期 ${w}/40 周` : `产后 ${p}/4 周`}</span>
+        <span class="badge">${w <= 40 ? `孕期 ${w}/40 周` : `产后第 ${p} 周`}</span>
       </div>
       <p class="panel-sub">距离预产期 <strong style="color:var(--accent);">${due >= today ? (diffDays(today, due)) + ' 天' : '已过'}</strong> · 今天为 ${fmtDate(today, false)}</p>
 
+      ${riskBlock}
       ${mainBlock}
+      ${pcosBlock}
 
       <h3 class="section-title" style="margin-top:24px;">✅ 今日待办</h3>
       <div class="checklist">${checksHtml}</div>
@@ -1275,7 +1546,7 @@ function renderToday() {
 }
 
 function renderWeek() {
-  const lmp = new Date(state.lmp + 'T00:00:00');
+  const lmp = lmpDate();
   const today = todayDate();
   const w = currentWeek(lmp, today);
 
@@ -1347,7 +1618,7 @@ function renderFood() {
       </div>
       <p class="panel-sub">粤菜、煲汤、凉茶、糖水是广东家庭的日常。下面这份指南按"适合孕期 / 慎用"分类。</p>
 
-      <div class="note warn" style="margin-bottom:18px;">${ICONS.warn}<div><strong>广东家庭最常踩的几个雷</strong>：癍痧/廿四味等凉茶（性寒）、薏米（动物性）、山楂制品、咖啡因超标、酒精。孕期吃什么都好，<strong>注意控糖、控盐、不吃过量</strong>。</div></div>
+      <div class="note warn" style="margin-bottom:18px;">${ICONS.warn}<div><strong>广东家庭最常踩的几个雷</strong>：癍痧/廿四味等凉茶（性寒）、薏米（中医认为活血利水）、山楂制品、咖啡因超标、酒精。孕期吃什么都好，<strong>注意控糖、控盐、不吃过量</strong>。</div></div>
 
       <h3 class="section-title">🍵 推荐饮品</h3>
       <div class="grid-2">
@@ -1394,9 +1665,29 @@ function renderFood() {
         <div class="card"><h3>红豆鲫鱼汤</h3><p>红豆 + 鲫鱼 + 陈皮。补血去湿，孕中后期水肿适用。</p></div>
         <div class="card"><h3>花胶红枣汤</h3><p>花胶提前泡发 + 红枣 + 枸杞。胶原蛋白，孕中期后补皮肤弹性。</p></div>
         <div class="card"><h3>鲈鱼豆腐汤</h3><p>鲈鱼 1 条 + 嫩豆腐 + 姜丝。高蛋白、低脂、促伤口愈合，产后也可喝。</p></div>
-        <div class="card"><h3>玉米须水</h3><p>鲜玉米须 100g 煮水 15 分钟。利尿消肿、降三高，孕晚期常用。</p></div>
+        <div class="card"><h3>冬瓜汤</h3><p>冬瓜连皮煮汤、少盐。清淡利口，孕晚期可作日常汤水；水肿明显请先就医排除子痫前期，不要自行利尿。</p></div>
       </div>
       <div class="note info" style="margin-top:16px;">${ICONS.heart}<div>煲汤习惯很好，但注意：<strong>少放药材</strong>（当归、川芎、薏米先咨询中医），<strong>盐不要多</strong>，汤渣也要吃（营养大多在肉里）。</div></div>
+
+      <h3 class="section-title" style="margin-top:24px;">⚖️ 孕期增重参考（按孕前 BMI）</h3>
+      <p class="panel-sub">依据中国卫生行业标准 WS/T 801-2022。孕前 BMI = 孕前体重(kg) ÷ 身高(m)²。具体目标以产检医生为准。</p>
+      <div class="grid-2">
+        <div class="card"><h3>孕前低体重 <span class="pill">BMI &lt; 18.5</span></h3><p>全程增重 <strong>11.0–16.0 kg</strong></p></div>
+        <div class="card"><h3>孕前正常 <span class="pill">18.5–23.9</span></h3><p>全程增重 <strong>8.0–14.0 kg</strong></p></div>
+        <div class="card"><h3>孕前超重 <span class="pill warm">24.0–27.9</span></h3><p>全程增重 <strong>7.0–11.0 kg</strong></p></div>
+        <div class="card"><h3>孕前肥胖 <span class="pill danger">≥ 28.0</span></h3><p>全程增重 <strong>5.0–9.0 kg</strong></p></div>
+      </div>
+      <div class="note info" style="margin-top:14px;">${ICONS.heart}<div>孕早期增重很少（约 0–2 kg）即可；孕中晚期按医生给的速度稳步增长。<strong>不要用节食减肥</strong>，控糖靠"换种类 + 分餐 + 餐后活动"，不是靠饿。</div></div>
+
+      ${activeFlags().some(f => f.id === 'pcos' || f.id === 'obese') ? `
+      <h3 class="section-title" style="margin-top:24px;">🩸 PCOS / 胰岛素抵抗的饮食要点</h3>
+      <div class="grid-2">
+        <div class="card"><h3>优先选</h3><p>粗粮杂豆替代部分白米白面（燕麦、糙米、藜麦、红豆）、足量绿叶菜、鱼禽蛋豆类优质蛋白、坚果适量、原味奶。</p></div>
+        <div class="card"><h3>少选 / 避免</h3><p>含糖饮料与奶茶、糖水（西米露、红豆沙）、白粥白面包、果汁、蜜饯糕点；水果每天 200–300g，别用水果代餐。</p></div>
+        <div class="card"><h3>怎么吃</h3><p>3 主餐 + 2–3 次加餐，先菜 → 再蛋白 → 后主食；细嚼慢咽，吃到八分饱。</p></div>
+        <div class="card"><h3>怎么动</h3><p>餐后 30 分钟步行 20–30 分钟，每周累计 ≥150 分钟中等强度活动（无禁忌时）。肌肉是最大的"糖库"。</p></div>
+      </div>
+      <div class="note warn" style="margin-top:14px;">${ICONS.warn}<div>低血糖、先兆早产、宫颈机能不全、前置胎盘出血等情况需限制活动，<strong>运动方案先问产科医生</strong>。</div></div>` : ''}
     </section>`;
 }
 
@@ -1541,7 +1832,7 @@ function renderPost() {
       <h3 class="section-title" style="margin-top:24px;">🍼 新生儿基本常识</h3>
       <div class="grid-2">
         <div class="card"><h3>喂养</h3><p>纯母乳 24h 喂 8-12 次，按需而非按时。配方奶冲泡严格按比例，新生儿胃小，少量多次。喂后拍嗝 10-15 分钟。</p></div>
-        <div class="card"><h3>睡眠</h3><p>每天 16-20 小时。仰卧最安全（防窒息）。不要睡软枕、被子盖头部。可同床不同床。</p></div>
+        <div class="card"><h3>睡眠</h3><p>每天 16-20 小时。仰卧最安全（防窒息）。不要睡软枕、不要让被子盖住头部。推荐同房不同床：宝宝睡自己的婴儿床，靠近大人。</p></div>
         <div class="card"><h3>黄疸</h3><p>生理性黄疸 5-7 天达峰，2 周内退。注意晒太阳 / 必要时照蓝光。多吃多排是关键。</p></div>
         <div class="card"><h3>哭闹</h3><p>哭是宝宝唯一的语言。检查：饿了/尿了/热了/冷了/胀气/想被抱。可试试 5S 安抚法（包/侧/吸/摇/嘘）。</p></div>
       </div>
@@ -1558,7 +1849,7 @@ function bindPanel() {
   document.querySelectorAll('.check').forEach(el => {
     el.addEventListener('click', () => {
       const id = el.dataset.id;
-      const dateKey = todayDate().toISOString().slice(0,10);
+      const dateKey = localDateKey();
       completedChecks[dateKey] = completedChecks[dateKey] || {};
       completedChecks[dateKey][id] = !completedChecks[dateKey][id];
       // persist
@@ -1591,7 +1882,7 @@ function bindPanel() {
 /* load persisted checks */
 try {
   const all = JSON.parse(localStorage.getItem(LS_KEY + '-checks') || '{}');
-  const todayKey = todayDate().toISOString().slice(0,10);
+  const todayKey = localDateKey();
   completedChecks = all && all[todayKey] ? { [todayKey]: all[todayKey] } : {};
 } catch {}
 
