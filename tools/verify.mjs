@@ -60,7 +60,8 @@ vm.createContext(sandbox);
 /* 顶层 const/let 不会挂到沙箱全局，追加导出器供断言使用 */
 vm.runInContext(
   m[1] + '\n;globalThis.__t = { WEEKS, POSTPARTUM, RED_FLAGS, RF_LEVELS, PROG_NMOL_PER_NGML, PROG_LOW_NMOL,'
-       + ' CHECKLIST_POOL, getState(){ return state; }, setState(v){ state = v; } };',
+       + ' CHECKLIST_POOL, OUTCOME_TYPES, tabsFor, recoveryChecks, outcomeLabel,'
+       + ' getState(){ return state; }, setState(v){ state = v; } };',
   sandbox, { filename: 'index.html<script>' }
 );
 
@@ -190,16 +191,106 @@ check('孕 4–12 周每周都有宫外孕警示', [4,5,6,7,8,9,10,11,12]
 check('第 3 周不再把出血简单定性为"正常"（warn ≥ 2 条）', T.WEEKS[2].warn.length >= 2, true);
 check('第 4 周起的警示含"不要等门诊"', T.WEEKS[3].warn.join(' ').includes('不要等门诊'), true);
 
-/* ---------- 7. 各面板可渲染（含高危 PCOS、过期、产后三个分支） ---------- */
+/* ---------- 6.5 妊娠结束（生化妊娠 / 流产 / 宫外孕）路径 ---------- */
+group('妊娠结束路径：停止推送孕期内容 + 随访到 hCG <5 + 下次备孕');
+{
+  const END = { type: 'biochemical', date: '2026-10-02' };
+  T.setState({ lmp: '2026-07-26', dating: 'lmp', profile: {}, labs: [], outcome: END });
+  const ph = sandbox.phaseNow(D('2026-10-02'));
+  check('结束当天 ended', ph.ended, true);
+  check('结束当天 daysSinceEnd', ph.daysSinceEnd, 0);
+  check('结束 5 天后 daysSinceEnd', sandbox.phaseNow(D('2026-10-07')).daysSinceEnd, 5);
+
+  const ids = T.tabsFor(ph).map(t => t.id);
+  check('结束后隐藏「周历」', ids.includes('week'), false);
+  check('结束后隐藏「产后月子」', ids.includes('post'), false);
+  check('结束后显示「恢复·备孕」', ids.includes('after'), true);
+  const idsPregnant = T.tabsFor({ ended: false }).map(t => t.id);
+  check('未结束时隐藏「恢复·备孕」', idsPregnant.includes('after'), false);
+  check('未结束时保留「周历」', idsPregnant.includes('week'), true);
+
+  const today = sandbox.renderToday();
+  check('今日面板改为随访版', today.includes('现在要做的随访'), true);
+  check('今日面板不再出现胎儿发育内容', today.includes('宝宝本周'), false);
+  check('今日面板不再出现待产包/数胎动', today.includes('待产包'), false);
+  check('今日面板给出「不是你的错」', today.includes('这不是你的错'), true);
+  check('周历已停用（不再显示孕周网格）', sandbox.renderWeek().includes('已停用'), true);
+  check('产后月子已停用', sandbox.renderPost().includes('已停用'), true);
+
+  /* renderApp 直接写 DOM，用桩元素断言头部与进度卡 */
+  sandbox.renderApp();
+  check('头部显示结局而非孕周', String(els.metaLine.innerHTML).includes('生化妊娠'), true);
+  check('头部不出现孕周', String(els.metaLine.innerHTML).includes('孕 '), false);
+  check('进度卡标签为"妊娠已结束"', String(els.weekTag.textContent), '妊娠已结束');
+  check('结束后进度卡大数字不再是孕周', String(els.weekBig.textContent), '—');
+
+  const after = sandbox.renderAfter();
+  check('恢复页含 hCG 随访到 <5', after.includes('hCG 复查到 &lt; 5 IU/L'), true);
+  check('恢复页含 ASRM 2026 ≥2 次即可评估', after.includes('ASRM 2026') && after.includes('≥2 次妊娠失败'), true);
+  check('恢复页含生化妊娠含在定义内', after.includes('含生化妊娠'), true);
+  check('恢复页列出不推荐检查（NK / MTHFR / IVIg / 父方白细胞）',
+    ['NK 细胞', 'MTHFR', 'IVIg', '父方白细胞'].every(k => after.includes(k)), true);
+  check('恢复页含 10–20% 临床妊娠流产率', after.includes('10%–20%'), true);
+  check('恢复页含下次备孕可做的事（叶酸/甲功/血糖/地贫）',
+    ['叶酸 0.4 mg', 'TSH', 'HbA1c', '地中海贫血'].every(k => after.includes(k)), true);
+  check('恢复页含再备孕时机（1–2 次正常月经）', after.includes('1–2 次正常月经'), true);
+  check('恢复页含情绪求助阈值', after.includes('持续 2 周以上'), true);
+
+  const rf = sandbox.redFlagBlock(ph);
+  check('结束后红旗卡只显示「妊娠结束后」分组', rf.includes('妊娠结束后') && !rf.includes('孕早期'), true);
+  check('结束后红旗卡含 hCG 平台/上升条目', rf.includes('hCG 不降、平台'), true);
+
+  const csBio = T.recoveryChecks(ph).map(c => c.id);
+  check('生化妊娠随访清单不含"复查超声"强条', csBio.includes('afFollowup'), false);
+  const csMis = T.recoveryChecks({ ended: true, outcomeType: 'miscarriage' }).map(c => c.id);
+  check('流产后加"复查超声确认宫腔干净"', csMis.includes('afFollowup'), true);
+  const csEct = T.recoveryChecks({ ended: true, outcomeType: 'ectopic' }).map(c => c.id);
+  check('宫外孕后加"严格按 hCG 随访时间表"', csEct.includes('afEctopic'), true);
+}
+
+group('化验单在「妊娠结束后」只输出随访规则');
+{
+  const END = { type: 'biochemical', date: '2026-10-02' };
+  T.setState({ lmp: '2026-07-26', dating: 'lmp', profile: {}, labs: [], outcome: END });
+  const a0 = sandbox.labAlerts([]);
+  check('没有结束后的 hCG 记录时提醒复查', a0.some(x => x.includes('还没有结束后的 hCG 结果')), true);
+
+  T.setState({ lmp: '2026-07-26', dating: 'lmp', profile: {}, outcome: END,
+    labs: [{ date: '2026-09-29', hcg: 276, prog: 14.16, progUnit: 'nmol/L' }] });
+  const a1 = sandbox.labAlerts(sandbox.labEntries());
+  check('结束前的结果不算随访', a1.some(x => x.includes('还没有结束后的 hCG 结果')), true);
+  check('不再输出孕期口径的"单次 hCG 无法定位"', a1.some(x => x.includes('单次 hCG 无法判断妊娠位置')), false);
+  check('不再输出"孕酮偏低"', a1.some(x => x.includes('孕酮') && x.includes('47.7')), false);
+
+  T.setState({ lmp: '2026-07-26', dating: 'lmp', profile: {}, outcome: END,
+    labs: [{ date: '2026-10-02', hcg: 120, prog: 0, progUnit: 'nmol/L' },
+           { date: '2026-10-05', hcg: 95, prog: 0, progUnit: 'nmol/L' }] });
+  const a2 = sandbox.labAlerts(sandbox.labEntries());
+  check('下降但未达标 → 继续复查', a2.some(x => x.includes('仍未降到')), true);
+  check('下降但未达标时不报警', a2.some(x => x.includes('立即就诊')), false);
+
+  T.setState({ lmp: '2026-07-26', dating: 'lmp', profile: {}, outcome: END,
+    labs: [{ date: '2026-10-02', hcg: 95, prog: 0, progUnit: 'nmol/L' },
+           { date: '2026-10-05', hcg: 130, prog: 0, progUnit: 'nmol/L' }] });
+  const a3 = sandbox.labAlerts(sandbox.labEntries());
+  check('hCG 上升 → 立即就诊排除宫外孕', a3.some(x => x.includes('立即就诊') && x.includes('持续性异位妊娠')), true);
+
+  T.setState({ lmp: '2026-07-26', dating: 'lmp', profile: {}, outcome: END,
+    labs: [{ date: '2026-10-08', hcg: 3, prog: 0, progUnit: 'nmol/L' }] });
+  check('已达标 <5 时不再提示随访', sandbox.labAlerts(sandbox.labEntries()).length, 0);
+}
+
+/* ---------- 7. 各面板可渲染（含高危 PCOS、过期、产后、妊娠结束） ---------- */
 group('面板渲染（不抛错即视为通过）');
 for (const [label, st] of [
   ['孕早期 + PCOS', { lmp: '2026-07-26', dating: 'lmp', profile: { pcos: true }, labs: [] }],
   ['过期妊娠', { lmp: '2025-12-01', dating: 'lmp', profile: {} }],
   ['产后', { lmp: '2025-12-01', dating: 'lmp', profile: {}, delivery: '2026-09-20' }],
   ['备孕（LMP 在未来）', { lmp: '2027-01-01', dating: 'lmp', profile: {} }],
+  ['妊娠结束（生化）', { lmp: '2026-07-26', dating: 'lmp', profile: {}, outcome: { type: 'biochemical', date: '2026-10-02' } }],
 ]) {
   T.setState(st);
-  for (const fn of ['renderToday', 'renderWeek', 'renderLab', 'renderMed', 'renderFood', 'renderBag', 'renderSz', 'renderPost']) {
+  for (const fn of ['renderToday', 'renderWeek', 'renderLab', 'renderMed', 'renderAfter', 'renderFood', 'renderBag', 'renderSz', 'renderPost']) {
     let ok = true, err = '';
     try { ok = typeof sandbox[fn]() === 'string' && sandbox[fn]().length > 100; } catch (e) { ok = false; err = e.message; }
     check(`${label} · ${fn}()`, ok ? true : 'ERROR: ' + err, true);

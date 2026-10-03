@@ -65,7 +65,21 @@
     width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
     background: var(--bg); font-family: inherit; font-size: 16px; color: var(--ink);
   }
-  .setup input[type=date]:focus, .setup input[type=number]:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+  .setup select {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--bg); font-family: inherit; font-size: 15px; color: var(--ink);
+  }
+  .setup input[type=date]:focus, .setup input[type=number]:focus, .setup select:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+  /* 妊娠结束后的恢复/随访 */
+  .after-hero { background: linear-gradient(135deg, var(--primary-soft), var(--paper)); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 20px; }
+  .after-hero h3 { margin: 0 0 8px; font-size: 17px; }
+  .after-hero p { margin: 0 0 8px; color: var(--ink-2); font-size: 13.5px; line-height: 1.65; }
+  .step { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line-soft); }
+  .step:first-of-type { border-top: 0; }
+  .step .n { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .step .b { font-size: 13.5px; color: var(--ink-2); line-height: 1.65; }
+  .step .b b { color: var(--ink); }
+  .dont li { margin-bottom: 6px; }
   .setup .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.55; }
   .setup .hint.warn-hint { background: var(--accent-soft); color: var(--ink-2); padding: 10px 12px; border-radius: 10px; font-size: 13px; }
 
@@ -332,6 +346,8 @@
   .note.danger { background: var(--danger-soft); color: var(--danger); }
   .note strong { color: var(--ink); }
 
+  .linklike { background: none; border: 0; padding: 0; color: var(--primary-deep); font: inherit; font-size: inherit; text-decoration: underline; cursor: pointer; }
+
   /* Red-flag triage（红旗分诊） */
   .rf-card { margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); padding: 14px 16px; }
   .rf-card > summary { cursor: pointer; font-weight: 600; color: var(--danger); font-size: 14px; }
@@ -591,6 +607,17 @@
       <p class="hint">留空时按预产期推算；预产期后仍会显示孕期内容与过期妊娠提醒，满 42 周才自动按产后兜底。</p>
     </div>
 
+    <div id="outcomeField">
+      <label for="outcomeType">妊娠结局（这次妊娠如果已经结束，选一项并填日期；否则留空）</label>
+      <div class="row">
+        <select id="outcomeType" style="flex:2 1 190px;">
+          <option value="">— 妊娠继续 / 暂不填写 —</option>
+        </select>
+        <input type="date" id="outcomeDate" style="flex:1 1 150px;" />
+      </div>
+      <p class="hint">填写后，手册会<strong>停止推送逐周胎儿发育内容</strong>，改为显示随访要点、恢复与下次备孕清单。这一步只存在你自己的浏览器里。</p>
+    </div>
+
     <p class="hint warn-hint" id="irregularHint" style="display:none;">
       ⚠️ <strong>多囊 / 月经不规律时，按末次月经推算的孕周可能偏差数周</strong>，NT、糖耐、胎动提醒都会跟着错位。
       请尽快做早孕超声核定孕周，然后在这里改成「按医生核定的预产期 / 孕周」。
@@ -731,18 +758,29 @@ function phaseNow(refDate = todayDate()) {
   const lmp = lmpDate();
   const days = gestDays(lmp, refDate);
   const due = dueDate(lmp);
+  /* 必须在任何 return 之前算好：ended 分支也要用它（否则 TDZ 报错） */
+  const cw = Math.max(0, Math.floor(days / 7));
   const delivery = (state && state.delivery) ? parseLmp(state.delivery) : null;
   const delivered = delivery ? diffDays(delivery, refDate) >= 0 : days >= OVERDUE_DAYS;
+  /* 妊娠结束（含生化妊娠、早期流产、宫外孕、胚胎停育）：优先级最高 */
+  const oc = (state && state.outcome && state.outcome.date) ? state.outcome : null;
+  const ocDate = oc ? parseLmp(oc.date) : null;
+  if (oc && ocDate && diffDays(ocDate, refDate) >= 0) {
+    const since = Math.max(0, diffDays(ocDate, refDate));
+    return { lmp, days, due, delivery: null, delivered: false, isPre: false, overdue: false,
+             ended: true, outcomeType: oc.type || 'other', outcomeDate: oc.date, daysSinceEnd: since,
+             ppDays: 0, ppWeek: 0, ppDay: 0, cw, weekIndex: weekIndexOf(days), toDue: diffDays(refDate, due) };
+  }
   if (delivered) {
     const anchor = delivery || addDays(lmp, OVERDUE_DAYS);
     const pp = Math.max(0, diffDays(anchor, refDate));
-    return { lmp, days, due, delivery, delivered: true, isPre: false, overdue: false,
+    return { lmp, days, due, delivery, delivered: true, isPre: false, overdue: false, ended: false, daysSinceEnd: 0,
              ppDays: pp, ppWeek: Math.floor(pp / 7) + 1, ppDay: pp % 7,
              /* delivered 分支下 cw 仍反映真实孕龄（供显示），查表索引封顶 40 */
              cw: Math.max(0, Math.floor(days / 7)), weekIndex: 40, toDue: diffDays(refDate, due) };
   }
-  const cw = Math.max(0, Math.floor(days / 7));
   return { lmp, days, due, delivery: null, delivered: false, isPre: days < 0, overdue: days >= DUE_DAYS,
+           ended: false, daysSinceEnd: 0,
            ppDays: 0, ppWeek: 0, ppDay: 0,
            cw, weekIndex: weekIndexOf(days), toDue: diffDays(refDate, due) };
 }
@@ -1324,7 +1362,16 @@ const TABS = [
 { id: 'sz', label: '深圳资源', icon: 'flag' },
 { id: 'hospital', label: '医院推荐', icon: 'hospital' },
 { id: 'post', label: '产后月子', icon: 'heart' },
+{ id: 'after', label: '恢复·备孕', icon: 'heart' },
 ];
+/* 妊娠结束后：隐藏"周历 / 产后月子"（不该再看到胎儿发育与产后内容），显示"恢复·备孕" */
+function tabsFor(ph) {
+  return TABS.filter(t => {
+    if (t.id === 'after') return !!ph.ended;
+    if (ph.ended) return t.id !== 'week' && t.id !== 'post';
+    return true;
+  });
+}
 
 /* --- helpers --- */
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -1332,6 +1379,20 @@ function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&
 /* ============================================================
    INIT
 ============================================================ */
+/* 妊娠结局：一旦记录，手册停止推送孕期内容，转为随访与恢复模式。
+   类型与阈值依据本仓库 docs/03（早期流产）、docs/07 §5.4（ASRM 2026 RPL 定义）、docs/09 §4。 */
+const OUTCOME_TYPES = [
+  { id: 'biochemical', label: '生化妊娠（仅 hCG / 试纸确认，B 超未见孕囊）' },
+  { id: 'miscarriage', label: '早期流产（自然流产 / 难免流产 / 不全流产）' },
+  { id: 'ectopic', label: '宫外孕（异位妊娠）' },
+  { id: 'missed', label: '胚胎停育（稽留流产）' },
+  { id: 'other', label: '其他 / 暂不确定' },
+];
+function outcomeLabel(id) {
+  const t = OUTCOME_TYPES.find(o => o.id === id);
+  return t ? t.label : '妊娠结束';
+}
+
 /* 个人情况（高危因素）选项：勾选后会插入对应提醒 */
 const PROFILE_FLAGS = [
 { id: 'pcos', short: 'PCOS', label: '多囊卵巢综合征（PCOS）',
@@ -1355,6 +1416,12 @@ function profile() { return (state && state.profile) || {}; }
 function activeFlags() { const p = profile(); return PROFILE_FLAGS.filter(f => p[f.id]); }
 
 /* --- 设置页表单 --- */
+function fillOutcomeOptions() {
+  const sel = document.getElementById('outcomeType');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— 妊娠继续 / 暂不填写 —</option>'
+    + OUTCOME_TYPES.map(o => `<option value="${o.id}">${esc(o.label)}</option>`).join('');
+}
 function renderFlagBox() {
   const box = document.getElementById('flagBox');
   const p = profile();
@@ -1392,6 +1459,11 @@ function fillForm() {
   document.getElementById('dayInput').value = (s.day === undefined || s.day === null) ? '' : s.day;
   document.getElementById('weekInputDate').value = s.refDate || fmtDate(todayDate());
   document.getElementById('deliveryInput').value = s.delivery || '';
+  fillOutcomeOptions();
+  const ocSel = document.getElementById('outcomeType');
+  if (ocSel) ocSel.value = (s.outcome && s.outcome.type) || '';
+  const ocDateEl = document.getElementById('outcomeDate');
+  if (ocDateEl) ocDateEl.value = (s.outcome && s.outcome.date) || '';
   renderFlagBox();
   setDatingMode(s.dating || 'lmp');
 }
@@ -1428,6 +1500,17 @@ function readForm() {
     if (!parseLmp(dv)) { document.getElementById('deliveryInput').focus(); return null; }
     s.delivery = dv;
   }
+  /* 妊娠结局：任何时候都读（它是独立于孕周输入方式的状态） */
+  const ocType = document.getElementById('outcomeType') ? document.getElementById('outcomeType').value : '';
+  const ocDate = document.getElementById('outcomeDate') ? document.getElementById('outcomeDate').value : '';
+  if (ocType || ocDate) {
+    if (!ocType || !parseLmp(ocDate)) {
+      if (!parseLmp(ocDate)) document.getElementById('outcomeDate').focus();
+      else document.getElementById('outcomeType').focus();
+      return null;
+    }
+    s.outcome = { type: ocType, date: ocDate };
+  }
   return s;
 }
 
@@ -1440,6 +1523,7 @@ function showApp() {
 
 function openSetup(isEditing) {
   editing = !!isEditing;
+  fillOutcomeOptions();
   if (editing) fillForm();
   document.getElementById('cancelBtn').style.display = editing ? '' : 'none';
   document.getElementById('startBtn').textContent = editing ? '保存' : '开始陪伴 →';
@@ -1608,7 +1692,8 @@ function renderApp() {
 
   /* header */
   let phase = '';
-  if (ph.isPre) phase = '备孕阶段';
+  if (ph.ended) phase = `${outcomeLabel(ph.outcomeType)} · 第 ${ph.daysSinceEnd + 1} 天`;
+  else if (ph.isPre) phase = '备孕阶段';
   else if (!ph.delivered) phase = `${gestLabel(ph.days)} · ${trimesterOf(ph.cw)}`;
   else phase = `产后第 ${ph.ppWeek} 周 · 第 ${ph.ppDay} 天`;
 
@@ -1619,7 +1704,8 @@ function renderApp() {
 
   /* progress */
   let pct = 0, weekBig = '—', weekTag = '—';
-  if (ph.isPre) { pct = 0; weekBig = '备'; weekTag = '未开始'; }
+  if (ph.ended) { pct = 0; weekBig = '—'; weekTag = '妊娠已结束'; }
+  else if (ph.isPre) { pct = 0; weekBig = '备'; weekTag = '未开始'; }
   else if (!ph.delivered) {
     pct = Math.min(100, (Math.max(0, ph.days) / DUE_DAYS) * 100);
     weekBig = ph.cw;
@@ -1627,6 +1713,8 @@ function renderApp() {
   } else { pct = 100; weekBig = '出'; weekTag = '宝宝已出生'; }
   document.getElementById('weekBig').textContent = weekBig;
   document.getElementById('weekTag').textContent = weekTag;
+  const pcEl = document.querySelector('.progress-card');
+  if (pcEl) pcEl.style.display = ph.ended ? 'none' : '';
   document.getElementById('dueDate').textContent = fmtDate(ph.due);
   const left = ph.toDue;
   document.getElementById('countdown').textContent = left >= 0 ? `还有 ${left} 天` : `已超 ${-left} 天`;
@@ -1635,7 +1723,7 @@ function renderApp() {
 
   /* tabs */
   const tabBar = document.getElementById('tabBar');
-  tabBar.innerHTML = TABS.map(t => `
+  tabBar.innerHTML = tabsFor(ph).map(t => `
     <button class="tab ${t.id === currentTab ? 'active' : ''}" data-tab="${t.id}">
       ${t.label}
     </button>`).join('');
@@ -1657,9 +1745,13 @@ function renderPanel() {
   const root = document.getElementById('panelRoot');
   root.innerHTML = '<div class="fade-in"></div>';
   const wrap = root.firstChild;
+  const phTab = phaseNow();
+  /* 妊娠结束后 currentTab 可能指向已被隐藏的 tab，兜底回"今日" */
+  if (!tabsFor(phTab).some(t => t.id === currentTab)) currentTab = 'today';
   let html = '';
   switch (currentTab) {
     case 'today': html = renderToday(); break;
+    case 'after': html = renderAfter(); break;
     case 'lab': html = renderLab(); break;
     case 'week': html = renderWeek(); break;
     case 'food': html = renderFood(); break;
@@ -1737,9 +1829,21 @@ const RED_FLAGS = [
   { group: '产后', level: 'er', sign: '剧烈头痛、视物模糊、血压 ≥140/90', act: '立即急诊，警惕产后子痫前期。' },
   { group: '产后', level: 'er', sign: '情绪持续低落 >2 周，或有伤害自己 / 宝宝的想法',
     act: '立即求助。产后精神病是急症，可拨打心理援助热线或直接去急诊，不要独自承受。' },
+  { group: '妊娠结束后', level: 'er', sign: '出血量超过月经量、有大血块，或出血突然增多',
+    act: '立即急诊。可能是不全流产或出血增多，需要清宫等处理。' },
+  { group: '妊娠结束后', level: 'er', sign: '发热 ≥38℃、分泌物有异味、下腹持续疼痛',
+    act: '立即就诊，警惕感染。' },
+  { group: '妊娠结束后', level: 'er', sign: 'hCG 不降、平台、甚至反而上升',
+    act: '立即就诊。在 hCG 未降到 <5 IU/L 之前，都必须排除宫外孕 / 持续性异位妊娠——这类情况不会因为已经"确认生化妊娠"而消失。' },
+  { group: '妊娠结束后', level: 'call120', sign: '剧烈腹痛 + 头晕 / 心慌 / 肩尖痛 / 晕倒',
+    act: '打 120，可能已腹腔内出血，不要自己开车。' },
+  { group: '妊娠结束后', level: 'opd', sign: 'hCG 已 <5、出血也干净，想确认恢复情况',
+    act: '门诊复查：血常规（看有没有贫血）、必要时超声看宫腔；同时和医生讨论下次备孕时间。' },
 ];
 function redFlagBlock(ph) {
-  const keep = ph.delivered ? ['产后'] : (ph.cw <= 13 ? ['孕早期（<14 周）'] : ['孕中晚期']);
+  const keep = ph.ended ? ['妊娠结束后']
+    : ph.delivered ? ['产后']
+    : (ph.cw <= 13 ? ['孕早期（<14 周）'] : ['孕中晚期']);
   const groups = [];
   for (const f of RED_FLAGS) if (keep.includes(f.group) && !groups.includes(f.group)) groups.push(f.group);
   if (!groups.length) return '';
@@ -1761,6 +1865,205 @@ function redFlagBlock(ph) {
     </details>`;
 }
 
+/* ============================================================
+   妊娠结束（生化妊娠 / 早期流产 / 宫外孕 / 胚胎停育）
+   一旦记录，手册不再推送孕期内容，转为随访与恢复模式。
+   医学内容取自本仓库 docs/03（早期流产）、docs/07 §5.4（ASRM 2026
+   RPL 定义）、docs/09 §4（评估项目与"不推荐做的检查"），未自造结论。
+   ============================================================ */
+/* 已停用的 tab（周历 / 产后月子）给出的说明 */
+function endedNotice(what) {
+  const ph = phaseNow();
+  return `
+    <section class="panel">
+      <div class="card">
+        <h3>${ICONS.heart} ${esc(what)}已停用</h3>
+        <p>你已记录妊娠结束（${esc(outcomeLabel(ph.outcomeType))}，${esc(ph.outcomeDate)}），因此这里不再显示逐周的胎儿发育内容。</p>
+        <p>随访要点与下次备孕清单在「<strong>恢复·备孕</strong>」tab；今天要做的事在「<strong>今日</strong>」。</p>
+      </div>
+    </section>`;
+}
+/* 结束后的随访清单（按结局类型调整） */
+function recoveryChecks(ph) {
+  const list = [
+    { id: 'afHcg', text: '复查 hCG，直到 < 5 IU/L', small: '唯一不能省的一步 —— 也是排除宫外孕的最后一道关口。即使已经不出血、试纸也已转阴，也请查到达标为止' },
+    { id: 'afBleed', text: '记录出血量与持续时间', small: '超过月经量、有大血块，或出血突然增多 → 立即急诊' },
+    { id: 'afPain', text: '留意腹痛变化（位置、性质、是否加重）', small: '持续加重的腹痛或单侧剧痛 → 立即急诊' },
+    { id: 'afHygiene', text: '按医生交代的时间避免同房、盆浴、游泳', small: '通常约 2 周，具体听医生的；淋浴可以正常做' },
+    { id: 'afIron', text: '若头晕、乏力、心慌 → 查血常规看是否贫血', small: '出血较多时容易缺铁，必要时补铁剂（遵医嘱）' },
+    { id: 'afMood', text: '允许自己难过，别急着"想开点"', small: '悲伤是正常反应。持续 >2 周、影响睡眠与生活，或出现伤害自己的想法 → 请寻求专业帮助' },
+    { id: 'afNext', text: '和医生确认下一次备孕的时间', small: '多数情况下 1–2 次正常月经后即可再次尝试，具体由医生按你的情况判断' },
+  ];
+  if (ph.outcomeType === 'ectopic') {
+    list.unshift({ id: 'afEctopic', text: '严格按医生安排的 hCG 随访与复查时间表执行',
+      small: '宫外孕的 hCG 下降可能很慢（数周）。未降到 <5 之前都存在持续性异位妊娠风险，不能自行中断随访；避孕时间也请遵医嘱' });
+  }
+  if (ph.outcomeType === 'miscarriage' || ph.outcomeType === 'missed') {
+    list.splice(1, 0, { id: 'afFollowup', text: '按医生安排复查超声，确认宫腔内已干净',
+      small: '不全流产可能需要清宫；复查也用于确认子宫内膜恢复情况' });
+  }
+  return list;
+}
+/* 结束后的「今日」：只做随访，不推送胎儿内容 */
+function renderRecoveryToday(ph) {
+  const dateKey = localDateKey();
+  const dayState = completedChecks[dateKey] || {};
+  const checks = recoveryChecks(ph);
+  const checksHtml = checks.map(c => {
+    const done = dayState[c.id];
+    return `
+      <div class="check ${done ? 'done' : ''}" data-id="${c.id}">
+        <div class="box">${done ? ICONS.check : ''}</div>
+        <div class="text">${esc(c.text)}<small>${esc(c.small)}</small></div>
+      </div>`;
+  }).join('');
+  const entries = labEntries();
+  const alerts = labAlerts(entries);
+  const hasPcos = !!profile().pcos;
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.heart} ${esc(outcomeLabel(ph.outcomeType))} · 第 ${ph.daysSinceEnd + 1} 天</h2>
+        <span class="badge">${esc(ph.outcomeDate)}</span>
+      </div>
+      <p class="panel-sub">手册已停止推送逐周胎儿发育内容。下面是现在真正要做的事。</p>
+
+      <div class="after-hero">
+        <h3>这不是你的错，也不是"没保好"</h3>
+        <p>早期妊娠丢失中，<strong>约 50–60% 与胚胎染色体异常有关</strong> —— 这是受精那一刻就已决定的随机事件，与有没有卧床、吃了什么、有没有上班、有没有同房都无关。</p>
+        <p>生化妊娠尤其常见，很多人甚至不会察觉。它<strong>不代表你身体有问题，也不影响下一次的受孕能力</strong>。</p>
+      </div>
+
+      ${alerts.length ? `<div class="note danger" style="margin-top:16px;">${ICONS.warn}<div>
+        <strong>根据你记录的化验结果，需要尽快处理：</strong>
+        <ul style="margin:8px 0 0;padding-left:18px;">${alerts.map(a => `<li style="margin-bottom:6px;">${a}</li>`).join('')}</ul>
+      </div></div>` : ''}
+
+      ${redFlagBlock(ph)}
+
+      <h3 class="section-title" style="margin-top:24px;">✅ 现在要做的随访</h3>
+      <div class="checklist">${checksHtml}</div>
+
+      <div class="note info" style="margin-top:20px;">${ICONS.heart}<div>
+        更完整的说明（这次发生了什么、什么时候需要系统检查、下次备孕能做什么）在「<strong>恢复·备孕</strong>」tab。
+        ${hasPcos ? '你有 <strong>PCOS</strong>：下次备孕前建议先把空腹血糖 / HbA1c、TSH 与体重和医生过一遍。' : ''}
+      </div></div>
+    </section>`;
+}
+/* 「恢复·备孕」完整面板 */
+function renderAfter() {
+  const ph = phaseNow();
+  if (!ph.ended) {
+    return `
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">${ICONS.heart} 恢复 · 备孕</h2></div>
+        <div class="card">
+          <h3>这个 tab 现在用不到</h3>
+          <p>它只在记录「妊娠结束」之后出现。到那时手册会停止推送孕期内容，改为这里的随访、恢复与下次备孕要点。</p>
+        </div>
+      </section>`;
+  }
+  const hasPcos = !!profile().pcos;
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.heart} 恢复 · 备孕</h2>
+        <span class="badge">${esc(ph.outcomeDate)} 起第 ${ph.daysSinceEnd + 1} 天</span>
+      </div>
+      <p class="panel-sub">按时间顺序理一遍：现在做什么、什么时候要查、下次怀孕前能改变什么。</p>
+
+      <div class="card">
+        <h3>${ICONS.file} 这次发生了什么</h3>
+        <ul>
+          <li><strong>生化妊娠</strong>：hCG / 试纸阳性，但胚胎没有发育到 B 超能看到孕囊的阶段就停止，随后像月经一样出血。<strong>发生率很高</strong>，很多人不会察觉。<strong>通常不需要清宫</strong>，hCG 下降相对较快。</li>
+          <li><strong>早期流产（自然 / 难免 / 不全）</strong>：曾看到孕囊之后停止发育或排出。需要复查是否流干净，<strong>不全流产可能需要清宫</strong>。</li>
+          <li><strong>宫外孕</strong>：孕囊着床在子宫外（多为输卵管）。需要按医生方案治疗，且 <strong>hCG 随访时间更长</strong>；在 hCG 降到正常前必须严格避孕并按时复查。</li>
+        </ul>
+        <p style="color:var(--ink-2);">临床上确认妊娠后，约 <strong>10%–20%</strong> 以流产告终，其中约一半以上与胚胎染色体异常有关 —— 也就是说，<strong>绝大多数早期流产是胚胎自身的自然淘汰</strong>。</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>${ICONS.pill} 必须做完的随访（按顺序）</h3>
+        <div class="step"><span class="n">1</span><span class="b"><b>hCG 复查到 &lt; 5 IU/L。</b>这是唯一不能省的一步。低 hCG + 出血 + 单侧腹痛的组合里，只有 hCG 降到正常才能真正排除宫外孕 / 持续性异位妊娠。<b>hCG 平台或上升 = 立即就诊。</b></span></div>
+        <div class="step"><span class="n">2</span><span class="b"><b>观察出血与腹痛。</b>出血量超过月经量、有大血块、发热 ≥38℃、腹痛持续加重 → 立即急诊。</span></div>
+        <div class="step"><span class="n">3</span><span class="b"><b>必要时查血常规</b>（出血多、头晕乏力心慌时），看有没有贫血或缺铁。</span></div>
+        <div class="step"><span class="n">4</span><span class="b"><b>按医生安排复查超声</b>（不全流产、宫外孕治疗后尤其需要），确认宫腔干净与恢复情况。</span></div>
+        <div class="step"><span class="n">5</span><span class="b"><b>等下一次正常月经</b>，确认周期恢复；之后就可以和医生讨论备孕时间。</span></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;border-color:var(--accent);">
+        <h3>${ICONS.shield} 一次 vs 反复：什么时候需要系统检查</h3>
+        <p style="color:var(--ink-2);margin:0 0 8px;">
+          <strong>单次</strong>生化妊娠或早期流产<strong>不需要做系统检查</strong>，也不代表身体有问题；下一次成功妊娠的概率仍然很高。
+        </p>
+        <p style="color:var(--ink-2);margin:0 0 8px;">
+          但如果这是<strong>第二次</strong>妊娠失败，就该开始评估了 ——
+          <strong>ASRM 2026 新定义：≥2 次妊娠失败（含生化妊娠，由 hCG 确认）即可启动评估</strong>，不必连续，也不必等到第 3 次。
+        </p>
+        <p style="color:var(--ink-2);margin:0;">达到这个标准后，通常会按病因逐项查（见下表），由医生决定查哪些。</p>
+        <table class="tbl">
+          <colgroup><col class="c1"/><col class="c3"/><col class="c2"/></colgroup>
+          <thead><tr><th>方向</th><th>常见检查</th><th>占比</th></tr></thead>
+          <tbody>
+            <tr><td>染色体 / 遗传</td><td>双方外周血核型；流产物（POC）CNV-seq</td><td>5–7%</td></tr>
+            <tr><td>抗磷脂综合征</td><td>狼疮抗凝物、抗心磷脂抗体、抗 β2 糖蛋白 I</td><td>5–20%</td></tr>
+            <tr><td>子宫解剖</td><td>3D 超声 / 宫腔声学造影 / 宫腔镜</td><td>10–15%</td></tr>
+            <tr><td>内分泌</td><td>TSH、甲状腺抗体 TPOAb、空腹血糖 / OGTT</td><td>10–15%</td></tr>
+            <tr><td>代谢 / 体重</td><td>PCOS、肥胖、糖尿病的综合评估</td><td>—</td></tr>
+            <tr><td>男性因素</td><td>精液分析 + 精子 DNA 碎片</td><td>机制尚不明确</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>${ICONS.warn} 不建议做的检查（省钱，也避免被伤害）</h3>
+        <p style="color:var(--ink-2);margin:0 0 8px;">以下项目在复发性流产的常规评估里<strong>不推荐</strong>；单次流产更不需要做。如果有人推荐，先请对方给出依据：</p>
+        <ul class="dont">
+          <li><strong>NK 细胞检测</strong> —— 证据不足，不推荐常规做</li>
+          <li><strong>MTHFR 基因型</strong> —— 常规不推荐（除非有血栓史）</li>
+          <li><strong>遗传性血栓倾向筛查</strong>（如 FV Leiden）—— 仅在个人 / 家族血栓史时查</li>
+          <li><strong>静脉丙种球蛋白（IVIg）</strong> —— 无证据支持</li>
+          <li><strong>父方白细胞免疫治疗</strong> —— 无证据支持</li>
+        </ul>
+        <p style="color:var(--muted);font-size:12px;margin-top:8px;">另外：单次流产也<strong>不需要常规卧床、不需要"保胎"输液</strong>，这些做法没有证据支持。</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;border-color:var(--primary);">
+        <h3>${ICONS.heart} 下次备孕前能做的事</h3>
+        <ul>
+          <li><strong>叶酸 0.4 mg/天</strong>，孕前至少 1 个月开始（既往生育过神经管缺陷儿者需 4 mg，遵医嘱）</li>
+          <li><strong>甲状腺功能</strong>：TSH + TPOAb</li>
+          <li><strong>血糖</strong>：空腹血糖 + HbA1c，必要时 OGTT${hasPcos ? ' —— <strong>你有 PCOS，这一项必查</strong>' : ''}</li>
+          <li><strong>广东必查：地中海贫血筛查</strong>（血常规初筛，夫妇双方都做；异常者做血红蛋白电泳与基因诊断）</li>
+          <li><strong>维生素 D</strong>：缺乏很常见，是否需要补、补多少听医生</li>
+          <li><strong>体重与代谢</strong>：若超重 / PCOS，孕前减重 5–10% 可改善排卵与代谢（方式遵医嘱，不要极端节食）</li>
+          <li><strong>戒烟、戒酒、咖啡因 &lt;200 mg/天</strong>；避免有害暴露（染发 / 美甲 / 精油 / 高温 / 辐射等）</li>
+          <li><strong>慢性病用药不要自行停用</strong>（癫痫、甲亢/甲减、哮喘、高血压、精神科、抗凝等），先找医生一起评估</li>
+          <li>若已达到"≥2 次失败"，和医生讨论是否需要双方染色体核型等进一步检查</li>
+        </ul>
+        <p style="color:var(--ink-2);margin:10px 0 0;">
+          <strong>什么时候可以再备孕：</strong>多数情况下等 <strong>1–2 次正常月经</strong>之后即可再次尝试（主要是便于确认月经恢复、也便于之后计算孕周）；是否需要更长间隔由医生根据你的情况决定。
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>${ICONS.heart} 情绪：这段难过是正常的</h3>
+        <ul>
+          <li>即使孕周很小、即使"只是生化妊娠"，难过、愤怒、麻木、责怪自己都是<strong>正常反应</strong>；伴侣也可能以自己的方式难过。</li>
+          <li>不需要急着"想开点"，也不需要向所有人解释。</li>
+          <li>如果<strong>持续 2 周以上</strong>情绪低落、失眠、无法正常生活，或出现<strong>伤害自己的想法</strong>，请立即寻求专业帮助（精神科 / 心理科，或直接去急诊）。</li>
+          <li>有证据显示，专门的心理支持本身就能改善下一次妊娠的结局 —— 所以照顾好自己不是"软弱"。</li>
+        </ul>
+      </div>
+
+      <div class="note info" style="margin-top:20px;">${ICONS.heart}<div>
+        以上内容来自本项目证据底座：<strong>《03-并发症危险信号与用药安全》</strong>（早期流产发生率与病因）、
+        <strong>《07-2026速查》§5.4</strong>（ASRM 2026 复发性流产定义）、<strong>《09-特殊妊娠情况管理》§4</strong>（评估项目与不推荐的检查）。
+        <strong>本页不是医疗建议</strong>，具体方案请与你的产科医生一起定。
+      </div></div>
+    </section>`;
+}
+
 function renderToday() {
   const today = todayDate();
   const ph = phaseNow(today);
@@ -1770,6 +2073,9 @@ function renderToday() {
   const prof = profile();
   const flags = activeFlags();
   const hasPcos = !!prof.pcos;
+
+  /* 妊娠已结束：不再推送任何逐周孕期内容 */
+  if (ph.ended) return renderRecoveryToday(ph);
 
   if (ph.isPre) {
     return `
@@ -1980,12 +2286,19 @@ function renderToday() {
       </div>
 
       <div class="note info" style="margin-top:20px;">${ICONS.heart}<div>勾选的待办会自动保存在你的浏览器（按天记录），下次打开还会在。<strong>这不是医疗建议</strong>，有不适随时就医。</div></div>
+
+      <p style="margin-top:16px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7;">
+        这次妊娠已经结束（生化妊娠 / 流产 / 宫外孕 / 胚胎停育）？
+        <button type="button" class="linklike" data-open-settings="1">记录结局</button><br/>
+        记录后手册会停止推送孕期内容，改为随访、恢复与下次备孕要点。
+      </p>
     </section>`;
 }
 
 function renderWeek() {
   const today = todayDate();
   const ph = phaseNow(today);
+  if (ph.ended) return endedNotice('周历');
   const lmp = ph.lmp;
   const w = ph.cw;                                    /* 临床孕周 */
   const curIdx = Math.max(1, Math.min(40, ph.weekIndex)); /* 表格里的格子编号 */
@@ -2086,6 +2399,28 @@ function labDelta(prev, cur) {
 /* 固定规则提示（可审计，不依赖任何模型判断） */
 function labAlerts(entries) {
   const out = [];
+  const oc = (state && state.outcome && state.outcome.date) ? state.outcome : null;
+
+  /* 妊娠结束后：只讲随访，不再输出孕期口径的判断。
+     低 hCG + 出血 + 单侧腹痛的组合里，hCG 降到 <5 才是排除宫外孕的终点。 */
+  if (oc) {
+    const after = entries.filter(e => e.hcg > 0 && e.date >= oc.date);
+    if (!after.length) {
+      out.push(`已记录妊娠结束（${oc.date}），但还没有结束后的 hCG 结果。<b>请务必复查 hCG 直到 &lt;5 IU/L</b> —— 这是排除宫外孕 / 持续性异位妊娠的最后一道关口；即使已经不出血、试纸已经转阴，也要查到达标为止。`);
+    } else {
+      const last = after[after.length - 1];
+      const prev = after.length > 1 ? after[after.length - 2] : null;
+      if (last.hcg >= 5) {
+        if (prev && last.hcg >= prev.hcg) {
+          out.push(`⚠️ ${prev.date} → ${last.date}：妊娠结束后 hCG 没有继续下降（${prev.hcg} → ${last.hcg} IU/L）。<b>平台或上升必须排除宫外孕 / 持续性异位妊娠，请立即就诊</b>，不要等到下次复查。`);
+        } else {
+          out.push(`${oc.date} 之后最近一次 hCG 为 ${last.hcg} IU/L，仍未降到 &lt;5 IU/L：请继续按医生安排复查直到正常；下降缓慢或停滞时需要评估宫外孕可能。`);
+        }
+      }
+    }
+    return out;
+  }
+
   if (!entries.length) return out;
   const hcgs = entries.filter(e => e.hcg > 0).map(e => e.hcg);
   if (hcgs.length && Math.max.apply(null, hcgs) < 1500) {
@@ -2113,6 +2448,7 @@ function labAlerts(entries) {
 function renderLab() {
   const entries = labEntries();
   const alerts = labAlerts(entries);
+  const ph = phaseNow();
   const todayKey = fmtDate(todayDate());
   return `
     <section class="panel">
@@ -2162,6 +2498,17 @@ function renderLab() {
           </div>`;
         }).join('')}` : `<div class="note info" style="margin-top:16px;">${ICONS.heart}<div>还没有记录。每次抽血后把 hCG 与孕酮填进来，就能看到相邻两次的变化与倍增时间。</div></div>`}
 
+      ${ph.ended ? `
+      <div class="card" style="margin-top:24px;">
+        <h3>${ICONS.shield} 结束后的 hCG 该怎么看</h3>
+        <ul>
+          <li><strong>唯一的终点是 &lt;5 IU/L。</strong>只要 hCG 还没降到 &lt;5，就不能认为这件事已经结束 —— 这是排除宫外孕 / 持续性异位妊娠的最后一道关口。</li>
+          <li><strong>下降速度因人而异。</strong>生化妊娠通常 1–2 周降到正常；宫外孕或流产后可能慢到数周。<strong>慢不等于有问题，但平台或上升一定有问题。</strong></li>
+          <li><strong>连续两次持平或回升 → 立即就诊</strong>，不要等下个月的复查。</li>
+          <li><strong>这时候不用看孕酮。</strong>妊娠结束后孕酮会自行回落，单独测它没有意义。</li>
+          <li><strong>试纸转阴不等于 hCG &lt;5。</strong>尿试纸敏感度有限，请以抽血结果为准。</li>
+        </ul>
+      </div>` : `
       <div class="card" style="margin-top:24px;">
         <h3>${ICONS.shield} 看这类单子要注意的 5 件事</h3>
         <ul>
@@ -2172,7 +2519,7 @@ function renderLab() {
           <li><strong>TORCH 只看 IgM 不够。</strong>IgM 阴性只说明没有急性感染的证据，判断有没有免疫力必须同时看 IgG（风疹、巨细胞病毒等）。</li>
         </ul>
         <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">常见参考区间（务必以你化验单为准）：非孕 hCG 0–4.9；孕 4–5 周 50–500；孕 6–8 周 1000–50000。孕早期孕酮常以 &gt;25 ng/mL（≈80 nmol/L）为理想，&lt;15 ng/mL（≈47.7 nmol/L）提示需要评估。<strong>孕酮单次值波动大，不能单独作为判断依据。</strong></p>
-      </div>
+      </div>`}
     </section>`;
 }
 /* 保存 / 删除化验单记录 */
@@ -2472,6 +2819,7 @@ function renderSz() {
 }
 
 function renderPost() {
+  if (phaseNow().ended) return endedNotice('产后月子');
   return `
     <section class="panel">
       <div class="panel-head">
@@ -2520,6 +2868,11 @@ function renderPost() {
 function bindPanel() {
   if (currentTab === 'hospital') { bindHospitalPanel(); return; }
   if (currentTab === 'lab') { bindLab(); return; }
+
+  /* 「记录结局」入口：打开设置页 */
+  document.querySelectorAll('[data-open-settings]').forEach(b => {
+    b.addEventListener('click', () => openSetup(true));
+  });
 
   /* checklist toggle */
   document.querySelectorAll('.check').forEach(el => {
