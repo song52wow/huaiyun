@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#7a8b6f" />
 <title>孕期陪伴 · 广东深圳</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #faf6f0;
@@ -34,7 +31,7 @@
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
   body {
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
     min-height: 100dvh;
   }
@@ -44,8 +41,8 @@
       radial-gradient(60% 40% at 10% 0%, rgba(122, 139, 111, 0.06), transparent 60%),
       radial-gradient(50% 35% at 100% 10%, rgba(201, 123, 63, 0.05), transparent 60%);
   }
-  .serif { font-family: 'DM Serif Display', 'Noto Serif SC', serif; font-weight: 400; letter-spacing: -0.005em; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
+  .serif { font-family: Georgia, 'Songti SC', 'Noto Serif SC', 'Source Han Serif SC', serif; font-weight: 400; letter-spacing: -0.005em; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   a { color: var(--primary-deep); text-decoration: none; }
 
   /* ============= Setup Screen ============= */
@@ -57,7 +54,7 @@
     max-width: 480px; width: 100%; background: var(--paper); border: 1px solid var(--line);
     border-radius: var(--radius-lg); padding: 36px 32px; box-shadow: var(--shadow-2);
   }
-  .setup h1 { margin: 0 0 6px; font-family: 'DM Serif Display', serif; font-size: 30px; line-height: 1.2; }
+  .setup h1 { margin: 0 0 6px; font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 30px; line-height: 1.2; }
   .setup .sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
   .setup label { display: block; font-size: 13px; color: var(--ink-2); margin: 18px 0 8px; font-weight: 500; }
   .setup input[type=date] {
@@ -130,7 +127,7 @@
   }
   .hero .greet { color: var(--muted); font-size: 13px; margin-bottom: 4px; }
   .hero h1 {
-    margin: 0; font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1.2; color: var(--ink);
+    margin: 0; font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 28px; line-height: 1.2; color: var(--ink);
   }
   .hero .meta { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
   .hero .meta strong { color: var(--primary-deep); font-weight: 600; }
@@ -147,7 +144,7 @@
   }
   .progress-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .progress-row .left { display: flex; align-items: baseline; gap: 10px; }
-  .week-big { font-family: 'DM Serif Display', serif; font-size: 38px; line-height: 1; color: var(--primary-deep); }
+  .week-big { font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 38px; line-height: 1; color: var(--primary-deep); }
   .week-tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-deep); font-weight: 500; }
   .progress-row .right { font-size: 13.5px; color: var(--muted); }
   .progress-row .right strong { color: var(--ink); font-weight: 600; }
@@ -175,7 +172,7 @@
   section.panel + section.panel { padding-top: 36px; }
   .panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .panel-title {
-    font-family: 'DM Serif Display', serif; font-size: 22px; margin: 0; color: var(--ink);
+    font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 22px; margin: 0; color: var(--ink);
     display: flex; align-items: center; gap: 10px;
   }
   .panel-title svg { color: var(--primary); }
@@ -250,7 +247,7 @@
     cursor: pointer; transition: all .15s ease; padding: 4px;
   }
   .week-cell:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-1); }
-  .week-cell .num { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--ink); line-height: 1; }
+  .week-cell .num { font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 17px; color: var(--ink); line-height: 1; }
   .week-cell .lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
   .week-cell.t1 { background: linear-gradient(180deg, var(--primary-soft), var(--paper)); }
   .week-cell.t2 { background: linear-gradient(180deg, var(--accent-soft), var(--paper)); }
@@ -266,7 +263,7 @@
     padding: 24px; box-shadow: var(--shadow-1); margin-top: 16px;
   }
   .week-detail .head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-  .week-detail .head .title { font-family: 'DM Serif Display', serif; font-size: 24px; margin: 0; }
+  .week-detail .head .title { font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 24px; margin: 0; }
   .week-detail .head .tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-deep); font-weight: 500; }
   .week-detail .sub-bar {
     display: flex; gap: 14px; margin-top: 10px; padding: 10px 14px; background: var(--bg-soft); border-radius: 10px;
@@ -320,7 +317,7 @@
     background: linear-gradient(135deg, var(--primary-soft), var(--paper));
     border: 1px solid var(--line); border-radius: var(--radius); padding: 18px;
   }
-  .bento .stat .num { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--primary-deep); line-height: 1; }
+  .bento .stat .num { font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif; font-size: 30px; color: var(--primary-deep); line-height: 1; }
   .bento .stat .lbl { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
   .bento .stat p { font-size: 13px; color: var(--ink-2); margin: 10px 0 0; }
 
@@ -334,6 +331,49 @@
   .note.warn { background: var(--accent-soft); color: var(--ink-2); }
   .note.danger { background: var(--danger-soft); color: var(--danger); }
   .note strong { color: var(--ink); }
+
+  /* Red-flag triage（红旗分诊） */
+  .rf-card { margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); padding: 14px 16px; }
+  .rf-card > summary { cursor: pointer; font-weight: 600; color: var(--danger); font-size: 14px; }
+  .rf-group { margin-top: 14px; }
+  .rf-group h4 { margin: 0 0 6px; font-size: 12.5px; color: var(--muted); font-weight: 600; letter-spacing: .03em; }
+  .rf-item { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--line-soft); font-size: 13px; }
+  .rf-item:first-of-type { border-top: 0; }
+  .rf-lv { flex-shrink: 0; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; color: #fff; white-space: nowrap; }
+  .rf-lv.lv120 { background: #a33f43; }
+  .rf-lv.lver { background: var(--danger); }
+  .rf-lv.lvopd { background: var(--accent); }
+  .rf-sign { font-weight: 600; color: var(--ink); display: block; }
+  .rf-act { color: var(--ink-2); display: block; margin-top: 3px; line-height: 1.55; }
+
+  /* 用药 / 疫苗速查表 */
+  .tbl { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  .tbl { table-layout: fixed; }
+  .tbl th, .tbl td { text-align: left; padding: 9px 8px; border-top: 1px solid var(--line-soft); vertical-align: top; word-break: normal; overflow-wrap: break-word; }
+  .tbl th { color: var(--muted); font-weight: 600; font-size: 12px; border-top: 0; }
+  .tbl td:first-child { font-weight: 600; color: var(--ink); }
+  .tbl col.c1 { width: 30%; }
+  .tbl col.c2 { width: 26%; }
+  .tbl col.c3 { width: 44%; }
+  .tbl .ok { color: var(--primary-deep); }
+  .tbl .no { color: var(--danger); font-weight: 600; }
+
+  /* Lab（化验单） */
+  .lab-form { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 12px; }
+  .lab-form label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 4px; font-weight: 500; }
+  .lab-form input, .lab-form select {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--bg); font-family: inherit; font-size: 15px; color: var(--ink);
+  }
+  .lab-form input:focus, .lab-form select:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+  .lab-entry { border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 12px 14px; margin-top: 10px; background: var(--bg); }
+  .lab-entry .row-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .lab-entry .date { font-weight: 600; font-size: 13.5px; }
+  .lab-entry .del { background: none; border: 0; color: var(--muted); font: inherit; font-size: 12px; cursor: pointer; text-decoration: underline; }
+  .lab-vals { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 8px; font-size: 13px; color: var(--ink-2); }
+  .lab-vals b { color: var(--ink); }
+  .lab-delta { margin-top: 8px; font-size: 12.5px; color: var(--ink-2); }
+  .lab-flag { margin-top: 8px; font-size: 12.5px; color: var(--danger); background: var(--danger-soft); border-radius: 8px; padding: 8px 10px; }
 
   /* Hospital panel */
   .loc-banner {
@@ -537,12 +577,18 @@
     <div id="weekField" style="display:none;">
       <label for="weekInput">医生核定的孕周</label>
       <div class="row">
-        <input type="number" id="weekInput" min="1" max="42" step="1" placeholder="周，如 9" style="flex:1 1 120px;" />
+        <input type="number" id="weekInput" min="0" max="42" step="1" placeholder="周，如 9" style="flex:1 1 120px;" />
         <input type="number" id="dayInput" min="0" max="6" step="1" placeholder="天，如 3" style="flex:1 1 120px;" />
       </div>
       <label for="weekInputDate">核定当天的日期</label>
       <input type="date" id="weekInputDate" />
-      <p class="hint">例如医生说「今天孕 9 周 3 天」，就填 9 / 3 / 今天。用于反推预产期。</p>
+      <p class="hint">例如医生说「今天孕 9 周 3 天」，就填 9 / 3 / 今天。用于反推预产期（孕 40 周 0 天 = 预产期）。</p>
+    </div>
+
+    <div id="deliveryField">
+      <label for="deliveryInput">宝宝出生日期（已分娩填，未分娩留空）</label>
+      <input type="date" id="deliveryInput" />
+      <p class="hint">留空时按预产期推算；预产期后仍会显示孕期内容与过期妊娠提醒，满 42 周才自动按产后兜底。</p>
     </div>
 
     <p class="hint warn-hint" id="irregularHint" style="display:none;">
@@ -599,9 +645,9 @@
     </div>
     <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
     <div class="progress-sub">
-      <span>第 1 周</span>
+      <span>孕 0 周</span>
       <span id="progressPct">0%</span>
-      <span>第 40 周 / 出生</span>
+      <span>孕 40 周 · 预产期</span>
     </div>
   </div>
 
@@ -630,7 +676,10 @@ const LS_KEY = 'pregnancy-companion-v1';
 function loadState() {
   try { return JSON.parse(localStorage.getItem(LS_KEY)) || null; } catch { return null; }
 }
-function saveState(s) { localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+function saveState(s) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+  catch (e) { console.warn('存档写入失败（可能是隐私模式或配额已满）：', e); }
+}
 
 /* --- date math --- */
 const DAY = 86400000;
@@ -654,25 +703,56 @@ function localDateKey(d = todayDate()) {
   return `${d.getFullYear()}-${String(m).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 }
 
-/* pregnancy weeks: week N covers LMP + (N-1)*7 to LMP + N*7 - 1 (inclusive) */
-function currentWeek(lmp, refDate = todayDate()) {
-  const days = diffDays(lmp, refDate);
-  if (days < 0) return -1; // pre-pregnancy
-  return Math.floor(days / 7) + 1;
+/* ============================================================
+   孕周基准（唯一来源）
+   全部按【临床孕周】计算，与化验单、B 超、医生的口径一致：
+     - 孕龄 days = LMP 到参考日的天数（LMP 当天 = 0 天 = 孕 0 周 0 天）
+     - 临床孕周 = floor(days / 7)，从 0 起；孕 40 周 = 280–286 天
+     - 预产期 = LMP + 280 天 = 孕 40 周 0 天
+     - 孕 41 / 42 周（287 / 294 天起）属过期妊娠，不是产后
+   WEEKS[i-1] 即临床 i 周（表中胎儿数据本身就是临床孕周口径）。
+   ============================================================ */
+const DUE_DAYS = 280;      /* 预产期：孕 40 周 0 天 */
+const OVERDUE_DAYS = 294;  /* 孕 42 周 0 天：之后无分娩日期时按产后兜底 */
+function gestDays(lmp, refDate = todayDate()) { return diffDays(lmp, refDate); }
+function dueDate(lmp) { return addDays(lmp, DUE_DAYS); }
+/* 显示用：孕 X 周 Y 天 */
+function gestLabel(days) {
+  const d = Math.max(0, days);
+  return `孕 ${Math.floor(d / 7)} 周 ${d % 7} 天`;
 }
-function inPostpartum(lmp, refDate = todayDate()) {
-  const days = diffDays(lmp, refDate);
-  const totalPregDays = 280;
-  if (days < totalPregDays) return 0;
-  return Math.floor((days - totalPregDays) / 7) + 1;
+/* 查 WEEKS 用的 1 基索引：孕 0 周（末次月经期）复用第 1 周条目，40 周封顶 */
+function weekIndexOf(days) {
+  if (days < 7) return 1;
+  return Math.min(40, Math.floor(days / 7));
 }
-function dueDate(lmp) { return addDays(lmp, 280); }
+/* 当前阶段：所有渲染函数共用，避免各处各算一套 */
+function phaseNow(refDate = todayDate()) {
+  const lmp = lmpDate();
+  const days = gestDays(lmp, refDate);
+  const due = dueDate(lmp);
+  const delivery = (state && state.delivery) ? parseLmp(state.delivery) : null;
+  const delivered = delivery ? diffDays(delivery, refDate) >= 0 : days >= OVERDUE_DAYS;
+  if (delivered) {
+    const anchor = delivery || addDays(lmp, OVERDUE_DAYS);
+    const pp = Math.max(0, diffDays(anchor, refDate));
+    return { lmp, days, due, delivery, delivered: true, isPre: false, overdue: false,
+             ppDays: pp, ppWeek: Math.floor(pp / 7) + 1, ppDay: pp % 7,
+             /* delivered 分支下 cw 仍反映真实孕龄（供显示），查表索引封顶 40 */
+             cw: Math.max(0, Math.floor(days / 7)), weekIndex: 40, toDue: diffDays(refDate, due) };
+  }
+  const cw = Math.max(0, Math.floor(days / 7));
+  return { lmp, days, due, delivery: null, delivered: false, isPre: days < 0, overdue: days >= DUE_DAYS,
+           ppDays: 0, ppWeek: 0, ppDay: 0,
+           cw, weekIndex: weekIndexOf(days), toDue: diffDays(refDate, due) };
+}
 
-/* --- trimester / postpartum label --- */
-function trimesterOf(w) {
-  if (w <= 13) return '孕早期 · 第 1-13 周';
-  if (w <= 27) return '孕中期 · 第 14-27 周';
-  return '孕晚期 · 第 28-40 周';
+/* --- trimester label：入参为临床孕周 --- */
+function trimesterOf(cw) {
+  if (cw <= 13) return '孕早期 · 第 1-13 周';
+  if (cw <= 27) return '孕中期 · 第 14-27 周';
+  if (cw <= 40) return '孕晚期 · 第 28-40 周';
+  return '孕晚期 · 已过预产期';
 }
 
 /* ============================================================
@@ -698,10 +778,10 @@ const WEEKS = [
 {
   week: 3, baby: { size: '罂粟籽', cm: '0.1', g: '—',
   dev: '受精卵着床，开始分裂成几百个细胞，植入子宫内膜。' },
-  mom: { change: '可能着床出血（少量、粉红/棕色，1-2 天）。', symptom: '乳房轻微胀痛、嗜睡。' },
+  mom: { change: '可能有着床出血（少量、粉红或棕色，1-2 天自行停止，且无腹痛）。', symptom: '乳房轻微胀痛、嗜睡。' },
   todo: ['避免剧烈运动', '继续叶酸', '留意着床出血'],
   diet: ['铁：红肉、动物血、菠菜', '维 E：坚果、牛油果'],
-  warn: ['若出血量大或腹痛剧烈请立即就医'],
+  warn: ['着床出血只在「量少、1-2 天、不伴腹痛」时才算正常', '出血呈鲜红、量达月经量、有血块、超过 2 天，或伴单侧下腹痛 → 立即急诊，不要当成着床出血继续观察'],
 },
 {
   week: 4, baby: { size: '芝麻', cm: '0.2', g: '—',
@@ -709,7 +789,7 @@ const WEEKS = [
   mom: { change: '月经未来潮，可能出现早孕反应。', symptom: '疲倦、乳房胀、轻微恶心。' },
   todo: ['用早孕试纸确认', '预约 6-8 周首次 B 超', '继续叶酸', '暂停剧烈运动'],
   diet: ['少食多餐', '苏打饼干缓解晨吐', '姜片煮水'],
-  warn: ['宫外孕警示：单侧剧痛 + 出血请立即就医'],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）', '宫外孕在 hCG < 1500 时 B 超可能看不到孕囊，不能据此排除'],
 },
 {
   week: 5, baby: { size: '苹果籽', cm: '0.4', g: '—',
@@ -717,7 +797,7 @@ const WEEKS = [
   mom: { change: '早孕反应逐渐明显。', symptom: '恶心（尤其晨起）、嗅觉敏感、疲倦。' },
   todo: ['预约产科建档', '就医时主动告知已怀孕：必要的 X 光/CT 可以做，别自行拒绝，非必要检查推迟', '补充叶酸 + 维 B6'],
   diet: ['姜、陈皮、苏打饼', '避免油腻、腥味重的食物', '少量多餐'],
-  warn: [],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）'],
 },
 {
   week: 6, baby: { size: '小扁豆', cm: '0.6', g: '—',
@@ -725,7 +805,7 @@ const WEEKS = [
   mom: { change: '孕吐高峰，可能出现头晕、情绪波动。', symptom: '恶心呕吐、尿频、乳房胀。' },
   todo: ['预约早孕 B 超（确认胎心、宫内）', '避免提重物', '保证 8 小时睡眠'],
   diet: ['流质/半流质', '电解质水（淡盐水 + 柠檬）', 'B6 食物：香蕉、土豆'],
-  warn: ['剧吐无法进食饮水请就医（妊娠剧吐）'],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）', '剧吐无法进食饮水请就医（妊娠剧吐）'],
 },
 {
   week: 7, baby: { size: '蓝莓', cm: '1.0', g: '—',
@@ -733,7 +813,7 @@ const WEEKS = [
   mom: { change: '子宫如橙子大小。', symptom: '孕吐、唾液多、便秘可能开始。' },
   todo: ['不吃生冷、半生熟', '准备建档材料', '避免长时间站立'],
   diet: ['高纤维防便秘：燕麦、玉米、红薯', '酸奶（益生菌）', '小番茄'],
-  warn: [],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）'],
 },
 {
   week: 8, baby: { size: '芸豆', cm: '1.6', g: '1',
@@ -741,7 +821,7 @@ const WEEKS = [
   mom: { change: '腰围开始增粗，孕吐仍明显。', symptom: '疲劳、乳房变大、皮肤可能出油。' },
   todo: ['首次正式产检（B 超确认胎心）', '建深圳母子健康手册', '注意口腔卫生（激素易致牙龈炎）'],
   diet: ['DHA 开始补：三文鱼、鳕鱼、核桃', '少糖少盐'],
-  warn: ['B 超异常或无胎心请听医生诊断'],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）', 'B 超无胎心可能只是孕周偏小，需 1-2 周后复查，听医生判断'],
 },
 {
   week: 9, baby: { size: '葡萄', cm: '2.3', g: '2',
@@ -749,7 +829,7 @@ const WEEKS = [
   mom: { change: '情绪波动大，乳房胀满。', symptom: '孕吐、烧心、便秘。' },
   todo: ['进行心理调适', '避免高强度工作', '减少咖啡因（<200mg/天）'],
   diet: ['温牛奶', '南瓜小米粥', '蒸鱼'],
-  warn: [],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）'],
 },
 {
   week: 10, baby: { size: '金桔', cm: '3.1', g: '4',
@@ -757,7 +837,7 @@ const WEEKS = [
   mom: { change: '腹部微微隆起。', symptom: '孕吐逐渐减轻，尿频。' },
   todo: ['NT 筛查预约（11-13+6 周）', '换宽松内衣', '开始记录体重'],
   diet: ['均衡蛋白质 + 蔬果', '控糖（防后期妊娠糖尿病）'],
-  warn: [],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）'],
 },
 {
   week: 11, baby: { size: '无花果', cm: '4.1', g: '7',
@@ -765,7 +845,7 @@ const WEEKS = [
   mom: { change: '孕吐开始缓解。', symptom: '白带增多、可能长痘。' },
   todo: ['NT 筛查（11-13+6 周）', '选好分娩医院'],
   diet: ['补钙：奶、豆腐、小鱼', '维 C：猕猴桃、橙子'],
-  warn: [],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）'],
 },
 {
   week: 12, baby: { size: '李子', cm: '5.4', g: '14',
@@ -773,7 +853,7 @@ const WEEKS = [
   mom: { change: '子宫出盆腔，孕吐明显减轻。', symptom: '精力恢复，可能出现妊娠纹前兆。' },
   todo: ['建档正式完成', 'NT 筛查', '开始涂妊娠油', '夫妻可商量是否告知工作单位'],
   diet: ['深海鱼 DHA', '铁 + 维 C 同食（促进吸收）'],
-  warn: [],
+  warn: ['阴道出血 + 单侧下腹痛 → 立即急诊排除宫外孕（不要等门诊号）'],
 },
 {
   week: 13, baby: { size: '柠檬', cm: '7.4', g: '23',
@@ -1062,7 +1142,7 @@ const SZ_RESOURCES = [
   small: '提醒：孕晚期（28 周后）尽量固定一家产检分娩，便于档案延续。',
   icon: 'hospital' },
 { title: '出生医学证明',
-  desc: '出生后 1 个月内，在分娩医院办理。需取好宝宝姓名、父母身份证、结婚证。提前想好名字，避免临时。',
+  desc: '在分娩医院办理。深圳市妇幼保健院官方口径为「原则上出生后 3 个月内办理，最晚领取时间无限制」——常见说法"1 个月内"对深圳并不准确，具体以分娩医院通知为准。需取好宝宝姓名、父母身份证、结婚证。',
   small: '后续上户口、入医保、打疫苗都要用，务必保管好。',
   icon: 'cert' },
 { title: '宝宝入深户',
@@ -1163,8 +1243,9 @@ const MEALS = [
    CHECKLIST POOL — 选择每周当日适用的项
 ============================================================ */
 const CHECKLIST_POOL = [
-{ id: 'folate', when: w => w >= 1 && w <= 12, text: '服用叶酸 0.4mg', small: '建议吃到孕 12 周，可延长到哺乳期' },
+{ id: 'folate', when: w => w >= 0 && w <= 12, text: '服用叶酸 0.4mg', small: '建议吃到孕 12 周，可延长到哺乳期' },
 { id: 'dha', when: w => w >= 13, text: '补充 DHA（藻油或鱼油）', small: '孕中后期是胎儿脑发育关键期' },
+{ id: 'thal', when: w => w <= 13, text: '确认已做地中海贫血筛查（广东必查）', small: '血常规初筛：MCV<82 fL 和/或 MCH<27 pg 为阳性，夫妇双方都要做；异常者需血红蛋白电泳、必要时基因诊断。静止型 α 地贫可能漏检' },
 { id: 'iron', when: w => w >= 16, text: '关注铁摄入（必要时补铁剂）', small: '动物血、肝脏、菠菜；与维 C 同食' },
 { id: 'milk', when: w => true, text: '喝 300-500ml 奶或相当钙来源', small: '酸奶 / 舒化奶 / 孕妇奶粉都算' },
 { id: 'walk', when: w => true, text: '散步或孕妇运动 30 分钟', small: '餐后 30 分钟最好，量力而行' },
@@ -1178,7 +1259,7 @@ const CHECKLIST_POOL = [
 { id: 'birthClass', when: w => w >= 28, text: '线上分娩课 / 拉玛泽练习', small: '医院常有免费课，可联系产检护士' },
 { id: 'bagReady', when: w => w >= 32, text: '待产包就位、家人知道流程', small: '包括证件、产检手册、宝宝衣物' },
 { id: 'pediatrician', when: w => w >= 30, text: '选定儿科医生（社区或医院）', small: '宝宝出生 7 天内可能就要打疫苗/体检' },
-{ id: 'name', when: w => w >= 28, text: '确定宝宝姓名', small: '出生证明需 1 个月内办理' },
+{ id: 'name', when: w => w >= 28, text: '确定宝宝姓名', small: '出生证明建议尽早办，深圳原则上 3 个月内、最晚领取时间无限制' },
 { id: 'postnatalCare', when: w => w >= 32, text: '安排月子（家人/月嫂/月子中心）', small: '深圳金牌月嫂 1.2w-1.8w/月起' },
 { id: 'monitor', when: w => w >= 32, text: '关注胎动和假宫缩变化', small: '每 2-3 周产检 + 胎监' },
 { id: 'hotline', when: w => w >= 32, text: '医院产科急诊电话存手机', small: '同时保存 120、家人紧急联系人' },
@@ -1228,13 +1309,17 @@ const ICONS = {
   globe: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
   flag: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
   today: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  syringe: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3a2.4 2.4 0 0 1-3.4 0l-.6-.6a2.4 2.4 0 0 1 0-3.4L15 5"/><path d="m9 11 3 3"/><path d="M5 19 2 22"/><path d="M14 6 18 10"/></svg>',
+  lab: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6l-5 8.5A2 2 0 0 0 6.7 21h10.6a2 2 0 0 0 1.7-3.5L14 9V3"/><path d="M7 15h10"/></svg>',
 };
 
 /* --- tabs --- */
 const TABS = [
 { id: 'today', label: '今日', icon: 'today' },
+{ id: 'lab', label: '化验单', icon: 'lab' },
 { id: 'week', label: '周历', icon: 'calendar' },
 { id: 'food', label: '广东饮食', icon: 'apple' },
+{ id: 'med', label: '用药·疫苗', icon: 'syringe' },
 { id: 'bag', label: '待产包', icon: 'bag' },
 { id: 'sz', label: '深圳资源', icon: 'flag' },
 { id: 'hospital', label: '医院推荐', icon: 'hospital' },
@@ -1306,6 +1391,7 @@ function fillForm() {
   document.getElementById('weekInput').value = s.week || '';
   document.getElementById('dayInput').value = (s.day === undefined || s.day === null) ? '' : s.day;
   document.getElementById('weekInputDate').value = s.refDate || fmtDate(todayDate());
+  document.getElementById('deliveryInput').value = s.delivery || '';
   renderFlagBox();
   setDatingMode(s.dating || 'lmp');
 }
@@ -1314,7 +1400,8 @@ function fillForm() {
 function readForm() {
   const prof = {};
   document.querySelectorAll('#flagBox .flag.on').forEach(el => { prof[el.dataset.flag] = true; });
-  const s = { dating: datingMode, profile: prof };
+  /* 化验单记录与出生日期不属于本表单，须原样保留，否则保存设置时会丢 */
+  const s = { dating: datingMode, profile: prof, labs: (state && state.labs) || [] };
   if (datingMode === 'lmp') {
     const v = document.getElementById('lmpInput').value;
     if (!parseLmp(v)) { document.getElementById('lmpInput').focus(); return null; }
@@ -1323,17 +1410,23 @@ function readForm() {
     const v = document.getElementById('dueInput').value;
     if (!parseLmp(v)) { document.getElementById('dueInput').focus(); return null; }
     s.due = v;
-    s.lmp = fmtDate(addDays(new Date(v + 'T00:00:00'), -280));
+    s.lmp = fmtDate(addDays(new Date(v + 'T00:00:00'), -DUE_DAYS));
   } else {
     const wk = parseInt(document.getElementById('weekInput').value, 10);
     let dy = parseInt(document.getElementById('dayInput').value, 10);
     if (isNaN(dy) || dy < 0) dy = 0;
     if (dy > 6) dy = 6;
     const ref = document.getElementById('weekInputDate').value;
-    if (!(wk >= 1 && wk <= 42)) { document.getElementById('weekInput').focus(); return null; }
+    if (!(wk >= 0 && wk <= 42)) { document.getElementById('weekInput').focus(); return null; }
     if (!parseLmp(ref)) { document.getElementById('weekInputDate').focus(); return null; }
     s.week = wk; s.day = dy; s.refDate = ref;
-    s.lmp = fmtDate(addDays(new Date(ref + 'T00:00:00'), -((wk - 1) * 7 + dy)));
+    /* 孕 W 周 D 天 = LMP + W*7 + D 天，所以 LMP = 核定日 − (W*7 + D) */
+    s.lmp = fmtDate(addDays(new Date(ref + 'T00:00:00'), -(wk * 7 + dy)));
+  }
+  const dv = document.getElementById('deliveryInput').value;
+  if (dv) {
+    if (!parseLmp(dv)) { document.getElementById('deliveryInput').focus(); return null; }
+    s.delivery = dv;
   }
   return s;
 }
@@ -1511,16 +1604,13 @@ function init() {
 
 function renderApp() {
   const today = todayDate();
-  const lmp = lmpDate();
-  const w = currentWeek(lmp, today);
-  const p = inPostpartum(lmp, today);
-  const due = dueDate(lmp);
+  const ph = phaseNow(today);
 
   /* header */
   let phase = '';
-  if (w < 1) phase = '备孕阶段';
-  else if (w <= 40) phase = `孕 ${w} 周 · ${trimesterOf(w)}`;
-  else phase = `产后第 ${p} 周`;
+  if (ph.isPre) phase = '备孕阶段';
+  else if (!ph.delivered) phase = `${gestLabel(ph.days)} · ${trimesterOf(ph.cw)}`;
+  else phase = `产后第 ${ph.ppWeek} 周 · 第 ${ph.ppDay} 天`;
 
   document.getElementById('greet').textContent = `${fmtDate(today, false)} · ${['周日','周一','周二','周三','周四','周五','周六'][today.getDay()]}`;
   const flags = activeFlags();
@@ -1529,13 +1619,16 @@ function renderApp() {
 
   /* progress */
   let pct = 0, weekBig = '—', weekTag = '—';
-  if (w < 1) { pct = 0; weekBig = '备'; weekTag = '未开始'; }
-  else if (w <= 40) { pct = Math.min(100, (w / 40) * 100); weekBig = w; weekTag = trimesterOf(w).split(' · ')[1] || ''; }
-  else { pct = 100; weekBig = '出'; weekTag = '宝宝已出生'; }
+  if (ph.isPre) { pct = 0; weekBig = '备'; weekTag = '未开始'; }
+  else if (!ph.delivered) {
+    pct = Math.min(100, (Math.max(0, ph.days) / DUE_DAYS) * 100);
+    weekBig = ph.cw;
+    weekTag = ph.overdue ? '已过预产期' : (trimesterOf(ph.cw).split(' · ')[1] || '');
+  } else { pct = 100; weekBig = '出'; weekTag = '宝宝已出生'; }
   document.getElementById('weekBig').textContent = weekBig;
   document.getElementById('weekTag').textContent = weekTag;
-  document.getElementById('dueDate').textContent = fmtDate(due);
-  const left = diffDays(today, due);
+  document.getElementById('dueDate').textContent = fmtDate(ph.due);
+  const left = ph.toDue;
   document.getElementById('countdown').textContent = left >= 0 ? `还有 ${left} 天` : `已超 ${-left} 天`;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = Math.round(pct) + '%';
@@ -1549,6 +1642,8 @@ function renderApp() {
   tabBar.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
     currentTab = b.dataset.tab;
     renderPanel();
+    /* tab 较多时需要横向滚动，切过去后把当前 tab 带进可视区 */
+    try { b.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch {}
   }));
 
   /* settings */
@@ -1565,8 +1660,10 @@ function renderPanel() {
   let html = '';
   switch (currentTab) {
     case 'today': html = renderToday(); break;
+    case 'lab': html = renderLab(); break;
     case 'week': html = renderWeek(); break;
     case 'food': html = renderFood(); break;
+    case 'med': html = renderMed(); break;
     case 'bag': html = renderBag(); break;
     case 'sz': html = renderSz(); break;
     case 'hospital': html = renderHospital(); break;
@@ -1593,23 +1690,93 @@ function pcosChecks(w) {
   return list;
 }
 
+/* ============================================================
+   红旗信号分诊（P0）
+   把笼统的"请就医"拆成三档动作：打 120 / 立即急诊 / 24h 内门诊。
+   只做分流提示，不做诊断。
+   ============================================================ */
+const RF_LEVELS = {
+  call120: { label: '打 120', cls: 'lv120' },
+  er: { label: '立即急诊', cls: 'lver' },
+  opd: { label: '24h 内门诊', cls: 'lvopd' },
+};
+const RED_FLAGS = [
+  { group: '孕早期（<14 周）', level: 'er', sign: '阴道出血 + 单侧下腹疼痛',
+    act: '立即去有妇产科急诊、能做急诊手术和输血的三甲医院，首要目标是排除宫外孕。hCG < 1500 IU/L 时 B 超可能还看不到宫内孕囊，不能据此排除宫外孕。' },
+  { group: '孕早期（<14 周）', level: 'call120', sign: '出血 + 头晕 / 眼前发黑 / 肩尖痛 / 肛门坠胀 / 晕倒',
+    act: '可能已发生腹腔内出血。打 120，不要自己开车，暂时禁食禁水以便随时手术。' },
+  { group: '孕早期（<14 周）', level: 'er', sign: '出血量达月经量、有血块，或持续超过 2 天',
+    act: '立即急诊。可能需要清宫等处理，别当成"着床出血"继续在家观察。' },
+  { group: '孕早期（<14 周）', level: 'opd', sign: '少量褐色点滴、无腹痛、1-2 天内逐渐减少',
+    act: '24 小时内联系产科，尽早做早孕 B 超核定孕周与孕囊位置；期间避免剧烈活动与性生活。' },
+  { group: '孕早期（<14 周）', level: 'er', sign: '剧烈呕吐、无法进食饮水、明显消瘦或尿少',
+    act: '妊娠剧吐需要补液与电解质评估，不要在家硬扛。' },
+  { group: '孕早期（<14 周）', level: 'er', sign: '发热 ≥38℃',
+    act: '孕期发热需要查因，尽早就诊并主动告知已怀孕。' },
+  { group: '孕中晚期', level: 'er', sign: '阴道出血（任何量）',
+    act: '立即急诊，需排除前置胎盘、胎盘早剥等。' },
+  { group: '孕中晚期', level: 'er', sign: '持续头痛 / 视物模糊 / 上腹或右上腹痛 / 血压 ≥140/90',
+    act: '警惕子痫前期，立即急诊，不要等门诊号。' },
+  { group: '孕中晚期', level: 'er', sign: '胎动明显减少或消失',
+    act: '立即就医评估，不要等到第二天，也不要靠喝糖水、拍肚子反复试探。' },
+  { group: '孕中晚期', level: 'er', sign: '破水（阴道流液不止）',
+    act: '平躺、垫高臀部，立即去医院；不要洗澡，不要自行阴道检查。' },
+  { group: '孕中晚期', level: 'er', sign: '规律宫缩（尤其 <37 周）', act: '立即就诊评估早产风险。' },
+  { group: '孕中晚期', level: 'er', sign: '单侧小腿肿痛、发热', act: '需排除下肢深静脉血栓与感染，尽快就诊。' },
+  { group: '孕中晚期', level: 'er', sign: '全身瘙痒、尤其手足，无皮疹', act: '警惕妊娠期肝内胆汁淤积症，需抽血查胆汁酸。' },
+  { group: '孕中晚期', level: 'call120', sign: '胸痛、气短、咯血、晕厥', act: '打 120，需排除肺栓塞等急症。' },
+  { group: '孕中晚期', level: 'opd', sign: '胎动比平时减少但仍有动，或拿不准',
+    act: '24 小时内门诊评估（不要等到完全不动）。可以先左侧卧、吃点东西后专注数 1 小时；若无改善或继续减少，按上一档立即急诊。' },
+  { group: '孕中晚期', level: 'opd', sign: '阴道流液但不确定是不是破水',
+    act: '24 小时内门诊用试纸确认。垫护垫观察，不要同房、不要冲洗阴道、不要自行阴道检查；若持续流液或量增多，立即去医院。' },
+  { group: '产后', level: 'er', sign: '出血量超过月经量、有大血块', act: '立即急诊，警惕晚期产后出血。' },
+  { group: '产后', level: 'er', sign: '发热 ≥38℃、伤口红肿流脓、恶露异味', act: '立即就诊，警惕产褥感染。' },
+  { group: '产后', level: 'call120', sign: '单侧小腿肿痛、胸痛气短', act: '打 120，警惕产后肺栓塞。' },
+  { group: '产后', level: 'opd', sign: '恶露反复变红或量增多，但未超过月经量',
+    act: '24 小时内门诊复查（常见于活动量突然增加，也需排除宫腔残留与感染）。若量超过月经量或伴发热，按上一档立即急诊。' },
+  { group: '产后', level: 'er', sign: '剧烈头痛、视物模糊、血压 ≥140/90', act: '立即急诊，警惕产后子痫前期。' },
+  { group: '产后', level: 'er', sign: '情绪持续低落 >2 周，或有伤害自己 / 宝宝的想法',
+    act: '立即求助。产后精神病是急症，可拨打心理援助热线或直接去急诊，不要独自承受。' },
+];
+function redFlagBlock(ph) {
+  const keep = ph.delivered ? ['产后'] : (ph.cw <= 13 ? ['孕早期（<14 周）'] : ['孕中晚期']);
+  const groups = [];
+  for (const f of RED_FLAGS) if (keep.includes(f.group) && !groups.includes(f.group)) groups.push(f.group);
+  if (!groups.length) return '';
+  return `
+    <details class="rf-card" style="margin-top:16px;">
+      <summary>🚨 哪些情况要立刻就医（按动作分档，点开看）</summary>
+      <div class="note danger" style="margin-top:10px;">${ICONS.warn}<div>
+        <strong>本卡片只做分流提示，不做诊断。</strong>出现下列任一情况，按对应档位行动；拿不准时按更高一档处理。
+      </div></div>
+      ${groups.map(g => `
+        <div class="rf-group">
+          <h4>${esc(g)}</h4>
+          ${RED_FLAGS.filter(f => f.group === g).map(f => `
+            <div class="rf-item">
+              <span class="rf-lv ${RF_LEVELS[f.level].cls}">${RF_LEVELS[f.level].label}</span>
+              <span><span class="rf-sign">${esc(f.sign)}</span><span class="rf-act">${esc(f.act)}</span></span>
+            </div>`).join('')}
+        </div>`).join('')}
+    </details>`;
+}
+
 function renderToday() {
   const today = todayDate();
-  const lmp = lmpDate();
-  const w = currentWeek(lmp, today);
-  const p = inPostpartum(lmp, today);
-  const due = dueDate(lmp);
+  const ph = phaseNow(today);
+  const lmp = ph.lmp;
+  const w = ph.cw;                 /* 临床孕周：下面所有阈值都按临床孕周书写 */
   const dateKey = localDateKey(today);
   const prof = profile();
   const flags = activeFlags();
   const hasPcos = !!prof.pcos;
 
-  if (w < 1) {
+  if (ph.isPre) {
     return `
       <section class="panel">
         <div class="card">
           <h3>${ICONS.today} 还没到孕周</h3>
-          <p>当前按 <strong>${fmtDate(lmp)}</strong> 计算，还没到第 1 周。</p>
+          <p>当前按 <strong>${fmtDate(lmp)}</strong> 计算，还没到孕 0 周 0 天（末次月经第一天）。</p>
           <p>可以做的事：每天 0.4mg 叶酸、戒烟戒酒、规律作息、预约孕前检查。</p>
           ${hasPcos ? `<p style="color:var(--accent);"><strong>PCOS 备孕期：</strong>孕前把体重、血糖、血压控制在医生建议的范围，会明显降低孕期并发症风险；二甲双胍等药物<strong>是否继续由医生决定，不要自行停用或加用</strong>。</p>` : ''}
         </div>
@@ -1617,18 +1784,18 @@ function renderToday() {
   }
 
   let weekData, postData, headerTitle, postOvertime = false;
-  if (w <= 40) {
-    weekData = WEEKS[w - 1];
-    headerTitle = `第 ${w} 周 · ${trimesterOf(w).split(' · ')[0]}`;
+  if (!ph.delivered) {
+    weekData = WEEKS[ph.weekIndex - 1];
+    headerTitle = `${gestLabel(ph.days)} · ${trimesterOf(w).split(' · ')[0]}`;
   } else {
-    postData = POSTPARTUM[Math.min(p - 1, 3)];
-    postOvertime = p > POSTPARTUM.length; /* 超过产后第 4 周：本手册不再逐周追踪 */
-    headerTitle = postOvertime ? `产后第 ${p} 周 · 已出月子` : postData.title;
+    postData = POSTPARTUM[Math.min(ph.ppWeek - 1, 3)];
+    postOvertime = ph.ppWeek > POSTPARTUM.length; /* 超过产后第 4 周：本手册不再逐周追踪 */
+    headerTitle = postOvertime ? `产后第 ${ph.ppWeek} 周 · 已出月子` : postData.title;
   }
 
   /* 孕期用孕期清单，产后用产后清单，两者不混排；高危因素再叠加专项条目 */
   let checks;
-  if (w <= 40) {
+  if (!ph.delivered) {
     checks = CHECKLIST_POOL.filter(c => c.when(w));
     if (hasPcos) checks = pcosChecks(w).concat(checks);
   } else {
@@ -1737,7 +1904,7 @@ function renderToday() {
 
   /* upcoming milestones */
   let milestones = [];
-  if (w <= 40) {
+  if (!ph.delivered) {
     const milestonesDef = [
       { week: 6, name: '首次 B 超（确认胎心）' },
       { week: 12, name: '建档 + NT 筛查' },
@@ -1758,20 +1925,32 @@ function renderToday() {
     milestones = milestonesDef.filter(m => m.week > w).slice(0, 5).map(m => ({
       ...m,
       when: `还有 ${(m.week - w)} 周`,
+      /* 临床孕 N 周从 LMP + N*7 天开始；孕 40 周 0 天 = LMP + 280 = 预产期 */
+      date: fmtDate(addDays(lmp, m.week * 7)),
     }));
   }
 
   /* picks: today drinks */
   const todayDrinks = DRINKS.filter(d => d.ok).slice(0, 3);
 
+  /* 过期妊娠提醒：预产期已到但尚未记录分娩 */
+  const overdueBlock = (ph.overdue && !ph.delivered) ? `
+    <div class="note danger" style="margin-top:16px;">${ICONS.warn}<div>
+      <strong>已到预产期（${gestLabel(ph.days)}）：</strong>孕 41 周起需由产科评估引产时机，不要在家等；
+      <strong>胎动明显减少、破水、见红量多或规律宫缩，请立即去医院</strong>。
+      已分娩？点右上角 ⚙️ 填写「宝宝出生日期」，即进入产后模式。
+    </div></div>` : '';
+
   return `
     <section class="panel">
       <div class="panel-head">
         <h2 class="panel-title">${ICONS.today} 今日 · ${esc(headerTitle)}</h2>
-        <span class="badge">${w <= 40 ? `孕期 ${w}/40 周` : `产后第 ${p} 周`}</span>
+        <span class="badge">${!ph.delivered ? gestLabel(ph.days) : `产后第 ${ph.ppWeek} 周`}</span>
       </div>
-      <p class="panel-sub">距离预产期 <strong style="color:var(--accent);">${due >= today ? (diffDays(today, due)) + ' 天' : '已过'}</strong> · 今天为 ${fmtDate(today, false)}</p>
+      <p class="panel-sub">预产期 <strong>${fmtDate(ph.due)}</strong> · ${ph.toDue >= 0 ? `距离预产期 <strong style="color:var(--accent);">${ph.toDue} 天</strong>` : `<strong style="color:var(--danger);">已过预产期 ${-ph.toDue} 天</strong>`} · 今天为 ${fmtDate(today, false)}</p>
 
+      ${redFlagBlock(ph)}
+      ${overdueBlock}
       ${riskBlock}
       ${mainBlock}
       ${pcosBlock}
@@ -1783,7 +1962,7 @@ function renderToday() {
       <h3 class="section-title" style="margin-top:24px;">📍 接下来的关键节点</h3>
       <div class="timeline">
         ${milestones.map(m => `
-          <div class="item"><h4>${esc(m.name)}</h4><p><span class="when">${esc(m.when)}</span> · 约 ${fmtDate(addDays(lmp, m.week * 7 - 7))}</p></div>
+          <div class="item"><h4>${esc(m.name)}</h4><p><span class="when">${esc(m.when)}</span> · 约 ${m.date}</p></div>
         `).join('')}
       </div>` : ''}
 
@@ -1805,44 +1984,56 @@ function renderToday() {
 }
 
 function renderWeek() {
-  const lmp = lmpDate();
   const today = todayDate();
-  const w = currentWeek(lmp, today);
+  const ph = phaseNow(today);
+  const lmp = ph.lmp;
+  const w = ph.cw;                                    /* 临床孕周 */
+  const curIdx = Math.max(1, Math.min(40, ph.weekIndex)); /* 表格里的格子编号 */
 
   /* if not selected, default to current or 1 */
-  if (!currentWeekDetail) currentWeekDetail = (w >= 1 && w <= 40) ? w : 1;
+  if (!currentWeekDetail) currentWeekDetail = ph.delivered ? 'post' : curIdx;
+  if (currentWeekDetail !== 'post') {
+    const n = parseInt(currentWeekDetail, 10);
+    currentWeekDetail = (n >= 1 && n <= 40) ? n : 1;
+  }
 
   /* grid */
   let cells = '';
   for (let i = 1; i <= 40; i++) {
-    const cls = i === w ? 'current' : (i <= 13 ? 't1' : i <= 27 ? 't2' : 't3');
+    const isNow = !ph.delivered && i === curIdx;
+    const cls = isNow ? 'current' : (i <= 13 ? 't1' : i <= 27 ? 't2' : 't3');
     const tri = i <= 13 ? '早' : i <= 27 ? '中' : '晚';
     cells += `<div class="week-cell ${cls}" data-w="${i}"><div class="num">${i}</div><div class="lbl">${tri}</div></div>`;
   }
-  cells += `<div class="week-cell postpartum" data-w="post"><div class="num">+1</div><div class="lbl">月子</div></div>`;
+  cells += `<div class="week-cell postpartum ${ph.delivered ? 'current' : ''}" data-w="post"><div class="num">+1</div><div class="lbl">月子</div></div>`;
 
   /* detail */
   let detailHtml = '';
   if (currentWeekDetail === 'post') {
-    const p = inPostpartum(lmp, today);
-    const pd = POSTPARTUM[Math.max(0, Math.min(p - 1, 3))] || POSTPARTUM[0];
+    const pd = POSTPARTUM[Math.max(0, Math.min(ph.ppWeek - 1, 3))] || POSTPARTUM[0];
     detailHtml = `
       <div class="week-detail">
         <div class="head">
           <h3 class="title">产后第 1-4 周速览</h3>
           <span class="tag">月子期</span>
         </div>
-        <div class="sub-bar">当前产后 <strong>第 ${p || '?'} 周</strong> · 详见"产后月子" Tab</div>
+        <div class="sub-bar">${ph.delivered
+          ? `当前产后 <strong>第 ${ph.ppWeek} 周</strong> · 详见"产后月子" Tab`
+          : `尚未记录分娩日期。已分娩？点右上角 ⚙️ 填写「宝宝出生日期」，才会进入产后模式。`}</div>
+        <div class="section-title">${ICONS.baby} 宝宝</div>
+        <p style="color:var(--ink-2);margin:0 0 12px;">${esc(pd.baby.dev)}</p>
+        <div class="section-title">${ICONS.heart} 妈妈</div>
+        <p style="color:var(--ink-2);margin:0;">${esc(pd.mom.change)}</p>
       </div>`;
   } else {
     const wd = WEEKS[currentWeekDetail - 1];
     detailHtml = `
       <div class="week-detail">
         <div class="head">
-          <h3 class="title">第 ${wd.week} 周 · ${trimesterOf(wd.week).split(' · ')[0]}</h3>
+          <h3 class="title">孕 ${wd.week} 周 · ${trimesterOf(wd.week).split(' · ')[0]}</h3>
           <span class="tag">${trimesterOf(wd.week).split(' · ')[1]}</span>
         </div>
-        <div class="sub-bar">宝宝约 <strong>${esc(wd.baby.size)}</strong> · ${esc(wd.baby.cm)} cm · ${esc(wd.baby.g)} g</div>
+        <div class="sub-bar">宝宝约 <strong>${esc(wd.baby.size)}</strong> · ${esc(wd.baby.cm)} cm · ${esc(wd.baby.g)} g　|　对应日期 ${fmtDate(addDays(lmp, wd.week * 7))} 起的一周</div>
         <div class="section-title">${ICONS.baby} 宝宝发育</div>
         <p style="color:var(--ink-2);margin:0 0 12px;">${esc(wd.baby.dev)}</p>
         <div class="section-title">${ICONS.heart} 妈妈变化</div>
@@ -1861,9 +2052,254 @@ function renderWeek() {
       <div class="panel-head">
         <h2 class="panel-title">${ICONS.calendar} 40 周日历</h2>
       </div>
-      <p class="panel-sub">点击任一周查看那一周的详情。绿色块是今天所在周。</p>
+      <p class="panel-sub">格子按<b>临床孕周</b>编号（与 B 超、化验单一致）：孕 40 周 0 天 = 预产期。绿色块是当前所在周。</p>
       <div class="week-grid">${cells}</div>
       ${detailHtml}
+      ${redFlagBlock(ph)}
+    </section>`;
+}
+
+/* ============================================================
+   化验单（hCG / 孕酮）记录
+   只做：记录、单位换算、按固定规则提示"要不要尽快找医生"。
+   不做：任何诊断，也不输出"正常 / 异常"的结论。
+   ============================================================ */
+const PROG_NMOL_PER_NGML = 3.18;  /* 1 ng/mL ≈ 3.18 nmol/L（单位最容易看错的一处） */
+const PROG_LOW_NMOL = 47.7;       /* ≈15 ng/mL，仅作提示阈值，不是诊断标准 */
+function progToNmol(v, unit) { return unit === 'ng/mL' ? v * PROG_NMOL_PER_NGML : v; }
+function labEntries() {
+  return ((state && state.labs) || []).slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
+}
+/* 相邻两次 hCG 的变化率、折合 48 小时变化、倍增时间 */
+function labDelta(prev, cur) {
+  if (!(prev.hcg > 0) || !(cur.hcg > 0)) return null;
+  const dtH = (new Date(cur.date + 'T00:00:00') - new Date(prev.date + 'T00:00:00')) / 3600000;
+  if (!(dtH > 0)) return null;
+  const ratio = cur.hcg / prev.hcg;
+  return {
+    dtH, ratio,
+    pct: (ratio - 1) * 100,
+    pct48: Math.pow(ratio, 48 / dtH) * 100 - 100,
+    doublingH: ratio > 1 ? dtH * Math.LN2 / Math.log(ratio) : null,
+  };
+}
+/* 固定规则提示（可审计，不依赖任何模型判断） */
+function labAlerts(entries) {
+  const out = [];
+  if (!entries.length) return out;
+  const hcgs = entries.filter(e => e.hcg > 0).map(e => e.hcg);
+  if (hcgs.length && Math.max.apply(null, hcgs) < 1500) {
+    out.push(`最高一次 hCG 为 ${Math.max.apply(null, hcgs)} IU/L（<1500）：这个水平下 B 超常常还看不到宫内孕囊，<b>单次 hCG 无法判断妊娠位置</b>。不能因为"B 超没看到孕囊"就排除宫外孕，也不能因为数值低就认定失败。请按医生安排 48 小时复查 hCG + 经阴道 B 超。`);
+  }
+  for (let i = 1; i < entries.length; i++) {
+    const d = labDelta(entries[i - 1], entries[i]);
+    if (!d) continue;
+    const a = entries[i - 1].date, b = entries[i].date;
+    if (d.ratio < 1) {
+      out.push(`${a} → ${b}：hCG 下降约 ${Math.abs(d.pct).toFixed(0)}%。下降通常提示妊娠未继续发育，需要就诊确认，并随访 hCG 直到回到正常（一般 &lt;5 IU/L）；期间如出现出血增多或腹痛，立即急诊。`);
+    } else if (d.dtH >= 40 && d.dtH <= 60 && d.pct < 53) {
+      out.push(`${a} → ${b}：间隔约 ${Math.round(d.dtH)} 小时，hCG 只上升 ${d.pct.toFixed(0)}%（孕早期常见的参考是 48 小时 ≥53%）。上升偏慢需要尽快由医生评估（宫外孕、胚胎停育都可能），不要在家等下一次复查。`);
+    }
+  }
+  const low = entries.filter(e => e.prog > 0 && progToNmol(e.prog, e.progUnit) < PROG_LOW_NMOL);
+  if (low.length) {
+    const e = low[low.length - 1];
+    const pn2 = progToNmol(e.prog, e.progUnit);
+    const conv = e.progUnit === 'ng/mL' ? `≈ ${pn2.toFixed(1)} nmol/L` : `≈ ${(pn2 / PROG_NMOL_PER_NGML).toFixed(2)} ng/mL`;
+    out.push(`孕酮 ${e.prog} ${e.progUnit}（${conv}）低于 47.7 nmol/L（约 15 ng/mL）。孕酮单次值波动大、不能单独下结论，但偏低时需要医生评估黄体功能与妊娠状态；<b>不要自行购买黄体酮服用</b>。`);
+  }
+  return out;
+}
+function renderLab() {
+  const entries = labEntries();
+  const alerts = labAlerts(entries);
+  const todayKey = fmtDate(todayDate());
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.lab} 化验单记录</h2>
+        <span class="badge">${entries.length} 条</span>
+      </div>
+      <p class="panel-sub">只做记录、单位换算和固定规则的提示，<strong>不做诊断</strong>；参考区间请以你化验单上的为准。</p>
+
+      <div class="card">
+        <h3>${ICONS.pill} 新增一次结果</h3>
+        <div class="lab-form">
+          <div><label for="labDate">抽血日期</label><input type="date" id="labDate" value="${todayKey}" /></div>
+          <div><label for="labHcg">hCG（IU/L，可留空）</label><input type="number" id="labHcg" step="0.1" min="0" placeholder="如 276" /></div>
+          <div><label for="labProg">孕酮（可留空）</label><input type="number" id="labProg" step="0.01" min="0" placeholder="如 14.16" /></div>
+          <div><label for="labUnit">孕酮单位</label><select id="labUnit"><option value="nmol/L">nmol/L</option><option value="ng/mL">ng/mL</option></select></div>
+        </div>
+        <button class="btn small" id="labAdd" style="margin-top:12px;">保存这条结果</button>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6;">IU/L 与 mIU/mL 数值等价；孕酮 1 ng/mL ≈ 3.18 nmol/L。两个单位相差 3 倍多，本页会自动把两种写法都算出来。</p>
+      </div>
+
+      ${alerts.length ? `<div class="note danger" style="margin-top:16px;">${ICONS.warn}<div><strong>建议尽快找医生核实的提示（按固定规则生成，不是诊断）：</strong>
+        <ul style="margin:8px 0 0;padding-left:18px;">${alerts.map(a => `<li style="margin-bottom:6px;">${a}</li>`).join('')}</ul>
+      </div></div>` : ''}
+
+      ${entries.length ? `
+        <h3 class="section-title" style="margin-top:24px;">📄 记录</h3>
+        ${entries.slice().reverse().map((e, ri) => {
+          const idx = entries.length - 1 - ri;
+          const prev = idx > 0 ? entries[idx - 1] : null;
+          const d = prev ? labDelta(prev, e) : null;
+          const pn = e.prog > 0 ? progToNmol(e.prog, e.progUnit) : null;
+          const other = pn == null ? null
+            : (e.progUnit === 'nmol/L' ? (pn / PROG_NMOL_PER_NGML).toFixed(2) + ' ng/mL' : pn.toFixed(2) + ' nmol/L');
+          return `
+          <div class="lab-entry">
+            <div class="row-head">
+              <span class="date">${e.date}${e.date === todayKey ? ' · 今天' : ''}</span>
+              <button class="del" data-del="${e.id}">删除</button>
+            </div>
+            <div class="lab-vals">
+              ${e.hcg > 0 ? `<span>hCG <b>${e.hcg}</b> IU/L（= ${e.hcg} mIU/mL）</span>` : ''}
+              ${pn != null ? `<span>孕酮 <b>${e.prog} ${e.progUnit}</b>（= ${other}）</span>` : ''}
+            </div>
+            ${d ? `<div class="lab-delta">与上一次（${prev.date}）相隔约 ${Math.round(d.dtH)} 小时：hCG ${d.pct >= 0 ? '+' : ''}${d.pct.toFixed(0)}%${Math.abs(d.dtH - 48) > 6 ? `（折合 48 小时 ${d.pct48 >= 0 ? '+' : ''}${d.pct48.toFixed(0)}%）` : ''}${d.doublingH ? ` · 倍增时间约 ${d.doublingH < 48 ? d.doublingH.toFixed(1) : Math.round(d.doublingH)} 小时` : ''}</div>` : ''}
+            ${pn != null && pn < PROG_LOW_NMOL ? `<div class="lab-flag">孕酮低于 47.7 nmol/L（约 15 ng/mL）：请由医生评估，不要自行用药。</div>` : ''}
+          </div>`;
+        }).join('')}` : `<div class="note info" style="margin-top:16px;">${ICONS.heart}<div>还没有记录。每次抽血后把 hCG 与孕酮填进来，就能看到相邻两次的变化与倍增时间。</div></div>`}
+
+      <div class="card" style="margin-top:24px;">
+        <h3>${ICONS.shield} 看这类单子要注意的 5 件事</h3>
+        <ul>
+          <li><strong>单次 hCG 无法判断妊娠位置。</strong>hCG 只能提示，不能区分宫内孕与宫外孕 —— 必须结合 <strong>48 小时复查的 hCG 趋势 + 经阴道 B 超</strong>。</li>
+          <li><strong>hCG &lt; 1500 IU/L 时看不到宫内孕囊是正常的</strong>，既不能据此排除宫外孕，也不能据此认定胚胎不好。</li>
+          <li><strong>孕酮单位最容易看错</strong>：ng/mL 与 nmol/L 相差约 3.18 倍，同一个数值换个单位结论可能完全不同，先确认单位再讨论高低。</li>
+          <li><strong>早孕出血不等于"着床出血"。</strong>量少、1–2 天、不伴腹痛才算；量达月经量、有血块、超过 2 天或伴单侧下腹痛，按「今日」页的红旗卡立即就医。</li>
+          <li><strong>TORCH 只看 IgM 不够。</strong>IgM 阴性只说明没有急性感染的证据，判断有没有免疫力必须同时看 IgG（风疹、巨细胞病毒等）。</li>
+        </ul>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">常见参考区间（务必以你化验单为准）：非孕 hCG 0–4.9；孕 4–5 周 50–500；孕 6–8 周 1000–50000。孕早期孕酮常以 &gt;25 ng/mL（≈80 nmol/L）为理想，&lt;15 ng/mL（≈47.7 nmol/L）提示需要评估。<strong>孕酮单次值波动大，不能单独作为判断依据。</strong></p>
+      </div>
+    </section>`;
+}
+/* 保存 / 删除化验单记录 */
+function bindLab() {
+  const addBtn = document.getElementById('labAdd');
+  if (addBtn) addBtn.addEventListener('click', () => {
+    const date = document.getElementById('labDate').value;
+    const hcgRaw = document.getElementById('labHcg').value.trim();
+    const progRaw = document.getElementById('labProg').value.trim();
+    const progUnit = document.getElementById('labUnit').value;
+    if (!parseLmp(date)) { document.getElementById('labDate').focus(); return; }
+    const hcg = hcgRaw === '' ? null : parseFloat(hcgRaw);
+    const prog = progRaw === '' ? null : parseFloat(progRaw);
+    if ((hcg != null && !(hcg >= 0)) || (prog != null && !(prog >= 0))) { alert('数值请填写为非负数，或留空。'); return; }
+    if (hcg == null && prog == null) { alert('hCG 与孕酮至少填一项。'); return; }
+    state.labs = (state.labs || []).concat([{
+      id: 'lab' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      date,
+      hcg: hcg == null ? 0 : hcg,
+      prog: prog == null ? 0 : prog,
+      progUnit,
+    }]);
+    saveState(state);
+    renderPanel();
+  });
+  document.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.del;
+    if (!confirm('删除这条记录？')) return;
+    state.labs = (state.labs || []).filter(x => x.id !== id);
+    saveState(state);
+    renderPanel();
+  }));
+}
+
+/* ============================================================
+   用药安全 · 疫苗 · 广东必查地贫
+   内容来自本仓库 docs/孕期知识深度调研/03 与 01（均标注来源），
+   这里只做速查与"先问医生"的提示，不替代处方。
+   ============================================================ */
+function renderMed() {
+  return `
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">${ICONS.syringe} 用药安全 · 疫苗 · 地贫</h2>
+        <span class="badge">孕期速查</span>
+      </div>
+      <p class="panel-sub">只做速查，<strong>不替代处方</strong>。任何用药、停药、加量，先问产科或对应专科医生。</p>
+
+      <div class="note danger" style="margin-top:16px;">${ICONS.warn}<div>
+        <strong>第一条也是最重要的一条：绝对不要自行停用慢性病药物。</strong>
+        癫痫、甲亢/甲减、哮喘、高血压、精神科用药、抗凝药等，擅自停药造成的母体风险通常远大于药物本身。
+        需要调整请找<strong>产科 + 原专科</strong>一起评估。
+      </div></div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>${ICONS.pill} 常见用药速查</h3>
+        <table class="tbl">
+          <colgroup><col class="c1"/><col class="c3"/><col class="c3"/></colgroup>
+          <thead><tr><th>类别</th><th>通常可用</th><th>需避免 / 禁用</th></tr></thead>
+          <tbody>
+            <tr><td>解热镇痛</td>
+              <td class="ok">对乙酰氨基酚（按最低有效剂量、最短时间）</td>
+              <td class="no">布洛芬等 NSAIDs：孕 20 周后避免，孕 30 周后禁用</td></tr>
+            <tr><td>抗生素</td>
+              <td class="ok">青霉素类、头孢菌素类、阿奇霉素、克林霉素（多数较安全）</td>
+              <td class="no">四环素类、喹诺酮类；氨基糖苷类慎用；磺胺类近足月慎用</td></tr>
+            <tr><td>降压</td>
+              <td class="ok">拉贝洛尔、硝苯地平</td>
+              <td class="no">ACEI / ARB 禁用</td></tr>
+            <tr><td>抗病毒</td>
+              <td class="ok">奥司他韦（流感重症高危孕妇应尽早使用）</td>
+              <td class="no">具体方案按感染科 / 产科评估</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">
+          旧的 FDA「A/B/C/D/X」妊娠分级已被 <strong>PPLR</strong> 取代 —— 看到老文章里的分级不要直接照搬，以药品说明书与医生意见为准。
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>${ICONS.shield} 疫苗：能打什么、不能打什么</h3>
+        <table class="tbl">
+          <colgroup><col class="c1"/><col class="c2"/><col class="c3"/></colgroup>
+          <thead><tr><th>疫苗</th><th>建议</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>流感（灭活）</td>
+              <td class="ok">推荐</td>
+              <td>孕妇是重症高危人群，被列为优先接种对象；9–10 月最佳，整个流行季均可接种。</td></tr>
+            <tr><td>Tdap（百白破）</td>
+              <td class="ok">推荐</td>
+              <td>每次妊娠接种，常在 27–36 周（各国窗口略有差异），具体听医生安排。</td></tr>
+            <tr><td>新冠</td>
+              <td class="ok">按当地策略</td>
+              <td>按最新免疫策略执行，接种前告知已怀孕。</td></tr>
+            <tr><td>RSV</td>
+              <td>按最新政策</td>
+              <td>部分国家推荐孕期接种；中国内地目前以新生儿单克隆抗体为主。</td></tr>
+            <tr><td>减毒活疫苗<br/>（麻腮风、水痘、鼻喷流感、黄热病）</td>
+              <td class="no">孕期禁用</td>
+              <td>推迟到产后接种。计划怀孕者建议提前确认风疹免疫状态。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px;border-color:var(--accent);">
+        <h3>${ICONS.flag} 广东必查：地中海贫血</h3>
+        <p style="color:var(--ink-2);margin:0 0 8px;">
+          国家指南<strong>点名广东为地贫筛查地区</strong>；广东人群携带率显著高于全国平均。
+          夫妇双方为<strong>同型携带者</strong>时，胎儿有 <strong>25%</strong> 概率患重型地贫 —— 这是广东孕前/孕早期最不能跳过的一项。
+        </p>
+        <ol style="margin:0;padding-left:20px;color:var(--ink-2);">
+          <li><strong>初筛（血常规，夫妇双方同做）</strong>：MCV &lt; 82 fL 和/或 MCH &lt; 27 pg 为阳性</li>
+          <li><strong>复筛</strong>：血红蛋白电泳 / HPLC</li>
+          <li>双方均阳性 → <strong>双方地贫基因检测</strong></li>
+          <li>确认为同型携带 → 通过绒毛 / 羊水 / 脐血做<strong>产前诊断</strong></li>
+        </ol>
+        <div class="note warn" style="margin-top:12px;">${ICONS.warn}<div>
+          <strong>必须知道的局限：</strong>MCV / MCH 初筛对<strong>静止型 α 地贫</strong>敏感度不足，可能漏检。
+          因此血常规正常也不能完全排除，尤其家族史或配偶已确诊时，请直接咨询产前诊断门诊。
+        </div></div>
+      </div>
+
+      <div class="note info" style="margin-top:20px;">${ICONS.heart}<div>
+        以上速查来自本项目证据底座：<strong>《03-并发症危险信号与用药安全》</strong>（含来源与年份）、
+        <strong>《01-产检筛查与胎儿发育》</strong>（地贫流程）。需要细节与文献出处请翻这两份文档。
+        <strong>本页不是医疗建议</strong>，方案请遵医嘱。
+      </div></div>
     </section>`;
 }
 
@@ -2015,7 +2451,7 @@ function renderSz() {
       <div class="panel-head">
         <h2 class="panel-title">${ICONS.flag} 深圳办事 & 资源</h2>
       </div>
-      <p class="panel-sub">从建档到出生证明，按时间顺序整理。深圳的政策更新较快，最终以官方为准。</p>
+      <p class="panel-sub">从建档到出生证明，按时间顺序整理。<strong>政策类信息截至 2026-09</strong>，深圳政策更新较快，最终以官方为准（社保 12333 / 政务 12345 / 市卫健委与医保局官网）。</p>
 
       <div class="grid-2">
         ${SZ_RESOURCES.map(r => `
@@ -2083,6 +2519,7 @@ function renderPost() {
 ============================================================ */
 function bindPanel() {
   if (currentTab === 'hospital') { bindHospitalPanel(); return; }
+  if (currentTab === 'lab') { bindLab(); return; }
 
   /* checklist toggle */
   document.querySelectorAll('.check').forEach(el => {
@@ -2091,10 +2528,12 @@ function bindPanel() {
       const dateKey = localDateKey();
       completedChecks[dateKey] = completedChecks[dateKey] || {};
       completedChecks[dateKey][id] = !completedChecks[dateKey][id];
-      // persist
+      // persist（只保留最近 60 天，避免 localStorage 无限增长）
       try {
         const all = JSON.parse(localStorage.getItem(LS_KEY + '-checks') || '{}');
         all[dateKey] = completedChecks[dateKey];
+        const cutoff = localDateKey(addDays(todayDate(), -60));
+        Object.keys(all).forEach(k => { if (k < cutoff) delete all[k]; });
         localStorage.setItem(LS_KEY + '-checks', JSON.stringify(all));
       } catch {}
       el.classList.toggle('done');
