@@ -390,6 +390,9 @@
   .lab-vals b { color: var(--ink); }
   .lab-delta { margin-top: 8px; font-size: 12.5px; color: var(--ink-2); }
   .lab-flag { margin-top: 8px; font-size: 12.5px; color: var(--danger); background: var(--danger-soft); border-radius: 8px; padding: 8px 10px; }
+  .lab-flag.ok { color: var(--primary-deep); background: var(--primary-soft); }
+  .lab-timing { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+  .lab-timing b { color: var(--ink); }
 
   /* Hospital panel */
   .loc-banner {
@@ -1886,7 +1889,7 @@ function endedNotice(what) {
 /* 结束后的随访清单（按结局类型调整） */
 function recoveryChecks(ph) {
   const list = [
-    { id: 'afHcg', text: '复查 hCG，直到 < 5 IU/L', small: '唯一不能省的一步 —— 也是排除宫外孕的最后一道关口。即使已经不出血、试纸也已转阴，也请查到达标为止' },
+    { id: 'afHcg', text: '复查 hCG，直到 < 5 IU/L', small: '唯一不能省的一步。还在降但未达标 → 每 48–72 小时一次；已接近正常且下降顺利 → 每周 1 次；折合 48 小时下降不足 21%、持平或回升 → 立即就诊。具体日期见「化验单」页的随访时间表' },
     { id: 'afBleed', text: '记录出血量与持续时间', small: '超过月经量、有大血块，或出血突然增多 → 立即急诊' },
     { id: 'afPain', text: '留意腹痛变化（位置、性质、是否加重）', small: '持续加重的腹痛或单侧剧痛 → 立即急诊' },
     { id: 'afHygiene', text: '按医生交代的时间避免同房、盆浴、游泳', small: '通常约 2 周，具体听医生的；淋浴可以正常做' },
@@ -1920,6 +1923,17 @@ function renderRecoveryToday(ph) {
   const entries = labEntries();
   const alerts = labAlerts(entries);
   const hasPcos = !!profile().pcos;
+  const plan = hcgPlan(ph);
+  const planLine = plan ? `<div class="note ${plan.done ? 'info' : 'warn'}" style="margin-top:16px;">${ICONS.pill}<div>
+    <strong>hCG 随访：</strong>${plan.done
+      ? `最近一次（${esc(plan.last.date)}）为 ${plan.last.hcg} IU/L，<strong>已达标（&lt;5）</strong>，不需要再复查 hCG。`
+      : plan.missingAfterEnd
+        ? `距首次 hCG（${esc(plan.first.date)}）已 <strong>${plan.firstDays} 天</strong>，但结束之后还没有抽过血 —— <strong style="color:var(--danger);">请今天就去抽</strong>。`
+        : plan.verdict && plan.verdict.level === 'bad'
+          ? `最近一次（${esc(plan.last.date)}）${plan.last.hcg} IU/L，<strong style="color:var(--danger);">与上一次持平或上升，请立即就诊</strong>。`
+          : `距首次 hCG（${esc(plan.first.date)}）<strong>${plan.firstDays} 天</strong>，最近一次（${esc(plan.last.date)}）${plan.last.hcg} IU/L。下次复查：<strong>${plan.nextTo && plan.nextTo !== plan.nextFrom ? esc(plan.nextFrom) + ' ~ ' + esc(plan.nextTo) : esc(plan.nextFrom)}</strong>${plan.overdue ? ` <strong style="color:var(--danger);">（已超过建议时间 ${plan.overdueDays} 天，尽快去）</strong>` : ''}${plan.etaDays != null ? `；按目前下降速度粗算约还需 <strong>${plan.etaDays} 天</strong>到 &lt;5` : ''}。`
+    }　详细时间表与每次间隔见「化验单」页。
+  </div></div>` : '';
   return `
     <section class="panel">
       <div class="panel-head">
@@ -1933,6 +1947,8 @@ function renderRecoveryToday(ph) {
         <p>早期妊娠丢失中，<strong>约 50–60% 与胚胎染色体异常有关</strong> —— 这是受精那一刻就已决定的随机事件，与有没有卧床、吃了什么、有没有上班、有没有同房都无关。</p>
         <p>生化妊娠尤其常见，很多人甚至不会察觉。它<strong>不代表你身体有问题，也不影响下一次的受孕能力</strong>。</p>
       </div>
+
+      ${planLine}
 
       ${alerts.length ? `<div class="note danger" style="margin-top:16px;">${ICONS.warn}<div>
         <strong>根据你记录的化验结果，需要尽快处理：</strong>
@@ -1984,7 +2000,11 @@ function renderAfter() {
 
       <div class="card" style="margin-top:16px;">
         <h3>${ICONS.pill} 必须做完的随访（按顺序）</h3>
-        <div class="step"><span class="n">1</span><span class="b"><b>hCG 复查到 &lt; 5 IU/L。</b>这是唯一不能省的一步。低 hCG + 出血 + 单侧腹痛的组合里，只有 hCG 降到正常才能真正排除宫外孕 / 持续性异位妊娠。<b>hCG 平台或上升 = 立即就诊。</b></span></div>
+        <div class="step"><span class="n">1</span><span class="b"><b>hCG 复查到 &lt; 5 IU/L。</b>这是唯一不能省的一步。低 hCG + 出血 + 单侧腹痛的组合里，只有 hCG 降到正常才能真正排除宫外孕 / 持续性异位妊娠。<br/>
+          <b>什么时候查：</b>还在下降但未达标 → <b>每 48–72 小时</b>；已接近正常（如 &lt;20）且下降顺利 → 可放宽到<b>每周 1 次</b>；直到 &lt;5 为止。<br/>
+          <b>怎么算正常：</b>完全流产后 hCG 常见<b>每 48 小时下降 21%–35%</b>；折合 48 小时下降不足 21%、连续两次持平、或回升 → <b>立即就诊</b>，不要等排好的复查。<br/>
+          <b>时间预期：</b>生化妊娠通常 1–2 周、早期流产 1–3 周、宫外孕可能数周到 &lt;5。<br/>
+          <b>同时做一次经阴道 B 超</b>（尤其最初没做过的人）：看附件区有无包块、盆腔有无积液；出血多时加查血常规。</span></div>
         <div class="step"><span class="n">2</span><span class="b"><b>观察出血与腹痛。</b>出血量超过月经量、有大血块、发热 ≥38℃、腹痛持续加重 → 立即急诊。</span></div>
         <div class="step"><span class="n">3</span><span class="b"><b>必要时查血常规</b>（出血多、头晕乏力心慌时），看有没有贫血或缺铁。</span></div>
         <div class="step"><span class="n">4</span><span class="b"><b>按医生安排复查超声</b>（不全流产、宫外孕治疗后尤其需要），确认宫腔干净与恢复情况。</span></div>
@@ -2396,6 +2416,93 @@ function labDelta(prev, cur) {
     doublingH: ratio > 1 ? dtH * Math.LN2 / Math.log(ratio) : null,
   };
 }
+/* 小时数转成人话：<72h 用小时，否则用天 */
+function fmtDayHour(h) {
+  if (h == null) return '—';
+  if (h < 72) return `${Math.round(h)} 小时`;
+  return `${(h / 24).toFixed(1)} 天`;
+}
+/* 相隔天数（整数） */
+function daysBetween(a, b) { return Math.round(diffDays(parseLmp(a), parseLmp(b))); }
+/* "距今天"：负数说明日期填在了未来，直接说清楚而不是显示负天数 */
+function daysAgoText(d) {
+  if (d === 0) return '今天';
+  if (d > 0) return `距今天 ${d} 天`;
+  return '日期在今天之后（请检查是否填错）';
+}
+/* 下降速度判读：妊娠结束后 hCG 常见每 48 小时下降 21%–35%；
+   慢于此、持平或上升都提示可能仍有活性滋养细胞（需排除宫外孕 / 持续性异位妊娠）。 */
+function hcgVerdict(prev, cur) {
+  const d = labDelta(prev, cur);
+  if (!d) return null;
+  const dropPer48 = (1 - Math.pow(d.ratio, 48 / d.dtH)) * 100;  /* 正数表示下降 */
+  if (d.ratio >= 1.02) {
+    return { level: 'bad', dropPer48, text: `折合 48 小时<strong>上升 ${(-dropPer48).toFixed(0)}%</strong> —— 持平或上升，立即就诊` };
+  }
+  if (d.ratio > 1) return { level: 'bad', dropPer48, text: '与上一次基本持平 —— 立即就诊' };
+  if (dropPer48 < 21) {
+    return { level: 'warn', dropPer48, text: `折合 48 小时下降 ${dropPer48.toFixed(0)}%，低于常见的 21%–35% —— 下降偏慢，尽快复诊` };
+  }
+  return { level: 'ok', dropPer48, text: `折合 48 小时下降 ${dropPer48.toFixed(0)}%，符合常见的 21%–35%` };
+}
+/* ============================================================
+   妊娠结束后的 hCG 随访时间表
+   - 距首次 hCG 多少天、每次间隔多久、下一次建议哪天去
+   - 未达标时用当前下降速率粗略估算还需多久到 <5 IU/L
+   只做时间与算术，不做诊断。
+   ============================================================ */
+function hcgPlan(ph) {
+  const hcgs = labEntries().filter(e => e.hcg > 0);
+  if (!hcgs.length) return null;
+  const today = todayDate();
+  const ocDate = ph.ended ? ph.outcomeDate : null;
+  const after = ocDate ? hcgs.filter(e => e.date >= ocDate) : [];
+  const first = hcgs[0];
+  const last = hcgs[hcgs.length - 1];
+  const idx = hcgs.indexOf(last);
+  const prev = idx > 0 ? hcgs[idx - 1] : null;
+  const v = prev ? hcgVerdict(prev, last) : null;
+  const plan = {
+    first, firstDays: daysBetween(first.date, fmtDate(today)),
+    last, lastDays: daysBetween(last.date, fmtDate(today)),
+    spanDays: daysBetween(first.date, last.date),
+    prev, verdict: v,
+    dtH: prev ? labDelta(prev, last).dtH : null,
+    nextFrom: null, nextTo: null, overdue: false, overdueDays: 0,
+    etaDays: null, needUs: false, done: last.hcg < 5,
+    missingAfterEnd: !!ocDate && after.length === 0,
+  };
+  if (plan.done) return plan;
+  if (plan.missingAfterEnd) {
+    /* 结束之后一次都没抽过：越早越好 */
+    plan.nextFrom = fmtDate(today);
+    plan.nextTo = fmtDate(today);
+    plan.urgent = true;
+    return plan;
+  }
+  if (v && v.level === 'bad') return plan;   /* 不排日期，直接就诊 */
+  /* 下一次复查时间：≥20 且下降顺利 → 每周 1 次；否则 48–72 小时 */
+  const base = parseLmp(last.date);
+  if (last.hcg >= 20 && v && v.level === 'ok') {
+    plan.nextFrom = fmtDate(addDays(base, 7));
+    plan.nextTo = plan.nextFrom;
+  } else {
+    plan.nextFrom = fmtDate(addDays(base, 2));
+    plan.nextTo = fmtDate(addDays(base, 3));
+  }
+  const gap = diffDays(today, parseLmp(plan.nextFrom));
+  if (gap < 0) { plan.overdue = true; plan.overdueDays = -gap; }
+  /* 用当前下降速率粗略估算到 <5 IU/L 还需要多久 */
+  if (v && v.level === 'ok' && v.dropPer48 > 0) {
+    const d = labDelta(prev, last);
+    const steps = Math.log(5 / last.hcg) / Math.log(d.ratio);
+    plan.etaDays = Math.max(0, Math.round(steps * d.dtH / 24));
+  }
+  /* 没做过超声 + hCG 仍未达标 → 建议同时安排经阴道 B 超 */
+  plan.needUs = !!(state && !state.hadUltrasound);
+  return plan;
+}
+
 /* 固定规则提示（可审计，不依赖任何模型判断） */
 function labAlerts(entries) {
   const out = [];
@@ -2450,6 +2557,42 @@ function renderLab() {
   const alerts = labAlerts(entries);
   const ph = phaseNow();
   const todayKey = fmtDate(todayDate());
+  const hcgs = entries.filter(e => e.hcg > 0);
+  const plan = hcgPlan(ph);
+  const firstHcg = hcgs[0] || null;
+  /* 随访时间表卡片：只在妊娠结束后、且有过 hCG 记录时显示 */
+  const planCard = (ph.ended && plan) ? (() => {
+    const rows = [];
+    rows.push(`<div class="step"><span class="n">1</span><span class="b"><b>第一次 hCG：${esc(plan.first.date)}，${plan.first.hcg} IU/L</b> —— <b>${daysAgoText(plan.firstDays)}</b>${plan.spanDays > 0 ? `；从首次到最近一次共 <b>${plan.spanDays} 天</b>` : ''}。</span></div>`);
+    if (plan.prev) {
+      rows.push(`<div class="step"><span class="n">2</span><span class="b"><b>最近一次：${esc(plan.last.date)}，${plan.last.hcg} IU/L</b>（${daysAgoText(plan.lastDays)}）。与上一次（${esc(plan.prev.date)}）<b>相隔 ${fmtDayHour(plan.dtH)}</b>。${plan.verdict ? `<br/>下降速度：${plan.verdict.text}` : ''}</span></div>`);
+    } else {
+      rows.push(`<div class="step"><span class="n">2</span><span class="b"><b>最近一次：${esc(plan.last.date)}，${plan.last.hcg} IU/L</b>（${daysAgoText(plan.lastDays)}）。还只有一次结果，<b>无法判断趋势</b>——请按下面时间再抽一次。</span></div>`);
+    }
+    if (plan.firstDays < 0 || plan.lastDays < 0) {
+      rows.push(`<div class="step"><span class="n">3</span><span class="b"><b style="color:var(--accent);">有记录的日期在今天之后</b>，时间表无法正确推算。请到下面「记录」里删除或改正那条日期填错的记录。</span></div>`);
+    } else if (plan.done) {
+      rows.push(`<div class="step"><span class="n">3</span><span class="b"><b>已经达标（&lt;5 IU/L）。</b>不需要再复查 hCG。若出血已干净、也没有腹痛，这件事就算闭合了。</span></div>`);
+    } else if (plan.missingAfterEnd) {
+      rows.push(`<div class="step"><span class="n">3</span><span class="b"><b style="color:var(--danger);">结束之后一次都没有抽过血 —— 请今天就去抽。</b>上面那次是结束前的结果，不能代替随访。</span></div>`);
+    } else if (plan.verdict && plan.verdict.level === 'bad') {
+      rows.push(`<div class="step"><span class="n">3</span><span class="b"><b style="color:var(--danger);">不排复查日期：hCG 持平或上升，请立即就诊</b>，需要排除宫外孕 / 持续性异位妊娠。</span></div>`);
+    } else {
+      const win = plan.nextTo && plan.nextTo !== plan.nextFrom ? `${esc(plan.nextFrom)} ~ ${esc(plan.nextTo)}` : esc(plan.nextFrom);
+      rows.push(`<div class="step"><span class="n">3</span><span class="b"><b>下一次复查：${win}</b>${plan.overdue ? ` <b style="color:var(--danger);">（已超过建议时间 ${plan.overdueDays} 天，尽快去）</b>` : ''}<br/>间隔依据：${plan.last.hcg >= 20 && plan.verdict && plan.verdict.level === 'ok' ? '已经稳定下降，可放宽到每周 1 次' : '趋势还不明确，按 48–72 小时复查'}。</span></div>`);
+    }
+    if (!plan.done && plan.etaDays != null) {
+      rows.push(`<div class="step"><span class="n">4</span><span class="b">按目前的下降速度粗算，还需要 <b>约 ${plan.etaDays} 天</b>降到 &lt;5 IU/L（只是估算，实际以化验结果为准）。</span></div>`);
+    }
+    return `
+      <div class="card" style="margin-top:16px;border-color:var(--primary);">
+        <h3>${ICONS.pill} 随访时间表（自动算的）</h3>
+        ${rows.join('')}
+        ${plan.needUs && !plan.done ? `<div class="note warn" style="margin-top:12px;">${ICONS.warn}<div>
+          你最初的情况<strong>没有做过 B 超</strong>：复诊时建议一并安排<strong>经阴道 B 超</strong>，看附件区有无包块、盆腔有无积液；出血多或头晕乏力时再查一次<strong>血常规</strong>。
+        </div></div>` : ''}
+      </div>`;
+  })() : '';
   return `
     <section class="panel">
       <div class="panel-head">
@@ -2474,15 +2617,22 @@ function renderLab() {
         <ul style="margin:8px 0 0;padding-left:18px;">${alerts.map(a => `<li style="margin-bottom:6px;">${a}</li>`).join('')}</ul>
       </div></div>` : ''}
 
+      ${planCard}
+
       ${entries.length ? `
         <h3 class="section-title" style="margin-top:24px;">📄 记录</h3>
         ${entries.slice().reverse().map((e, ri) => {
-          const idx = entries.length - 1 - ri;
-          const prev = idx > 0 ? entries[idx - 1] : null;
-          const d = prev ? labDelta(prev, e) : null;
           const pn = e.prog > 0 ? progToNmol(e.prog, e.progUnit) : null;
           const other = pn == null ? null
             : (e.progUnit === 'nmol/L' ? (pn / PROG_NMOL_PER_NGML).toFixed(2) + ' ng/mL' : pn.toFixed(2) + ' nmol/L');
+          /* 用"上一条有 hCG 的记录"做对比，避免被只有孕酮的记录打断 */
+          const hi = e.hcg > 0 ? hcgs.indexOf(e) : -1;
+          const prevH = hi > 0 ? hcgs[hi - 1] : null;
+          const d = prevH ? labDelta(prevH, e) : null;
+          const v = (ph.ended && prevH) ? hcgVerdict(prevH, e) : null;
+          const sinceFirst = (e.hcg > 0 && firstHcg && firstHcg.id !== e.id)
+            ? daysBetween(firstHcg.date, e.date) : null;
+          const sincePrev = prevH ? daysBetween(prevH.date, e.date) : null;
           return `
           <div class="lab-entry">
             <div class="row-head">
@@ -2493,7 +2643,12 @@ function renderLab() {
               ${e.hcg > 0 ? `<span>hCG <b>${e.hcg}</b> IU/L（= ${e.hcg} mIU/mL）</span>` : ''}
               ${pn != null ? `<span>孕酮 <b>${e.prog} ${e.progUnit}</b>（= ${other}）</span>` : ''}
             </div>
-            ${d ? `<div class="lab-delta">与上一次（${prev.date}）相隔约 ${Math.round(d.dtH)} 小时：hCG ${d.pct >= 0 ? '+' : ''}${d.pct.toFixed(0)}%${Math.abs(d.dtH - 48) > 6 ? `（折合 48 小时 ${d.pct48 >= 0 ? '+' : ''}${d.pct48.toFixed(0)}%）` : ''}${d.doublingH ? ` · 倍增时间约 ${d.doublingH < 48 ? d.doublingH.toFixed(1) : Math.round(d.doublingH)} 小时` : ''}</div>` : ''}
+            ${(sinceFirst != null || sincePrev != null) ? `<div class="lab-timing">
+              ${firstHcg && firstHcg.id === e.id ? '<b>第一次 hCG 记录</b>' : (sinceFirst != null ? `距首次 hCG（${esc(firstHcg.date)}）<b>${sinceFirst} 天</b>` : '')}
+              ${sincePrev != null ? `　·　距上一次 <b>${fmtDayHour(d && d.dtH)}</b>` : ''}
+            </div>` : ''}
+            ${d ? `<div class="lab-delta">hCG ${d.pct >= 0 ? '+' : ''}${d.pct.toFixed(0)}%${Math.abs(d.dtH - 48) > 6 ? `（折合 48 小时 ${d.pct48 >= 0 ? '+' : ''}${d.pct48.toFixed(0)}%）` : ''}${d.doublingH ? ` · 倍增时间约 ${d.doublingH < 48 ? d.doublingH.toFixed(1) : Math.round(d.doublingH)} 小时` : ''}</div>` : ''}
+            ${v ? `<div class="lab-flag ${v.level === 'ok' ? 'ok' : ''}">${v.text}</div>` : ''}
             ${pn != null && pn < PROG_LOW_NMOL ? `<div class="lab-flag">孕酮低于 47.7 nmol/L（约 15 ng/mL）：请由医生评估，不要自行用药。</div>` : ''}
           </div>`;
         }).join('')}` : `<div class="note info" style="margin-top:16px;">${ICONS.heart}<div>还没有记录。每次抽血后把 hCG 与孕酮填进来，就能看到相邻两次的变化与倍增时间。</div></div>`}
@@ -2503,8 +2658,10 @@ function renderLab() {
         <h3>${ICONS.shield} 结束后的 hCG 该怎么看</h3>
         <ul>
           <li><strong>唯一的终点是 &lt;5 IU/L。</strong>只要 hCG 还没降到 &lt;5，就不能认为这件事已经结束 —— 这是排除宫外孕 / 持续性异位妊娠的最后一道关口。</li>
-          <li><strong>下降速度因人而异。</strong>生化妊娠通常 1–2 周降到正常；宫外孕或流产后可能慢到数周。<strong>慢不等于有问题，但平台或上升一定有问题。</strong></li>
-          <li><strong>连续两次持平或回升 → 立即就诊</strong>，不要等下个月的复查。</li>
+          <li><strong>查的间隔：</strong>还在下降但未达标 → <strong>每 48–72 小时</strong>一次；已接近正常（如 &lt;20）且下降顺利 → 可放宽到<strong>每周 1 次</strong>；直到 &lt;5 为止。</li>
+          <li><strong>下降速度的判读标准：</strong>完全流产后 hCG 常见<strong>每 48 小时下降 21%–35%</strong>（半衰期约 24–36 小时）。<strong>折合 48 小时下降不足 21%、连续两次持平、或回升 → 立即就诊。</strong></li>
+          <li><strong>什么时候停：</strong>生化妊娠通常 1–2 周降到 &lt;5；早期流产 1–3 周；宫外孕（用药或手术）可能慢到数周，必须按医生给的时间表走。</li>
+          <li><strong>连续两次持平或回升 → 立即就诊</strong>，不要等到下一次排好的复查。</li>
           <li><strong>这时候不用看孕酮。</strong>妊娠结束后孕酮会自行回落，单独测它没有意义。</li>
           <li><strong>试纸转阴不等于 hCG &lt;5。</strong>尿试纸敏感度有限，请以抽血结果为准。</li>
         </ul>

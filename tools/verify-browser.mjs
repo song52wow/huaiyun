@@ -75,6 +75,12 @@ const ev = async expr => {
   if (r.result?.exceptionDetails) return 'THREW: ' + r.result.exceptionDetails.text;
   return r.result?.result?.value;
 };
+/* 相对今天的 YYYY-MM-DD：夹具不能写死日期，否则会随时间/时区失效 */
+const dayISO = off => {
+  const d = new Date(); d.setDate(d.getDate() + off);
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+};
 const shot = async name => {
   if (!SHOT_DIR) return;
   const r = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true });
@@ -90,8 +96,12 @@ const clickTab = async t => { await ev(`document.querySelector('#tabBar .tab[dat
 const panel = () => ev('document.getElementById("panelRoot").textContent');
 
 await send('Runtime.enable'); await send('Page.enable');
+/* 复用同一个 user-data-dir 时，Chrome 可能直接命中磁盘缓存里的旧 index.html，
+   导致"改完代码但测试仍看到旧版"。这里强制禁用缓存。 */
+await send('Network.enable');
+await send('Network.setCacheDisabled', { cacheDisabled: true });
 await sleep(1200);
-/* 清掉上一次运行留下的 localStorage（复用同一个 user-data-dir） */
+/* 清掉上一次运行留下的 localStorage */
 await ev('localStorage.clear()');
 await send('Page.navigate', { url: `${BASE}?lmp=2026-07-26` });
 await sleep(1600);
@@ -173,11 +183,11 @@ check('清单切换为产后', (await panel()).includes('按需哺乳'), true);
 group('C. 妊娠结束（生化妊娠，hCG 未降反升）');
 await setStateAndReload({
   lmp: '2026-07-26', dating: 'lmp', profile: { pcos: true },
-  outcome: { type: 'biochemical', date: '2026-10-02' },
+  outcome: { type: 'biochemical', date: dayISO(-1) },
   labs: [
-    { id: 'a', date: '2026-09-29', hcg: 276, prog: 14.16, progUnit: 'nmol/L' },
-    { id: 'b', date: '2026-10-02', hcg: 95, prog: 0, progUnit: 'nmol/L' },
-    { id: 'c', date: '2026-10-05', hcg: 130, prog: 0, progUnit: 'nmol/L' },
+    { id: 'a', date: dayISO(-4), hcg: 276, prog: 14.16, progUnit: 'nmol/L' },
+    { id: 'b', date: dayISO(-1), hcg: 95, prog: 0, progUnit: 'nmol/L' },
+    { id: 'c', date: dayISO(0), hcg: 130, prog: 0, progUnit: 'nmol/L' },
   ],
 });
 const endMeta = await ev('document.getElementById("metaLine").textContent');
@@ -191,22 +201,68 @@ const rec = await panel();
 check('今日改为随访版', rec.includes('现在要做的随访'), true);
 check('不再出现胎儿发育内容', rec.includes('宝宝本周') || rec.includes('数胎动'), false);
 check('给出"这不是你的错"', rec.includes('这不是你的错'), true);
+check('今日含 hCG 随访摘要', rec.includes('hCG 随访：'), true);
 await shot('shot-recovery.png');
 
-group('C2. hCG 平台/上升 → 立即就诊（救命规则）');
+group('C2. hCG 上升 → 立即就诊 + 不排复查日期（救命规则）');
 await clickTab('lab');
 const labAfter = await panel();
 check('命中"没有继续下降"', labAfter.includes('没有继续下降'), true);
 check('命中"立即就诊 + 持续性异位妊娠"', labAfter.includes('立即就诊') && labAfter.includes('持续性异位妊娠'), true);
 check('换成结束后的 hCG 说明卡', labAfter.includes('结束后的 hCG 该怎么看'), true);
 check('不再显示孕期口径说明卡', labAfter.includes('看这类单子要注意的 5 件事'), false);
+check('出现随访时间表', labAfter.includes('随访时间表'), true);
+check('时间表标注第一次 hCG', labAfter.includes('第一次 hCG'), true);
+check('每条记录显示距首次/距上次', labAfter.includes('距首次 hCG') && labAfter.includes('距上一次'), true);
+check('hCG 上升时不排复查日期', labAfter.includes('不排复查日期'), true);
+check('说明卡含间隔分档 48–72 小时 / 每周 1 次', labAfter.includes('48–72 小时') && labAfter.includes('每周 1 次'), true);
+check('说明卡含 21%–35% 判读标准', labAfter.includes('21%–35%'), true);
 await shot('shot-lab-after.png');
 
+group('C2b. 正常下降 → 自动算出下次复查日期与所需时间');
+await setStateAndReload({
+  lmp: '2026-07-26', dating: 'lmp', profile: {},
+  outcome: { type: 'biochemical', date: dayISO(-5) },
+  labs: [
+    { id: 'a', date: dayISO(-6), hcg: 276, prog: 0, progUnit: 'nmol/L' },
+    { id: 'b', date: dayISO(-3), hcg: 95, prog: 0, progUnit: 'nmol/L' },
+    { id: 'c', date: dayISO(-1), hcg: 40, prog: 0, progUnit: 'nmol/L' },
+  ],
+});
+await clickTab('lab');
+const labAfter2 = await panel();
+check('下降顺利被判为符合范围', labAfter2.includes('符合常见的 21%–35%'), true);
+check('时间表含首次 hCG 的日期', labAfter2.includes(dayISO(-6)), true);
+check('下次复查 = 最近一次 + 7 天', labAfter2.includes(dayISO(6)), true);
+check('给出还需多久到达标', /还需[^<]*天/.test(labAfter2), true);
+await shot('shot-lab-timeline.png');
+
+group('C2c. 记录日期填在未来 → 明确提示而不是负天数');
+await setStateAndReload({
+  lmp: '2026-07-26', dating: 'lmp', profile: {},
+  outcome: { type: 'biochemical', date: dayISO(-1) },
+  labs: [{ id: 'a', date: dayISO(5), hcg: 40, prog: 0, progUnit: 'nmol/L' }],
+});
+await clickTab('lab');
+const labFuture = await panel();
+check('未来日期给出提示', labFuture.includes('日期在今天之后'), true);
+check('未来日期不显示负天数', /距今天 -\d+ 天/.test(labFuture), false);
+
 group('C3. 恢复·备孕页（对齐 docs/03、07、09）');
+await setStateAndReload({
+  lmp: '2026-07-26', dating: 'lmp', profile: {},
+  outcome: { type: 'biochemical', date: dayISO(-1) },
+  labs: [
+    { id: 'a', date: dayISO(-4), hcg: 276, prog: 0, progUnit: 'nmol/L' },
+    { id: 'b', date: dayISO(-1), hcg: 95, prog: 0, progUnit: 'nmol/L' },
+  ],
+});
 await clickTab('after');
 const after = await panel();
 for (const [name, needle] of [
   ['hCG 复查到 <5', 'hCG 复查到 < 5 IU/L'],
+  ['间隔分档 48–72 小时 / 每周', '48–72 小时'],
+  ['下降判读 21%–35%', '21%–35%'],
   ['ASRM 2026 ≥2 次即可评估', '≥2 次妊娠失败'],
   ['定义含生化妊娠', '含生化妊娠'],
   ['不推荐 NK 细胞', 'NK 细胞'],
@@ -216,6 +272,7 @@ for (const [name, needle] of [
   ['再备孕时机', '1–2 次正常月经'],
   ['情绪求助阈值', '持续 2 周以上'],
   ['下次备孕必查地贫', '地中海贫血'],
+  ['提示同时做 B 超', '经阴道 B 超'],
 ]) check(name, after.includes(needle), true);
 await shot('shot-after.png');
 
@@ -223,7 +280,7 @@ group('C4. 设置页可回显与清除结局');
 await ev('document.getElementById("settingsBtn").click()'); await sleep(300);
 check('下拉含 5 类结局', await ev('document.getElementById("outcomeType").options.length'), 6);
 check('回显结局类型', await ev('document.getElementById("outcomeType").value'), 'biochemical');
-check('回显结局日期', await ev('document.getElementById("outcomeDate").value'), '2026-10-02');
+check('回显结局日期', await ev('document.getElementById("outcomeDate").value'), dayISO(-1));
 await ev(`(() => {
   document.getElementById('outcomeType').value = '';
   document.getElementById('outcomeDate').value = '';
@@ -232,7 +289,7 @@ await ev(`(() => {
 await sleep(600);
 check('清除后回到孕期内容', (await panel()).includes('宝宝本周'), true);
 check('清除后周历 tab 恢复', await ev('document.querySelector(\'#tabBar .tab[data-tab="week"]\') !== null'), true);
-check('清除后化验单记录仍在', await ev('JSON.parse(localStorage.getItem("pregnancy-companion-v1")).labs.length'), 3);
+check('清除后化验单记录仍在', await ev('JSON.parse(localStorage.getItem("pregnancy-companion-v1")).labs.length'), 2);
 
 group('D. 控制台');
 check('无 JS 异常', jsErrors, []);

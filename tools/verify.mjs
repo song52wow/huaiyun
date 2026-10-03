@@ -61,6 +61,7 @@ vm.createContext(sandbox);
 vm.runInContext(
   m[1] + '\n;globalThis.__t = { WEEKS, POSTPARTUM, RED_FLAGS, RF_LEVELS, PROG_NMOL_PER_NGML, PROG_LOW_NMOL,'
        + ' CHECKLIST_POOL, OUTCOME_TYPES, tabsFor, recoveryChecks, outcomeLabel,'
+       + ' hcgPlan, hcgVerdict, fmtDayHour, daysBetween, daysAgoText,'
        + ' getState(){ return state; }, setState(v){ state = v; } };',
   sandbox, { filename: 'index.html<script>' }
 );
@@ -190,6 +191,104 @@ check('孕 4–12 周每周都有宫外孕警示', [4,5,6,7,8,9,10,11,12]
   .every(i => T.WEEKS[i - 1].warn.join(' ').includes('宫外孕')), true);
 check('第 3 周不再把出血简单定性为"正常"（warn ≥ 2 条）', T.WEEKS[2].warn.length >= 2, true);
 check('第 4 周起的警示含"不要等门诊"', T.WEEKS[3].warn.join(' ').includes('不要等门诊'), true);
+
+/* ---------- 6.4 hCG 随访时间表：首次间隔 / 每次间隔 / 下次日期 / 下降判读 ---------- */
+group('hCG 随访时间表（算术与判读，全部可复核）');
+{
+  /* 固定"今天"为 2026-10-06，让时间断言可复现 */
+  const realToday = sandbox.todayDate;
+  sandbox.todayDate = () => new Date('2026-10-06T00:00:00');
+
+  check('fmtDayHour(24)', sandbox.fmtDayHour(24), '24 小时');
+  check('fmtDayHour(48)', sandbox.fmtDayHour(48), '48 小时');
+  check('fmtDayHour(72)', sandbox.fmtDayHour(72), '3.0 天');
+  check('fmtDayHour(120)', sandbox.fmtDayHour(120), '5.0 天');
+  check('daysBetween 9/29→10/6', sandbox.daysBetween('2026-09-29', '2026-10-06'), 7);
+  check('daysAgoText 正数', sandbox.daysAgoText(4), '距今天 4 天');
+  check('daysAgoText 今天', sandbox.daysAgoText(0), '今天');
+  check('daysAgoText 未来日期不显示负数', sandbox.daysAgoText(-2), '日期在今天之后（请检查是否填错）');
+
+  const base = { lmp: '2026-07-26', dating: 'lmp', profile: {}, outcome: { type: 'biochemical', date: '2026-10-02' } };
+  const lab = (date, hcg) => ({ id: date, date, hcg, prog: 0, progUnit: 'nmol/L' });
+
+  /* (1) 正常下降：276 → 95 → 40（10/2→10/5 间隔 72h，48h 折合下降约 44%） */
+  T.setState({ ...base, labs: [lab('2026-09-29', 276), lab('2026-10-02', 95), lab('2026-10-05', 40)] });
+  let plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('首次 hCG 日期', plan.first.date, '2026-09-29');
+  check('首次 hCG 值', plan.first.hcg, 276);
+  check('距首次 hCG 天数（今天 10/6）', plan.firstDays, 7);
+  check('首次→最近一次跨度 6 天', plan.spanDays, 6);
+  check('最近一次距今天 1 天', plan.lastDays, 1);
+  check('与上一次相隔 72 小时', Math.round(plan.dtH), 72);
+  check('48h 折合下降幅度 ≈44%', Math.round(plan.verdict.dropPer48), 44);
+  check('判读为符合常见范围', plan.verdict.level, 'ok');
+  check('下降顺利 → 下次复查 = 最近一次 + 7 天', plan.nextFrom, '2026-10-12');
+  check('尚未过期', plan.overdue, false);
+  check('估算还需约 7 天到 <5', plan.etaDays, 7);
+  check('未达标', plan.done, false);
+
+  /* (2) 下降偏慢：95 → 80（48h 折合仅 ~11%） */
+  T.setState({ ...base, labs: [lab('2026-10-02', 95), lab('2026-10-05', 80)] });
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('下降偏慢被判为 warn', plan.verdict.level, 'warn');
+  check('偏慢时按 48–72 小时排下次（=最近一次+2 天）', plan.nextFrom, '2026-10-07');
+  check('偏慢时给出区间到 +3 天', plan.nextTo, '2026-10-08');
+
+  /* (3) 持平 / 回升 → 不排日期，立即就诊 */
+  T.setState({ ...base, labs: [lab('2026-10-02', 95), lab('2026-10-05', 130)] });
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('回升被判为 bad', plan.verdict.level, 'bad');
+  check('回升时不排复查日期', plan.nextFrom, null);
+  check('回升时不估算达标时间', plan.etaDays, null);
+
+  /* (4) 已经达标 <5 */
+  T.setState({ ...base, labs: [lab('2026-10-02', 95), lab('2026-10-05', 3)] });
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('已达标标记 done', plan.done, true);
+  check('达标后不排复查日期', plan.nextFrom, null);
+
+  /* (5) 结束之后一次都没抽过（只有结束前的 9/29 276） */
+  T.setState({ ...base, labs: [lab('2026-09-29', 276)] });
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('识别出"结束后未复查"', plan.missingAfterEnd, true);
+  check('未复查时下次日期 = 今天', plan.nextFrom, '2026-10-06');
+
+  /* (6) 只有一次结果 → 无法判断趋势，按 48–72 小时排 */
+  T.setState({ ...base, labs: [lab('2026-10-05', 40)] });
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('单次结果无判读', plan.verdict, null);
+  check('单次结果按 48–72 小时排', [plan.nextFrom, plan.nextTo], ['2026-10-07', '2026-10-08']);
+
+  /* (7) 已过建议复查时间 → 标记 overdue */
+  T.setState({ ...base, labs: [lab('2026-10-02', 95), lab('2026-10-05', 12)] });
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('未达标且 <20 → 按 48–72 小时排', plan.nextFrom, '2026-10-07');
+  sandbox.todayDate = () => new Date('2026-10-12T00:00:00');
+  plan = sandbox.hcgPlan(sandbox.phaseNow());
+  check('超过建议时间会被标记', plan.overdue, true);
+  check('超过天数 = 5', plan.overdueDays, 5);
+
+  /* (8) 页面渲染确实带上了时间表与间隔 */
+  sandbox.todayDate = () => new Date('2026-10-06T00:00:00');
+  T.setState({ ...base, labs: [lab('2026-09-29', 276), lab('2026-10-02', 95), lab('2026-10-05', 40)] });
+  const labHtml = sandbox.renderLab();
+  check('化验单页含随访时间表', labHtml.includes('随访时间表'), true);
+  check('时间表含"第一次 hCG"', labHtml.includes('第一次 hCG'), true);
+  check('时间表含"距首次 hCG"', labHtml.includes('距首次 hCG'), true);
+  check('时间表含 21%–35% 判读标准', labHtml.includes('21%–35%'), true);
+  check('时间表含 48–72 小时与每周分档', labHtml.includes('48–72 小时') && labHtml.includes('每周 1 次'), true);
+  check('时间表给出下次复查日期', labHtml.includes('2026-10-12'), true);
+  check('恢复页摘要含 hCG 随访', sandbox.renderToday().includes('hCG 随访：'), true);
+  check('恢复页摘要含距首次天数', sandbox.renderToday().includes('7 天'), true);
+
+  /* 未来日期：不显示"距今天 -N 天"，而是明确提示 */
+  T.setState({ ...base, labs: [lab('2026-10-20', 40)] });
+  const futureHtml = sandbox.renderLab();
+  check('未来日期不出现负天数', /距今天 -\d+ 天/.test(futureHtml), false);
+  check('未来日期给出提示', futureHtml.includes('日期在今天之后'), true);
+
+  sandbox.todayDate = realToday;
+}
 
 /* ---------- 6.5 妊娠结束（生化妊娠 / 流产 / 宫外孕）路径 ---------- */
 group('妊娠结束路径：停止推送孕期内容 + 随访到 hCG <5 + 下次备孕');
